@@ -1,10 +1,13 @@
+import DatePicker from "./DatePicker"
+
 export default function Form() {
     return (
         <>
-        <header>Calculator</header>
+        <h1>Calculator</h1>
         <form>
-            <h1>Measure your impact</h1>
-            <h2>Enter your journey: </h2>
+            <h2>Measure your impact</h2>
+            <h3>Enter your journey: </h3>
+            <DatePicker />
             <label htmlFor="date">Date: </label>
             <input id="date" name="date"/>
             <label htmlFor="start">From: </label>
