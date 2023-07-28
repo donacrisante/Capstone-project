@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { Inter } from "next/font/google";
+import Form from "@/components/Form";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,7 @@ export default function Home() {
       </Head>
       <main className={inter.className}>
         <Heading>CO2-Mobility-Tracker</Heading>
+        <Form />
       </main>
     </>
   );
