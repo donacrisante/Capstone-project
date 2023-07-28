@@ -2,13 +2,14 @@ import { DayPicker } from 'react-day-picker';
 import { useState } from 'react';
 
 export default function DatePicker() {
-  const [selected, setSelected] = useState(new Date());
+  const [basicDate, setbasicDate] = useState(new Date());
   
   return (
     <DayPicker
       mode="single"
-      selected={selected}
-      onChange={(date) => setSelected(date)}
+      basicDate={basicDate}
+      onChange={(date) => setbasicDate(date)}
+      dateFormat="MMMM d, yyyy"
     />
   );
 }
