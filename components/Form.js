@@ -1,9 +1,15 @@
-//import DatePicker from './DatePicker';
 import  DatePicker  from 'react-datepicker';
 import { useState } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
+
 export default function Form() {
     const [startDate, setStartDate] = useState(new Date());
+    const [selectedOption, setSelectedOption] = useState("Car");
+
+    const  handleDropdownChange = (event) => {
+		setSelectedOption(event.target.value);
+	};
+
     return (
       <>
         <h1 className="calculator-title">Calculator</h1>
@@ -11,16 +17,23 @@ export default function Form() {
           <h2 className="section-title">Measure your impact</h2>
           <form>
             <h3 className="form-title">Enter your journey: </h3>
+            <label htmlFor="date">Date: </label>
             <DatePicker showIcon selected={startDate} onChange={(date) => setStartDate(date)} />
-            {/* <label htmlFor="date">Date: </label>
-            <input id="date" name="date"/> */}
             <label htmlFor="start">From: </label>
             <input id="start" name="start" />
             <label htmlFor="destination">To: </label>
             <input id="destination" name="destination" />
             <label htmlFor="km">Km: </label>
             <input id="km" name="km" />
-            <label htmlFor="transport">Transport: </label>
+            <label htmlFor="transport">
+			Transport: 
+                <select  value={selectedOption} onChange={handleDropdownChange}>
+				<option  value="option1">Car</option>
+				<option  value="option2">Plane</option>
+				<option  value="option3">Train</option>
+                <option  value="option4">Bicycle</option>
+			</select>
+		</label>
             <input id="transport" name="transport" />
             <button type="submit">Add journey</button>
           </form>
