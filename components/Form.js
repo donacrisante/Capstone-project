@@ -1,7 +1,9 @@
-import DatePicker from './DatePicker';
-
+//import DatePicker from './DatePicker';
+import  DatePicker  from 'react-datepicker';
+import { useState } from 'react';
+import "react-datepicker/dist/react-datepicker.css";
 export default function Form() {
-
+    const [startDate, setStartDate] = useState(new Date());
     return (
       <>
         <h1 className="calculator-title">Calculator</h1>
@@ -9,7 +11,7 @@ export default function Form() {
           <h2 className="section-title">Measure your impact</h2>
           <form>
             <h3 className="form-title">Enter your journey: </h3>
-            <DatePicker />
+            <DatePicker showIcon selected={startDate} onChange={(date) => setStartDate(date)} />
             {/* <label htmlFor="date">Date: </label>
             <input id="date" name="date"/> */}
             <label htmlFor="start">From: </label>
