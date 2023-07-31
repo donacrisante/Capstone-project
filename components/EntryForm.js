@@ -5,10 +5,17 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default function EntryForm() {
   const [startDate, setStartDate] = useState(new Date());
-  const [selectedOption, setSelectedOption] = useState("Car");
+  const [transport, setTransport] = useState("Select a transport");
+
+  const transports = [
+    { label: "Car" },
+    { label: "Plane" },
+    { label: "Train" },
+    { label: "Bicycle" },
+  ];
 
   const handleDropdownChange = (event) => {
-    setSelectedOption(event.target.value);
+    setTransport(event.target.value);
   };
 
   function handleFormSubmit(event) {
@@ -22,11 +29,11 @@ export default function EntryForm() {
 
   return (
     <>
-      <h1 className="calculator-title">Calculator</h1>
+      <h2>Calculator</h2>
       <section>
-        <h2 className="section-title">Measure your impact</h2>
+        <h3>Measure your impact</h3>
         <Form onSubmit={handleFormSubmit}>
-          <h3 className="form-title">Enter your journey: </h3>
+          <h3>Enter your journey: </h3>
           <label htmlFor="date">Date: </label>
           <DatePicker
             showIcon
@@ -42,16 +49,12 @@ export default function EntryForm() {
           <input id="km" name="km" />
           <label htmlFor="transport">
             Transport:
-            <select value={selectedOption} onChange={handleDropdownChange}>
-              <option value="option1">Car</option>
-              <option value="option2">Plane</option>
-              <option value="option3">Train</option>
-              <option value="option4">Bicycle</option>
+            <select onChange={handleDropdownChange}>
+              <option value="Select a transport"> -- Select a transport -- </option>
+              {transports.map((transport) => <option>{transport.label}</option>)}
             </select>
           </label>
-          <Button type="submit" className="form__submit-button">
-            Add journey
-          </Button>
+          <Button type="submit">Add journey</Button>
         </Form>
       </section>
     </>
@@ -65,8 +68,7 @@ const Form = styled.form`
   gap: 24px;
 `;
 
-const Button = styled.button `
+const Button = styled.button`
   padding-inline: 20px;
   padding-block: 10px;
-  `;
-
+`;
