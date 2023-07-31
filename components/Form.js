@@ -6,16 +6,26 @@ export default function Form() {
     const [startDate, setStartDate] = useState(new Date());
     const [selectedOption, setSelectedOption] = useState("Car");
 
-    const  handleDropdownChange = (event) => {
+    const handleDropdownChange = (event) => {
 		setSelectedOption(event.target.value);
 	};
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData);
+        event.target.reset();
+        console.log(data);
+    }
+
 
     return (
       <>
         <h1 className="calculator-title">Calculator</h1>
         <section>
           <h2 className="section-title">Measure your impact</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             <h3 className="form-title">Enter your journey: </h3>
             <label htmlFor="date">Date: </label>
             <DatePicker showIcon selected={startDate} onChange={(date) => setStartDate(date)} />
@@ -35,7 +45,7 @@ export default function Form() {
 			</select>
 		</label>
             <input id="transport" name="transport" />
-            <button type="submit">Add journey</button>
+            <button type="submit" className="form__submit-button">Add journey</button>
           </form>
         </section>
       </>
