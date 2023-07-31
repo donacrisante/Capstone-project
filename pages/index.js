@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { Inter } from "next/font/google";
-import Form from "@/components/Form";
+import EntryForm from "@/components/EntryForm";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +15,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={inter.className}>
-        <Heading>CO2-Mobility-Tracker</Heading>
-        <Form />
+        <Heading>CO<sub>2</sub>-Mobility-Tracker</Heading>
+        <EntryForm />
       </main>
     </>
   );
