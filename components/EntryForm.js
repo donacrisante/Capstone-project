@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import DatePicker from "react-datepicker";
+import WrappedDatePicker from "./WrappedDatePicker";
 import { useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 
 export default function EntryForm() {
   const [startDate, setStartDate] = useState(new Date());
@@ -35,7 +35,7 @@ export default function EntryForm() {
         <Form onSubmit={handleFormSubmit}>
           <h3>Enter your journey: </h3>
           <label htmlFor="date">Date: </label>
-          <DatePicker
+          <WrappedDatePicker
             showIcon
             selected={startDate}
             onChange={(date) => setStartDate(date)}
@@ -67,6 +67,10 @@ const Form = styled.form`
   flex-direction: column;
   gap: 24px;
 `;
+
+/* const Input = styled.input`
+` */
+
 
 const Button = styled.button`
   padding-inline: 20px;
