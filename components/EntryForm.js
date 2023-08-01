@@ -7,10 +7,10 @@ export default function EntryForm() {
   const [transport, setTransport] = useState("Select a transport");
 
   const transports = [
-    { label: "Car" },
-    { label: "Plane" },
-    { label: "Train" },
-    { label: "Bicycle" },
+    { label: "Car", id: "hsgdf" },
+    { label: "Plane", id: "njbch" },
+    { label: "Train", id: "dacsd" },
+    { label: "Bicycle", id: "poujh" },
   ];
 
   const handleDropdownChange = (event) => {
@@ -50,7 +50,7 @@ export default function EntryForm() {
             Transport:
             <select onChange={handleDropdownChange}>
               <option value="Select a transport"> -- Select a transport -- </option>
-              {transports.map((transport) => <option>{transport.label}</option>)}
+              {transports.map((transport) => <option key={transport.id}>{transport.label}</option>)}
             </select>
           </label>
           <Button type="submit">Add journey</Button>
