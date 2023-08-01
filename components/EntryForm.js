@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import WrappedDatePicker from "./WrappedDatePicker";
 import { useState } from "react";
-// import "react-datepicker/dist/react-datepicker.css";
 
 export default function EntryForm() {
   const [startDate, setStartDate] = useState(new Date());
@@ -67,10 +66,6 @@ const Form = styled.form`
   flex-direction: column;
   gap: 24px;
 `;
-
-/* const Input = styled.input`
-` */
-
 
 const Button = styled.button`
   padding-inline: 20px;
