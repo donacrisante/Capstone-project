@@ -50,7 +50,7 @@ export default function EntryForm() {
             Transport:
             <select onChange={handleDropdownChange}>
               <option value="Select a transport"> -- Select a transport -- </option>
-              {transports.map((transport) => <option key={transport.id}>{transport.label}</option>)}
+              {transports.map((transport) => <option key={id}>{transport.label}</option>)}
             </select>
           </label>
           <Button type="submit">Add journey</Button>
