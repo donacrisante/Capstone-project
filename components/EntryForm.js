@@ -5,7 +5,6 @@ import { useState } from "react";
 export default function EntryForm() {
   const [startDate, setStartDate] = useState(new Date());
   const [transport, setTransport] = useState("Select a transport");
-  const [car, setCar] = useState(false);
 
   function handleFormSubmit(event) {
     event.preventDefault();
@@ -18,10 +17,6 @@ export default function EntryForm() {
 
   const handleDropdownChange = (event) => {
     setTransport(event.target.value);
-  };
-
-  const handleDropdownChangeCar = (event) => {
-    setCar(event.target.value);
   };
 
   const transports = [
@@ -38,14 +33,6 @@ export default function EntryForm() {
     { label: "Electric-Strommix", value: "electric-strommix" },
     { label: "Electric-Renewable", value: "electric-renewable" }
   ]
-
- /*  let secondSelectBoxItems = null;
-
-  if (transport === "car") {
-    secondSelectBoxItems = cars;
-  } else {
-    secondSelectBoxItems = null;
-  } */
 
   return (
     <>
@@ -73,10 +60,11 @@ export default function EntryForm() {
               <option value="Select a transport"> -- Select a transport -- </option>
               {transports.map((transport) => (<option key={transport.value} value={transport.value}>{transport.label}</option>))}
             </select>
-            {car && <select onChange={handleDropdownChange}>
+            {transport === "car" ? (
+            <select>
               <option value="Select a car"> -- Select a car -- </option>
               {cars.map((car) => (<option key={car.value} value={car.value}>{car.label}</option>))}
-            </select>}
+            </select>) : null}
           </label>
           <Button type="submit">Add journey</Button>
         </Form>
