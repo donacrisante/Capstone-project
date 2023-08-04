@@ -66,6 +66,7 @@ export default function EntryForm() {
               {cars.map((car) => (<option key={car.value} value={car.value}>{car.label}</option>))}
             </select>) : null}
           </label>
+          <button type="submit">Calculate your impact</button>
           <Button type="submit">Add journey</Button>
         </Form>
       </section>
