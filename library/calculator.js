@@ -1,5 +1,5 @@
 
-const calculator = [
+export const calculator = [
     //average value of 8l/100km -- average emission of 2.37kg/l
     { petrol: function calculationPetrol(km) {
         const petrolEmissionInKg = 0.189; 

@@ -1,10 +1,41 @@
 import styled from "styled-components";
 import WrappedDatePicker from "./WrappedDatePicker";
+import { calculator } from "@/library/calculator";
 import { useState } from "react";
 
 export default function EntryForm() {
   const [startDate, setStartDate] = useState(new Date());
   const [transport, setTransport] = useState("Select a transport");
+  const [result, setResult] = useState(0);
+
+  function handleCalculate(transport, km, fuel) {
+    if ((transport === "Car") && (fuel === "Petrol")) {
+      return calculator[0].petrol(km);
+    } else if 
+      ((transport === "Car") && (fuel === "Diesel")) {
+        return calculator[1].diesel(km);
+    } else if 
+      ((transport === "Car") && (fuel === "Hybrid")) {
+        return calculator[2].hybrid(km);
+    } else if 
+      ((transport === "Car") && (fuel === "Electric-Strommix")) {
+        return calculator[3].electricStrommix(km);
+    } else if 
+      ((transport === "Car") && (fuel === "Electric-Renewable")) {
+        return calculator[4].electricEco(km);
+    } else if 
+      (transport === "Plane") {
+        return calculator[5].plane(km);
+    } else if 
+      (transport === "Train") {
+        return calculator[6].train(km);
+    } else if 
+      (transport === "Bicycle") {
+        return calculator[7].bicycle(km);
+    } else {
+      console.log("Please select a transport");
+    }
+  }
 
   function handleFormSubmit(event) {
     event.preventDefault();
@@ -13,7 +44,8 @@ export default function EntryForm() {
     const data = Object.fromEntries(formData);
     event.target.reset();
     console.log(data);
-  }
+    handleCalculate(car, plane, train, bicycle);
+  };
 
   const handleDropdownChange = (event) => {
     setTransport(event.target.value);
@@ -32,7 +64,7 @@ export default function EntryForm() {
     { label: "Hybrid", value: "hybrid" },
     { label: "Electric-Strommix", value: "electric-strommix" },
     { label: "Electric-Renewable", value: "electric-renewable" }
-  ]
+  ];
 
   return (
     <>
@@ -66,13 +98,13 @@ export default function EntryForm() {
               {cars.map((car) => (<option key={car.value} value={car.value}>{car.label}</option>))}
             </select>) : null}
           </label>
-          <button type="submit">Calculate your impact</button>
           <Button type="submit">Add journey</Button>
         </Form>
+          <button type="submit" onClick={() => console.log(handleCalculate("Car", 33, "Diesel"))}>Calculate your impact</button>
       </section>
+      <p>{result}</p>
     </>
-  );
-}
+  )};
 
 const Form = styled.form`
   width: 100%;
