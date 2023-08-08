@@ -8,7 +8,7 @@ export default function EntryForm() {
   const [transport, setTransport] = useState("Select a transport");
   const [result, setResult] = useState(0);
 
-  function handleCalculate(transport, km, fuel) {
+  function handleCalculateCo2(transport, km, fuel) {
     if ((transport === "Car") && (fuel === "Petrol")) {
       return calculator[0].petrol(km);
     } else if 
@@ -44,7 +44,6 @@ export default function EntryForm() {
     const data = Object.fromEntries(formData);
     event.target.reset();
     console.log(data);
-    handleCalculate(car, plane, train, bicycle);
   };
 
   const handleDropdownChange = (event) => {
@@ -100,7 +99,7 @@ export default function EntryForm() {
           </label>
           <Button type="submit">Add journey</Button>
         </Form>
-          <button type="submit" onClick={() => console.log(handleCalculate("Car", 33, "Diesel"))}>Calculate your impact</button>
+          <button type="submit" onClick={() => setResult(handleCalculateCo2(transport, km))}>Calculate your impact</button>
       </section>
       <p>{result}</p>
     </>
