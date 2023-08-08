@@ -6,31 +6,33 @@ import { useState } from "react";
 export default function EntryForm() {
   const [startDate, setStartDate] = useState(new Date());
   const [transport, setTransport] = useState("Select a transport");
+  const [fuel, setFuel] = useState("");
+  const [km, setKm] = useState(0);
   const [result, setResult] = useState(0);
 
   function handleCalculateCo2(transport, km, fuel) {
-    if ((transport === "Car") && (fuel === "Petrol")) {
+    if ((transport === "car") && (fuel === "petrol")) {
       return calculator[0].petrol(km);
     } else if 
-      ((transport === "Car") && (fuel === "Diesel")) {
+      ((transport === "car") && (fuel === "diesel")) {
         return calculator[1].diesel(km);
     } else if 
-      ((transport === "Car") && (fuel === "Hybrid")) {
+      ((transport === "car") && (fuel === "hybrid")) {
         return calculator[2].hybrid(km);
     } else if 
-      ((transport === "Car") && (fuel === "Electric-Strommix")) {
+      ((transport === "car") && (fuel === "electric-strommix")) {
         return calculator[3].electricStrommix(km);
     } else if 
-      ((transport === "Car") && (fuel === "Electric-Renewable")) {
+      ((transport === "car") && (fuel === "electric-renewable")) {
         return calculator[4].electricEco(km);
     } else if 
-      (transport === "Plane") {
+      (transport === "plane") {
         return calculator[5].plane(km);
     } else if 
-      (transport === "Train") {
+      (transport === "train") {
         return calculator[6].train(km);
     } else if 
-      (transport === "Bicycle") {
+      (transport === "bicycle") {
         return calculator[7].bicycle(km);
     } else {
       console.log("Please select a transport");
@@ -44,10 +46,20 @@ export default function EntryForm() {
     const data = Object.fromEntries(formData);
     event.target.reset();
     console.log(data);
+
+    const { transport, km, fuel } = data;
   };
 
-  const handleDropdownChange = (event) => {
+  function handleDropdownChange(event) {
     setTransport(event.target.value);
+  };
+
+  function handleDropdownChangeFuel(event) {
+    setFuel(event.target.value);
+  };
+
+  function handleKm(event) {
+    setKm(event.target.value);
   };
 
   const transports = [
@@ -84,22 +96,34 @@ export default function EntryForm() {
           <label htmlFor="destination">To: </label>
           <input id="destination" name="destination" />
           <label htmlFor="km">Km: </label>
-          <input id="km" name="km" />
+          <input onChange={handleKm} id="km" name="km" />
           <label htmlFor="transport">
             Transport:
-            <select onChange={handleDropdownChange}>
+            <select
+              name="transport"
+              id="transport"
+              onChange={handleDropdownChange}
+            >
               <option value="Select a transport"> -- Select a transport -- </option>
               {transports.map((transport) => (<option key={transport.value} value={transport.value}>{transport.label}</option>))}
             </select>
             {transport === "car" ? (
-            <select>
+              <>
+              <label htmlFor="fuel"></label>
+            <select 
+              name="fuel"
+              id="fuel"
+              onChange={handleDropdownChangeFuel}
+              >
               <option value="Select a car"> -- Select a car -- </option>
               {cars.map((car) => (<option key={car.value} value={car.value}>{car.label}</option>))}
-            </select>) : null}
+            </select>
+            </>
+            ) : null}
           </label>
           <Button type="submit">Add journey</Button>
         </Form>
-          <button type="submit" onClick={() => setResult(handleCalculateCo2(transport, km))}>Calculate your impact</button>
+          <button onClick={() => setResult(handleCalculateCo2(transport, km, fuel))}>Calculate your impact</button>
       </section>
       <p>{result}</p>
     </>
