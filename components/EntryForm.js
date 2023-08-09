@@ -14,33 +14,6 @@ export default function EntryForm() {
     const selectedTransport = transport === "car" ? fuel : transport;
     return calculator[selectedTransport](km);
   }
-    /* if ((transport === "car") && (fuel === "petrol")) {
-      return calculator[0].petrol(km);
-    } else if 
-      ((transport === "car") && (fuel === "diesel")) {
-        return calculator[1].diesel(km);
-    } else if 
-      ((transport === "car") && (fuel === "hybrid")) {
-        return calculator[2].hybrid(km);
-    } else if 
-      ((transport === "car") && (fuel === "electric-strommix")) {
-        return calculator[3].electricStrommix(km);
-    } else if 
-      ((transport === "car") && (fuel === "electric-renewable")) {
-        return calculator[4].electricEco(km);
-    } else if 
-      (transport === "plane") {
-        return calculator[5].plane(km);
-    } else if 
-      (transport === "train") {
-        return calculator[6].train(km);
-    } else if 
-      (transport === "bicycle") {
-        return calculator[7].bicycle(km);
-    } else {
-      console.log("Please select a transport");
-    }
-  } */
 
   function handleFormSubmit(event) {
     event.preventDefault();
@@ -51,7 +24,6 @@ export default function EntryForm() {
     console.log(data);
 
     const { transport, km, fuel } = data;
-
   };
 
   function handleDropdownChange(event) {
