@@ -11,7 +11,10 @@ export default function EntryForm() {
   const [result, setResult] = useState(0);
 
   function handleCalculateCo2(transport, km, fuel) {
-    if ((transport === "car") && (fuel === "petrol")) {
+    const selectedTransport = transport === "car" ? fuel : transport;
+    return calculator[selectedTransport](km);
+  }
+    /* if ((transport === "car") && (fuel === "petrol")) {
       return calculator[0].petrol(km);
     } else if 
       ((transport === "car") && (fuel === "diesel")) {
@@ -37,7 +40,7 @@ export default function EntryForm() {
     } else {
       console.log("Please select a transport");
     }
-  }
+  } */
 
   function handleFormSubmit(event) {
     event.preventDefault();
@@ -48,6 +51,7 @@ export default function EntryForm() {
     console.log(data);
 
     const { transport, km, fuel } = data;
+
   };
 
   function handleDropdownChange(event) {
@@ -125,7 +129,7 @@ export default function EntryForm() {
         </Form>
           <button onClick={() => setResult(handleCalculateCo2(transport, km, fuel))}>Calculate your impact</button>
       </section>
-      <p>{result}</p>
+      <p>Your journey has emitted {result} Kg CO<sub>2</sub></p>
     </>
   )};
 
