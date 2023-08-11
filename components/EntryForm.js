@@ -2,6 +2,7 @@ import styled from "styled-components";
 import WrappedDatePicker from "./WrappedDatePicker";
 import { calculator } from "@/library/calculator";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function EntryForm() {
   const [startDate, setStartDate] = useState(new Date());
@@ -9,21 +10,18 @@ export default function EntryForm() {
   const [fuel, setFuel] = useState("");
   const [km, setKm] = useState(0);
   const [result, setResult] = useState(0);
+  const router = useRouter ();
 
   function handleCalculateCo2(transport, km, fuel) {
     const selectedTransport = transport === "car" ? fuel : transport;
     return calculator[selectedTransport](km);
-  }
+  };
 
   function handleFormSubmit(event) {
     event.preventDefault();
-
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     event.target.reset();
-    console.log(data);
-
-    const { transport, km, fuel } = data;
   };
 
   function handleDropdownChange(event) {
@@ -97,11 +95,11 @@ export default function EntryForm() {
             </>
             ) : null}
           </label>
-          <Button type="submit">Add journey</Button>
+          <Button type="submit" onClick={() => router.push("/list")}>Add journey</Button>
         </Form>
           <button onClick={() => setResult(handleCalculateCo2(transport, km, fuel))}>Calculate your impact</button>
       </section>
-      <p>Your journey has emitted {result} Kg CO<sub>2</sub></p>
+      <p>Your journey has emitted {result} kg CO<sub>2</sub></p>
     </>
   )};
 
