@@ -1,39 +1,24 @@
 import styled from "styled-components";
-/* import { Fragment } from "react"; */
+import { Fragment } from "react";
 import Tab from "./Tab";
-import useLocalStorageState from "use-local-storage-state";
 
 export default function EntryList({ 
 entries,
   filter,
-  allEntriesCount,
   onShowAllEntries,
 }) {
-  const [filter, setFilter] = useLocalStorageState("filter", {
-    defaultValue: "all",
-  });
-
-  function handleShowAllEntries() {
-    setFilter("all");
-  };
 
   return (
     <>
       <h2>Journey</h2>
       <Tab onClick={onShowAllEntries} isActive={filter === "all"}>
         Recent journeys{" "}
-        <badge isActive={filter === "all"}>{allEntriesCount}</badge>
+        <badge isActive={filter === "all"}>{entries.length}</badge>
       </Tab>
-      <EntryList 
-      entries={entries}
-      filter={filter}
-      allEntriesCount={entries.length}
-      onShowAllEntries={handleShowAllEntries}
-        /* {entries.map((entry) => (
-          <Fragment>{index > 0 ? <Divider /> : null}</Fragment>
-        ))} */
-        >
-      </EntryList>
+      <section>{entries.map((entry, index) => (
+          <Fragment key={entry.id}>{index > 0 ? <Divider /> : null}</Fragment>
+        ))}
+      </section>
       <button type="submit"> + </button>
     </>
   );

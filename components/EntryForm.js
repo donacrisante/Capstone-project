@@ -1,36 +1,16 @@
 import styled from "styled-components";
 import WrappedDatePicker from "./WrappedDatePicker";
-import { calculator } from "@/library/calculator";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import useLocalStorageState from "use-local-storage-state";
-import { uid } from "uid";
 
-export default function EntryForm({ formName }) {
-  const [startDate, setStartDate] = useState(new Date());
+export default function EntryForm({ formName, handleFormSubmit, handleCalculateCo2 }) {
   const [transport, setTransport] = useState("Select a transport");
+  const [startDate, setStartDate] = useState(new Date());
   const [fuel, setFuel] = useState("");
   const [km, setKm] = useState(0);
   const [result, setResult] = useState(0);
   const router = useRouter ();
-  const [entries, setEntries] = useLocalStorageState("entries", {
-    defaultValue: [],
-  });
-
-  function handleCalculateCo2(transport, km, fuel) {
-    const selectedTransport = transport === "car" ? fuel : transport;
-    return calculator[selectedTransport](km);
-  };
-
-  function handleFormSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    event.target.reset();
-    setEntries([{ id: uid(), ...newEntry }, ...entries]);
-  };
   
-
   function handleDropdownChange(event) {
     setTransport(event.target.value);
   };
