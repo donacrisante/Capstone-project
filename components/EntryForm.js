@@ -3,14 +3,19 @@ import WrappedDatePicker from "./WrappedDatePicker";
 import { calculator } from "@/library/calculator";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import useLocalStorageState from "use-local-storage-state";
+import { uid } from "uid";
 
-export default function EntryForm() {
+export default function EntryForm({ formName }) {
   const [startDate, setStartDate] = useState(new Date());
   const [transport, setTransport] = useState("Select a transport");
   const [fuel, setFuel] = useState("");
   const [km, setKm] = useState(0);
   const [result, setResult] = useState(0);
   const router = useRouter ();
+  const [entries, setEntries] = useLocalStorageState("entries", {
+    defaultValue: [],
+  });
 
   function handleCalculateCo2(transport, km, fuel) {
     const selectedTransport = transport === "car" ? fuel : transport;
@@ -22,7 +27,9 @@ export default function EntryForm() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     event.target.reset();
+    setEntries([{ id: uid(), ...newEntry }, ...entries]);
   };
+  
 
   function handleDropdownChange(event) {
     setTransport(event.target.value);
@@ -56,7 +63,7 @@ export default function EntryForm() {
       <h2>Calculator</h2>
       <section>
         <h3>Measure your impact</h3>
-        <Form onSubmit={handleFormSubmit}>
+        <EntryForm aria-labelledby={formName} onSubmit={handleFormSubmit}>
           <h3>Enter your journey: </h3>
           <label htmlFor="date">Date: </label>
           <WrappedDatePicker
@@ -96,7 +103,7 @@ export default function EntryForm() {
             ) : null}
           </label>
           <Button type="submit" onClick={() => router.push("/list")}>Add journey</Button>
-        </Form>
+        </EntryForm>
           <button onClick={() => setResult(handleCalculateCo2(transport, km, fuel))}>Calculate your impact</button>
       </section>
       <p>Your journey has emitted {result} kg CO<sub>2</sub></p>
