@@ -18,7 +18,7 @@
     "react-dom": "18.2.0",
     "styled-components": "^6.0.4",
     "uid": "^2.0.2",
-    "use-local-storage-state": "^19.0.2"
+    "use-local-storage-state": "^18.0.0-0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

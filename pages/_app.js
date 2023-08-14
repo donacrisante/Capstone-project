@@ -1,11 +1,10 @@
 import GlobalStyle from "@/styles";
 import Head from "next/head";
-import { calculator } from "@/library/calculator";
 import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
+import JourneyList from "./journeyList";
 
 export default function App({ Component, pageProps }) {
-
   const [entries, setEntries] = useLocalStorageState("entries", {
     defaultValue: [],
   });
@@ -13,22 +12,17 @@ export default function App({ Component, pageProps }) {
     defaultValue: "all",
   });
 
-  function handleCalculateCo2(transport, km, fuel) {
-    const selectedTransport = transport === "car" ? fuel : transport;
-    return calculator[selectedTransport](km);
-  };
-
   function handleFormSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
+    const newEntry = Object.fromEntries(formData);
     event.target.reset();
     setEntries([{ id: uid(), ...newEntry }, ...entries]);
-  };
+  }
 
   function handleShowAllEntries() {
     setFilter("all");
-  };
+  }
 
   return (
     <>
@@ -36,13 +30,12 @@ export default function App({ Component, pageProps }) {
       <Head>
         <title>Capstone Project</title>
       </Head>
-      <Component {...pageProps}
-      entries={entries}
-      filter={filter}
-      handleCalculateCo2={handleCalculateCo2}
-      handleFormSubmit={handleFormSubmit}
-      handleShowAllEntries={handleShowAllEntries}
-       />
+      <Component {...pageProps} handleFormSubmit={handleFormSubmit} />
+      <JourneyList
+        entries={entries}
+        filter={filter}
+        handleShowAllEntries={handleShowAllEntries}
+      />
     </>
   );
 }
