@@ -9,7 +9,6 @@ import useLocalStorageState from "use-local-storage-state";
 const inter = Inter({ subsets: ["latin"] });
 
 
-
 export default function Home() {
   const router = useRouter();
   const [entries, setEntries] = useLocalStorageState("entries", {
@@ -37,7 +36,7 @@ export default function Home() {
       </Head>
       <main className={inter.className}>
         <Heading>CO<sub>2</sub>-Mobility-Tracker</Heading>
-        <EntryForm formName={"hallo"} handleFormSubmit={handleFormSubmit}/>
+        <EntryForm formName={"calculator"} handleFormSubmit={handleFormSubmit}/>
       </main>
     </>
   );

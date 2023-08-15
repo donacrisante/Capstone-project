@@ -58,6 +58,7 @@ export default function EntryForm({ formName, handleFormSubmit }) {
             onChange={(date) => setStartDate(date)}
             dateFormat="dd/MM/yyyy"
           />
+          {/* <input type="hidden"></input> */}
           <label htmlFor="start">From: </label>
           <input id="start" name="start" />
           <label htmlFor="destination">To: </label>
