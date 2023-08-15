@@ -2,7 +2,6 @@ import styled from "styled-components";
 import WrappedDatePicker from "./WrappedDatePicker";
 import { calculator } from "@/library/calculator";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 export default function EntryForm({ formName, handleFormSubmit }) {
   const [transport, setTransport] = useState("Select a transport");
@@ -10,8 +9,8 @@ export default function EntryForm({ formName, handleFormSubmit }) {
   const [fuel, setFuel] = useState("");
   const [km, setKm] = useState(0);
   const [result, setResult] = useState(0);
-  const router = useRouter();
 
+console.log(handleFormSubmit);
 
   function handleDropdownChange(event) {
     setTransport(event.target.value);
@@ -100,14 +99,7 @@ export default function EntryForm({ formName, handleFormSubmit }) {
               </>
             ) : null}
           </label>
-          <Button
-            type="submit"
-            onClick={() => 
-              router.push("/journeyList")
-            }
-          >
-            Add journey
-          </Button>
+          <Button type="submit" onSubmit={handleFormSubmit}>Add journey</Button>
         </Form>
         <button
           onClick={() => setResult(handleCalculateCo2(transport, km, fuel))}
