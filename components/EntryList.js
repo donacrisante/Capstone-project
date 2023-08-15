@@ -3,16 +3,16 @@ import { Fragment } from "react";
 import Tab from "./Tab";
 
 export default function EntryList({ entries, filter, onShowAllEntries }) {
-
+    console.log(entries);
   return (
 
     <>
       <h2>Journey</h2>
-      <Tab onClick={onShowAllEntries} isActive={filter === "all"}>
+      {/* <Tab onClick={onShowAllEntries} isActive={filter === "all"} >
         Recent journeys{" "}
-        <badge isActive={filter === "all"}>{entries.length}</badge>
-      </Tab>
-      <section>
+         <badge isActive={filter === "all"}>{entries.length}</badge> 
+      </Tab> */}
+      {/* <section>
         {entries.map((entry, index) => (
           <Fragment key={entry.id}>
             {index > 0 ? <Divider /> : null}
@@ -21,7 +21,7 @@ export default function EntryList({ entries, filter, onShowAllEntries }) {
             <p>To: {entry.destination}</p>
           </Fragment>
         ))}
-      </section>
+      </section> */}
       <button type="submit"> + </button>
     </>
 
