@@ -2,7 +2,6 @@ import GlobalStyle from "@/styles";
 import Head from "next/head";
 import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
-import JourneyList from "./journeyList";
 
 export default function App({ Component, pageProps }) {
   const [entries, setEntries] = useLocalStorageState("entries", {
@@ -31,11 +30,6 @@ export default function App({ Component, pageProps }) {
         <title>Capstone Project</title>
       </Head>
       <Component {...pageProps} handleFormSubmit={handleFormSubmit} />
-      <JourneyList
-        entries={entries}
-        filter={filter}
-        handleShowAllEntries={handleShowAllEntries}
-      />
     </>
   );
 }
