@@ -10,7 +10,7 @@ export default function EntryForm({ formName, handleFormSubmit }) {
   const [km, setKm] = useState(0);
   const [result, setResult] = useState(0);
 
-console.log(handleFormSubmit);
+// console.log(handleFormSubmit);
 
   function handleDropdownChange(event) {
     setTransport(event.target.value);

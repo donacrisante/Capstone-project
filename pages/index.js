@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import EntryForm from "@/components/EntryForm";
 import { uid } from "uid";
 import { useRouter } from "next/router";
+import useLocalStorageState from "use-local-storage-state";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,14 +12,19 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const router = useRouter();
-
+  const [entries, setEntries] = useLocalStorageState("entries", {
+    defaultValue: [],
+  });
+  // const [filter, setFilter] = useLocalStorageState("filter", {
+  //   defaultValue: "all",
+  // });
   function handleFormSubmit(event) {
     event.preventDefault();
-    console.log("hallo hier");
-    // const formData = new FormData(event.target);
-    // const newEntry = Object.fromEntries(formData);
-    // event.target.reset();
-    // setEntries([{ id: uid(), ...newEntry }, ...entries]);
+    // console.log("hallo hier");
+    const formData = new FormData(event.target);
+    const newEntry = Object.fromEntries(formData);
+    event.target.reset();
+    setEntries([{ id: uid(), ...newEntry }, ...entries]);
     router.push("/journeyList");
   }
   return (
