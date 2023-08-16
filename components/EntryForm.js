@@ -51,14 +51,16 @@ export default function EntryForm({ formName, handleFormSubmit }) {
         <h3>Measure your impact</h3>
         <Form aria-labelledby={formName} onSubmit={handleFormSubmit}>
           <h3>Enter your journey: </h3>
-          <label htmlFor="date">Date: </label>
+          <label htmlFor="date">Date: 
           <WrappedDatePicker
+            id="date"
+            name="date"
             showIcon
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             dateFormat="dd/MM/yyyy"
           />
-          {/* <input type="hidden"></input> */}
+          </label>
           <label htmlFor="start">From: </label>
           <input id="start" name="start" />
           <label htmlFor="destination">To: </label>

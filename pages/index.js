@@ -14,9 +14,11 @@ export default function Home() {
   const [entries, setEntries] = useLocalStorageState("entries", {
     defaultValue: [],
   });
-  // const [filter, setFilter] = useLocalStorageState("filter", {
-  //   defaultValue: "all",
-  // });
+
+   const [filter, setFilter] = useLocalStorageState("filter", {
+  defaultValue: "all",
+  });
+
   function handleFormSubmit(event) {
     event.preventDefault();
     // console.log("hallo hier");
@@ -26,6 +28,11 @@ export default function Home() {
     setEntries([{ id: uid(), ...newEntry }, ...entries]);
     router.push("/journeyList");
   }
+
+  function handleShowAllEntries() {
+    setFilter("all");
+  }
+  
   return (
     <>
       <Head>

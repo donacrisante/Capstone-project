@@ -1,13 +1,13 @@
-import styled from "styled-components";
+import Divider from "./Divider";
 import { Fragment } from "react";
 /* import Tab from "./Tab"; */
 
-export default function EntryList({ entries, filter, onShowAllEntries }) {
+export default function EntryList({ entries /* filter, onShowAllEntries */ }) {
     console.log(entries);
   return (
 
     <>
-      <h2>Journey</h2>
+      <h2>Journeys</h2>
       {/* <Tab onClick={onShowAllEntries} isActive={filter === "all"} >
         Recent journeys{" "}
          <badge isActive={filter === "all"}>{entries.length}</badge> 
@@ -29,10 +29,4 @@ export default function EntryList({ entries, filter, onShowAllEntries }) {
   )
 };
 
-const Divider = styled.hr`
-  border: none;
-  width: 100%;
-  margin: 0;
-  height: 1px;
-  background: color-water-10;
-`;
+
