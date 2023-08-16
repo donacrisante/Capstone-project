@@ -9,9 +9,13 @@ export default function App({ Component, pageProps }) {
   const [entries, setEntries] = useLocalStorageState("entries", {
     defaultValue: [],
   });
-  /* const [filter, setFilter] = useLocalStorageState("filter", {
+  
+  const [filter, setFilter] = useLocalStorageState("filter", {
     defaultValue: "all",
-    });*/ 
+    });
+
+  const [[isFavourite, setIsFavourite]] = useLocalStorageState("favourite", { defaultValue: "false",
+});
 
   function handleFormSubmit(event) {
     event.preventDefault();
@@ -23,9 +27,22 @@ export default function App({ Component, pageProps }) {
     router.push("/journeyList");
   }
 
-  /* function handleShowAllEntries() {
-    console.log("all");
-  } */
+  function handleShowAllEntries() {
+    setFilter("all");
+  }
+
+  function handleShowFavouriteEntries() {
+    setFilter("favourites");
+  }
+
+  function handleToggleFavourite(/* id */) {
+    setIsFavourite(!isFavourite);
+    /* setEntries(
+      entries.map((entry) =>
+        entry.id === id ? { ...entry, isFavourite: !entry.isFavourite } : entry
+      )
+    ); */
+  }
 
   return (
     <>
@@ -33,7 +50,12 @@ export default function App({ Component, pageProps }) {
       <Head>
         <title>Capstone Project</title>
       </Head>
-      <Component {...pageProps} onSubmit={handleFormSubmit} entries={entries} />
+      <Component {...pageProps} 
+      onSubmit={handleFormSubmit} 
+      entries={filter === "favourites" ? favouriteEntries : entries}
+      onShowAllEntries={handleShowAllEntries}
+      onShowFavouriteEntries={handleShowFavouriteEntries}
+      onToggleFavourite={handleToggleFavourite} />
     </>
   );
 }
