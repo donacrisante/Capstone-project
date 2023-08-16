@@ -3,14 +3,13 @@ import WrappedDatePicker from "./WrappedDatePicker";
 import { calculator } from "@/library/calculator";
 import { useState } from "react";
 
-export default function EntryForm({ formName, handleFormSubmit }) {
+export default function EntryForm({ formName, onSubmit }) {
   const [transport, setTransport] = useState("Select a transport");
   const [startDate, setStartDate] = useState(new Date());
   const [fuel, setFuel] = useState("");
   const [km, setKm] = useState(0);
   const [result, setResult] = useState(0);
 
-// console.log(handleFormSubmit);
 
   function handleDropdownChange(event) {
     setTransport(event.target.value);
@@ -49,7 +48,7 @@ export default function EntryForm({ formName, handleFormSubmit }) {
       <h2>Calculator</h2>
       <section>
         <h3>Measure your impact</h3>
-        <Form aria-labelledby={formName} onSubmit={handleFormSubmit}>
+        <Form aria-labelledby={formName} onSubmit={onSubmit}>
           <h3>Enter your journey: </h3>
           <label htmlFor="date">Date: 
           <WrappedDatePicker
@@ -102,7 +101,7 @@ export default function EntryForm({ formName, handleFormSubmit }) {
               </>
             ) : null}
           </label>
-          <Button type="submit" onSubmit={handleFormSubmit}>Add journey</Button>
+          <Button type="submit" onSubmit={onSubmit}>Add journey</Button>
         </Form>
         <button
           onClick={() => setResult(handleCalculateCo2(transport, km, fuel))}

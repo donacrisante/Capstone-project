@@ -1,17 +1,18 @@
 import Divider from "./Divider";
 import { Fragment } from "react";
-/* import Tab from "./Tab"; */
+import useLocalStorageState from "use-local-storage-state";
+import Tab from "./Tab";
 
-export default function EntryList({ entries /* filter, onShowAllEntries */ }) {
-    console.log(entries);
+export default function EntryList({ entries, filter, onShowAllEntries }) {
+
   return (
 
     <>
       <h2>Journeys</h2>
-      {/* <Tab onClick={onShowAllEntries} isActive={filter === "all"} >
+      <Tab onClick={onShowAllEntries} isActive={filter === "all"} >
         Recent journeys{" "}
          <badge isActive={filter === "all"}>{entries.length}</badge> 
-      </Tab> */}
+      </Tab> 
       <section>
         {entries.map((entry, index) => (
           <Fragment key={entry.id}>
@@ -20,7 +21,7 @@ export default function EntryList({ entries /* filter, onShowAllEntries */ }) {
             <p>From: {entry.start}</p>
             <p>To: {entry.destination}</p>
             <p>Km: {entry.km}</p>
-            <p>Transport: {entry.transport}</p>
+            <p>Transport: {entry.transport}, {entry.fuel}</p>
           </Fragment>
         ))}
       </section> 
