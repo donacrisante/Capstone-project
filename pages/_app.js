@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
     });
 
   const [result, setResult] = useLocalStorageState("result", {
-    defaultValue: [0],
+    defaultValue: 0,
     }); 
 
   const [[isFavourite, setIsFavourite]] = useLocalStorageState("favourite", { defaultValue: "false",
@@ -39,12 +39,8 @@ export default function App({ Component, pageProps }) {
     setFilter("favourites");
   }
 
-  /* function handelShowCalcResult(transport, km, fuel) {
-    setResult(handleCalculateCo2(transport, km, fuel));
-  }  */
-
   function handleToggleFavourite(id) {
-    /* setIsFavourite(!isFavourite);  */
+    /* setIsFavourite(!isFavourite); */
     setEntries(
       entries.map((entry) =>
         entry.id === id ? { ...entry, isFavourite: !entry.isFavourite } : entry
@@ -63,11 +59,10 @@ export default function App({ Component, pageProps }) {
       entries={filter === "favourites" ? favouriteEntries : entries}
       onShowAllEntries={handleShowAllEntries}
       onShowFavouriteEntries={handleShowFavouriteEntries}
-      onToggleFavourite={handleToggleFavourite}
       isFavourite={isFavourite}
+      onToggleFavourite={handleToggleFavourite}
       result={result}
-      setResult={() => setResult()}
-      /* onShowCalcResult={() => handelShowCalcResult()} */
+      setResult={setResult}
        />
     </>
   );

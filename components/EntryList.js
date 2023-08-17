@@ -12,9 +12,8 @@ export default function EntryList({
   result,
   id,
   isFavourite,
-  onToggleFavourite
+  onToggleFavourite,
 }) {
-
   const favouriteEntries = entries.filter((entry) => entry.isFavourite);
 
   return (
@@ -31,7 +30,7 @@ export default function EntryList({
         >
           Favourites{" "}
           <badge isActive={filter === "favourites"}>
-          {favouriteEntries.length}
+            {favouriteEntries.length}
           </badge>
         </Tab>
       </Tabs>
@@ -39,7 +38,11 @@ export default function EntryList({
         {entries.map((entry, index) => (
           <Fragment key={entry.id}>
             {index > 0 ? <Divider /> : null}
-            <FavouriteButton id={id} isFavourite={isFavourite} onToggleFavourite={onToggleFavourite} />
+            <FavouriteButton
+              id={entry.id}
+              isFavourite={entry.isFavourite}
+              onToggleFavourite={onToggleFavourite}
+            />
             <p>Date: {entry.date}</p>
             <p>From: {entry.start}</p>
             <p>To: {entry.destination}</p>
