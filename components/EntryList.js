@@ -9,6 +9,7 @@ export default function EntryList({
   filter,
   onShowAllEntries,
   onShowFavouriteEntries,
+  result,
   id,
   isFavourite,
   onToggleFavourite
@@ -46,7 +47,7 @@ export default function EntryList({
             <p>
               Transport: {entry.transport} {entry.fuel}
             </p>
-            {/* <p>Impact: {result}</p> */}
+            <p>Impact: {result}</p>
           </Fragment>
         ))}
       </section>

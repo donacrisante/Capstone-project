@@ -3,13 +3,26 @@ import WrappedDatePicker from "./WrappedDatePicker";
 import { calculator } from "@/library/calculator";
 import { useState } from "react";
 
-export default function EntryForm({ formName, onSubmit }) {
+export default function EntryForm({ formName, onSubmit, result, setResult }) {
   const [transport, setTransport] = useState("Select a transport");
   const [startDate, setStartDate] = useState(new Date());
   const [fuel, setFuel] = useState("");
   const [km, setKm] = useState(0);
-  const [result, setResult] = useState(0);
 
+    const transports = [
+    { label: "Car", value: "car" },
+    { label: "Plane", value: "plane" },
+    { label: "Train", value: "train" },
+    { label: "Bicycle", value: "bicycle" },
+  ];
+
+  const cars = [
+    { label: "Petrol", value: "petrol" },
+    { label: "Diesel", value: "diesel" },
+    { label: "Hybrid", value: "hybrid" },
+    { label: "Electric-Strommix", value: "electric-strommix" },
+    { label: "Electric-Renewable", value: "electric-renewable" },
+  ];
 
   function handleDropdownChange(event) {
     setTransport(event.target.value);
@@ -27,21 +40,6 @@ export default function EntryForm({ formName, onSubmit }) {
     const selectedTransport = transport === "car" ? fuel : transport;
     return calculator[selectedTransport](km);
   }
-
-  const transports = [
-    { label: "Car", value: "car" },
-    { label: "Plane", value: "plane" },
-    { label: "Train", value: "train" },
-    { label: "Bicycle", value: "bicycle" },
-  ];
-
-  const cars = [
-    { label: "Petrol", value: "petrol" },
-    { label: "Diesel", value: "diesel" },
-    { label: "Hybrid", value: "hybrid" },
-    { label: "Electric-Strommix", value: "electric-strommix" },
-    { label: "Electric-Renewable", value: "electric-renewable" },
-  ];
 
   return (
     <>

@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { Inter } from "next/font/google";
 import EntryForm from "@/components/EntryForm";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
-
-export default function Home({ onSubmit }) {
-  
-
+export default function Home({
+  onSubmit,
+  onShowCalcResult,
+  result,
+  setResult,
+}) {
   return (
     <>
       <Head>
@@ -19,8 +20,16 @@ export default function Home({ onSubmit }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={inter.className}>
-        <Heading>CO<sub>2</sub>-Mobility-Tracker</Heading>
-        <EntryForm formName={"calculator"} onSubmit={onSubmit}/>
+        <Heading>
+          CO<sub>2</sub>-Mobility-Tracker
+        </Heading>
+        <EntryForm
+          formName={"calculator"}
+          onSubmit={onSubmit}
+          onShowCalcResult={onShowCalcResult}
+          result={result}
+          setResult={setResult}
+        />
       </main>
     </>
   );

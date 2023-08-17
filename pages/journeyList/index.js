@@ -1,23 +1,26 @@
 import EntryList from "@/components/EntryList";
 
-export default function JourneyList({ entries }) {
-  /* if (typeof window !== "undefined") {
-    // Perform localStorage action
-    const entries = JSON.parse(localStorage.getItem("entries"));
-    console.log("entries: ", entries);
-    return <EntryList entries={entries} />;
-  } */
-  return (
-    <EntryList entries={entries} />
-  )
-}
+export default function JourneyList({
+  entries,
+  filter,
+  onShowAllEntries,
+  onShowFavouriteEntries,
+  result,
+  id,
+  isFavourite,
+  onToggleFavourite,
+}) {
 
-// export default function JourneyList({ entries, filter, onShowAllEntries }) {
-//   return (
-//     <EntryList
-//       entries={entries}
-//       filter={filter}
-//       onShowAllEntries={onShowAllEntries}
-//     />
-//   );
-// }
+  return (
+    <EntryList
+      entries={entries}
+      filter={filter}
+      onShowAllEntries={onShowAllEntries}
+      onShowFavouriteEntries={onShowFavouriteEntries}
+      result={result}
+      id={id}
+      isFavourite={isFavourite}
+      onToggleFavourite={onToggleFavourite}
+    />
+  );
+}
