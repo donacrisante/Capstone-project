@@ -9,17 +9,32 @@ export default function App({ Component, pageProps }) {
   const [entries, setEntries] = useLocalStorageState("entries", {
     defaultValue: [],
   });
-  
+
   const [filter, setFilter] = useLocalStorageState("filter", {
     defaultValue: "all",
     });
 
   const [result, setResult] = useLocalStorageState("result", {
     defaultValue: 0,
-    }); 
+  });
 
-  const [[isFavourite, setIsFavourite]] = useLocalStorageState("favourite", { defaultValue: "false",
-});
+  const [isFavourite, setIsFavourite] = useLocalStorageState("favourite", {
+    defaultValue: "false",
+  });
+
+  function handleShowAllEntries() {
+    setFilter("all");
+    /* setIsFavouriteTabActive(true); */
+  }
+
+  function handleShowFavouriteEntries() {
+    setFilter("favourites");
+    /* setIsFavouriteTabActive(false); */
+  }
+
+  /* const [isFavouriteTabActive, setIsFavouriteTabActive] = useLocalStorageState("favouriteTab", {
+    defaultValue: "false",
+  }); */
 
   function handleFormSubmit(event) {
     event.preventDefault();
@@ -31,16 +46,7 @@ export default function App({ Component, pageProps }) {
     router.push("/journeyList");
   }
 
-  function handleShowAllEntries() {
-    setFilter("all");
-  }
-
-  function handleShowFavouriteEntries() {
-    setFilter("favourites");
-  }
-
   function handleToggleFavourite(id) {
-    /* setIsFavourite(!isFavourite); */
     setEntries(
       entries.map((entry) =>
         entry.id === id ? { ...entry, isFavourite: !entry.isFavourite } : entry
@@ -48,22 +54,28 @@ export default function App({ Component, pageProps }) {
     );
   }
 
+  const favouriteEntries = entries.filter((entry) => entry.isFavourite);
+  
   return (
     <>
       <GlobalStyle />
       <Head>
         <title>Capstone Project</title>
       </Head>
-      <Component {...pageProps} 
-      onSubmit={handleFormSubmit} 
-      entries={filter === "favourites" ? favouriteEntries : entries}
-      onShowAllEntries={handleShowAllEntries}
-      onShowFavouriteEntries={handleShowFavouriteEntries}
-      isFavourite={isFavourite}
-      onToggleFavourite={handleToggleFavourite}
-      result={result}
-      setResult={setResult}
-       />
+      <Component
+        {...pageProps}
+        onSubmit={handleFormSubmit}
+        entries={filter === "favourites" ? favouriteEntries : entries}
+        onShowAllEntries={handleShowAllEntries}
+        onShowFavouriteEntries={handleShowFavouriteEntries}
+        allEntriesCount={entries.length}
+        favouriteEntriesCount={favouriteEntries.length}
+        isFavourite={isFavourite}
+        /* isFavouriteTabActive={isFavouriteTabActive} */
+        onToggleFavourite={handleToggleFavourite}
+        result={result}
+        setResult={setResult}
+      />
     </>
   );
 }

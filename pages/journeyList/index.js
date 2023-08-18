@@ -5,11 +5,16 @@ export default function JourneyList({
   filter,
   onShowAllEntries,
   onShowFavouriteEntries,
+  allEntriesCount,
+  favouriteEntriesCount,
+  /* isFavouriteTabActive, */
   result,
   id,
   isFavourite,
   onToggleFavourite,
 }) {
+
+  
 
   return (
     <EntryList
@@ -17,6 +22,9 @@ export default function JourneyList({
       filter={filter}
       onShowAllEntries={onShowAllEntries}
       onShowFavouriteEntries={onShowFavouriteEntries}
+      allEntriesCount={allEntriesCount}
+      favouriteEntriesCount={favouriteEntriesCount}
+      /* isFavouriteTabActive={isFavouriteTabActive} */
       result={result}
       id={id}
       isFavourite={isFavourite}

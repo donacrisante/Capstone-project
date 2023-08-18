@@ -9,18 +9,23 @@ export default function EntryList({
   filter,
   onShowAllEntries,
   onShowFavouriteEntries,
+  allEntriesCount,
+  favouriteEntriesCount,
+  /* isFavouriteTabActiv */e,
   result,
   onToggleFavourite,
 }) {
-  const favouriteEntries = entries.filter((entry) => entry.isFavourite);
+  
+  /* const displayedEntries = isFavouriteTabActive ? favouriteEntries : entries; */
 
   return (
     <>
       <h2>Journeys</h2>
+      <section name="journeys-section">
       <Tabs>
         <Tab onClick={onShowAllEntries} isActive={filter === "all"}>
           Recent journeys{" "}
-          <badge isActive={filter === "all"}>{entries.length}</badge>
+          <badge isActive={filter === "all"}>{allEntriesCount}</badge>
         </Tab>
         <Tab
           onClick={onShowFavouriteEntries}
@@ -28,11 +33,11 @@ export default function EntryList({
         >
           Favourites{" "}
           <badge isActive={filter === "favourites"}>
-            {favouriteEntries.length}
+            {favouriteEntriesCount}
           </badge>
         </Tab>
       </Tabs>
-      <section>
+      <div name="journey-section__entries">
         {entries.map((entry, index) => (
           <Fragment key={entry.id}>
             {index > 0 ? <Divider /> : null}
@@ -44,6 +49,7 @@ export default function EntryList({
             <p>{entry.date}, {entry.start} - {entry.destination}, {entry.km}km, {entry.transport} {entry.fuel}, {result} kg CO<sub>2</sub></p>
           </Fragment>
         ))}
+      </div>
       </section>
       <button type="submit"> + </button>
     </>
