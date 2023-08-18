@@ -11,9 +11,9 @@ export default function EntryList({
   onShowFavouriteEntries,
   allEntriesCount,
   favouriteEntriesCount,
-  /* isFavouriteTabActiv */e,
   result,
   onToggleFavourite,
+  /* isFavouriteTabActiv */
 }) {
   
   /* const displayedEntries = isFavouriteTabActive ? favouriteEntries : entries; */
