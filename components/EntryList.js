@@ -10,8 +10,6 @@ export default function EntryList({
   onShowAllEntries,
   onShowFavouriteEntries,
   result,
-  id,
-  isFavourite,
   onToggleFavourite,
 }) {
   const favouriteEntries = entries.filter((entry) => entry.isFavourite);
@@ -43,14 +41,7 @@ export default function EntryList({
               isFavourite={entry.isFavourite}
               onToggleFavourite={onToggleFavourite}
             />
-            <p>Date: {entry.date}</p>
-            <p>From: {entry.start}</p>
-            <p>To: {entry.destination}</p>
-            <p>Km: {entry.km}</p>
-            <p>
-              Transport: {entry.transport} {entry.fuel}
-            </p>
-            <p>Impact: {result}</p>
+            <p>{entry.date}, {entry.start} - {entry.destination}, {entry.km}km, {entry.transport} {entry.fuel}, {result} kg CO<sub>2</sub></p>
           </Fragment>
         ))}
       </section>

@@ -55,7 +55,7 @@ export default function EntryForm({ formName, onSubmit, result, setResult }) {
             showIcon
             selected={startDate}
             onChange={(date) => setStartDate(date)}
-            dateFormat="dd/MM/yyyy"
+            dateFormat="dd.MM.yyyy"
           />
           </label>
           <label htmlFor="start">From: </label>
