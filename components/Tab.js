@@ -1,6 +1,8 @@
-export default function Tab({ children, isActive }) {
+export default function Tab({ children, isActive, onClick }) {
     return (
-      <button name={`tab${isActive ? " tab--active" : ""}`}>
+      <button name={`tab${isActive ? " tab--active" : ""}`}
+      onClick={onClick}
+      >
         {children}
       </button>
     );

@@ -22,20 +22,13 @@ export default function App({ Component, pageProps }) {
     defaultValue: "false",
   });
 
-  /* const [isFavouriteTabActive, setIsFavouriteTabActive] = useLocalStorageState("favouriteTab", {
-    defaultValue: "false",
-  }); */
-
   function handleShowAllEntries() {
     setFilter("all");
-    /* setIsFavouriteTabActive(true); */
   }
 
   function handleShowFavouriteEntries() {
     setFilter("favourites");
-    /* setIsFavouriteTabActive(false); */
   }
-
 
   function handleFormSubmit(event) {
     event.preventDefault();
@@ -72,7 +65,6 @@ export default function App({ Component, pageProps }) {
         allEntriesCount={entries.length}
         favouriteEntriesCount={favouriteEntries.length}
         isFavourite={isFavourite}
-        /* isFavouriteTabActive={isFavouriteTabActive} */
         onToggleFavourite={handleToggleFavourite}
         result={result}
         setResult={setResult}
