@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export default function Divider() {
-    return <hr name="divider" role="none" />;
+    return <Hr name="divider" role="none" />;
   }
 
   const Hr = styled.hr`

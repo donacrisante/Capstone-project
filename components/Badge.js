@@ -1,3 +1,4 @@
+
 export default function Badge({ children, isActive }) {
     return (
       <span name={`badge${isActive ? " badge--active" : ""}`}>
@@ -5,3 +6,4 @@ export default function Badge({ children, isActive }) {
       </span>
     );
   }
+

@@ -2,7 +2,7 @@ import Divider from "./Divider";
 import { Fragment } from "react";
 import Tab from "./Tab";
 import Tabs from "./Tabs";
-import Badge from "./Badge";
+/* import Badge from "./Badge"; */
 import FavouriteButton from "./FavouriteButton";
 
 export default function EntryList({
@@ -23,16 +23,16 @@ export default function EntryList({
       <Tabs>
         <Tab onClick={onShowAllEntries} isActive={filter === "all"}>
           Recent journeys{" "}
-          <Badge isActive={filter === "all"}>{allEntriesCount}</Badge>
+          <badge isActive={filter === "all"}>{allEntriesCount}</badge>
         </Tab>
         <Tab
           onClick={onShowFavouriteEntries}
           isActive={filter === "favourites"}
         >
           Favourites{" "}
-          <Badge isActive={filter === "favourites"}>
+          <badge isActive={filter === "favourites"}>
             {favouriteEntriesCount}
-          </Badge>
+          </badge>
         </Tab>
       </Tabs>
       <div name="journey-section__entries">
