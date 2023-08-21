@@ -1,4 +1,5 @@
 import Divider from "./Divider";
+
 import { Fragment } from "react";
 import Tab from "./Tab";
 import Tabs from "./Tabs";
