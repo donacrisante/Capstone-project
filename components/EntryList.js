@@ -12,7 +12,7 @@ export default function EntryList({
   onShowFavouriteEntries,
   allEntriesCount,
   favouriteEntriesCount,
-  result,
+  /* result, */
   onToggleFavourite,
 }) {
 

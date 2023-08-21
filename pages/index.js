@@ -7,9 +7,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({
   onSubmit,
-  onShowCalcResult,
-  result,
-  setResult,
+  /* result,
+  setResult, */
 }) {
   return (
     <>
@@ -26,9 +25,8 @@ export default function Home({
         <EntryForm
           formName={"calculator"}
           onSubmit={onSubmit}
-          onShowCalcResult={onShowCalcResult}
-          result={result}
-          setResult={setResult}
+         /*  result={result}
+          setResult={setResult} */
         />
       </main>
     </>

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import WrappedDatePicker from "./WrappedDatePicker";
-import { calculator } from "@/library/calculator";
 import { useState } from "react";
 
 export default function EntryForm({ formName, onSubmit, result, setResult }) {
@@ -34,11 +33,6 @@ export default function EntryForm({ formName, onSubmit, result, setResult }) {
 
   function handleKm(event) {
     setKm(event.target.value);
-  }
-
-  function handleCalculateCo2(transport, km, fuel) {
-    const selectedTransport = transport === "car" ? fuel : transport;
-    return calculator[selectedTransport](km);
   }
 
   return (
@@ -102,7 +96,7 @@ export default function EntryForm({ formName, onSubmit, result, setResult }) {
           <Button type="submit" onSubmit={onSubmit}>Add journey</Button>
         </Form>
         <button
-          onClick={() => setResult(handleCalculateCo2(transport, km, fuel))}
+          onClick={() => (handleCalculateCo2(transport, km, fuel))}
         >
           Calculate your impact
         </button>

@@ -1,5 +1,6 @@
 import GlobalStyle from "@/styles";
 import Head from "next/head";
+import { calculator } from "@/library/calculator";
 import { uid } from "uid";
 import { useRouter } from "next/router";
 import useLocalStorageState from "use-local-storage-state";
@@ -14,9 +15,9 @@ export default function App({ Component, pageProps }) {
     defaultValue: "all",
     });
 
-  const [result, setResult] = useLocalStorageState("result", {
+  /* const [result, setResult] = useLocalStorageState("result", {
     defaultValue: 0,
-  });
+  }); */
 
   const [isFavourite, setIsFavourite] = useLocalStorageState("favourite", {
     defaultValue: "false",
@@ -34,10 +35,21 @@ export default function App({ Component, pageProps }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const newEntry = Object.fromEntries(formData);
+    const transport = newEntry.transport;
+    const km = newEntry.km;
+    const fuel = newEntry.fuel;
+    const result = (handleCalculateCo2(transport, km, fuel))
+    newEntry.result = result;
     console.log(newEntry);
+    console.log(result);
     event.target.reset();
     setEntries([{ id: uid(), ...newEntry }, ...entries]);
     router.push("/journeyList");
+  }
+
+  function handleCalculateCo2(transport, km, fuel) {
+    const selectedTransport = transport === "car" ? fuel : transport;
+    return calculator[selectedTransport](km);
   }
 
   function handleToggleFavourite(id) {
@@ -66,8 +78,9 @@ export default function App({ Component, pageProps }) {
         favouriteEntriesCount={favouriteEntries.length}
         isFavourite={isFavourite}
         onToggleFavourite={handleToggleFavourite}
-        result={result}
-        setResult={setResult}
+        onCalculateCo2={handleCalculateCo2}
+        /* result={result}
+        setResult={setResult} */
       />
     </>
   );
