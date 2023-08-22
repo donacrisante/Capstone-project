@@ -14,10 +14,6 @@ export default function App({ Component, pageProps }) {
     defaultValue: "all",
     });
 
-  const [isFavourite, setIsFavourite] = useLocalStorageState("favourite", {
-    defaultValue: "false",
-  });
-
   function handleShowAllEntries() {
     setFilter("all");
   }
@@ -55,7 +51,6 @@ export default function App({ Component, pageProps }) {
         onShowFavouriteEntries={handleShowFavouriteEntries}
         allEntriesCount={entries.length}
         favouriteEntriesCount={favouriteEntries.length}
-        isFavourite={isFavourite}
         onToggleFavourite={handleToggleFavourite}
       />
     </>

@@ -9,7 +9,6 @@ export default function JourneyList({
   favouriteEntriesCount,
   result,
   id,
-  isFavourite,
   onToggleFavourite,
 }) {
 
@@ -23,7 +22,6 @@ export default function JourneyList({
       favouriteEntriesCount={favouriteEntriesCount}
       result={result}
       id={id}
-      isFavourite={isFavourite}
       onToggleFavourite={onToggleFavourite}
     />
   );
