@@ -51,8 +51,6 @@ export default function EntryForm({ formName, onSubmit }) {
     const fuel = newEntry.fuel;
     const result = handleCalculateCo2(transport, km, fuel);
     newEntry.result = result;
-    console.log(newEntry);
-    console.log(result);
     event.target.reset();
     onSubmit(newEntry);
   }
@@ -76,11 +74,11 @@ export default function EntryForm({ formName, onSubmit }) {
             />
           </label>
           <label htmlFor="start">From: </label>
-          <input id="start" name="start" />
+          <input id="start" name="start" placeholder="Enter your start" required />
           <label htmlFor="destination">To: </label>
-          <input id="destination" name="destination" />
+          <input id="destination" name="destination" placeholder="Enter your destination" required />
           <label htmlFor="km">Km: </label>
-          <input onChange={handleKm} id="km" name="km" />
+          <input onChange={handleKm} id="km" name="km" placeholder="Enter the length of your journey" required />
           <label htmlFor="transport">
             Transport:
             <select
