@@ -102,6 +102,7 @@ export default function EntryForm({ formName, onSubmit }) {
             name="km"
             placeholder="Enter the length of your journey"
             pattern="^\d+(,\d+)?(\.\d+)?$"
+            title="Only single or decimal numbers are allowed"
             required
           />
           <label htmlFor="transport">
