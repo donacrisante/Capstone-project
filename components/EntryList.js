@@ -12,7 +12,7 @@ export default function EntryList({
   onShowFavouriteEntries,
   allEntriesCount,
   favouriteEntriesCount,
-  /* result, */
+  result,
   onToggleFavourite,
 }) {
 
@@ -44,7 +44,7 @@ export default function EntryList({
               isFavourite={entry.isFavourite}
               onToggleFavourite={onToggleFavourite}
             />
-            <p>{entry.date}, {entry.start} - {entry.destination}, {entry.km}km, {entry.transport} {entry.fuel}, {result} kg CO<sub>2</sub></p>
+            <p>{entry.date}, {entry.start} - {entry.destination}, {entry.km}km, {entry.transport} {entry.fuel}, {entry.result} kg CO<sub>2</sub></p>
           </Fragment>
         ))}
       </div>

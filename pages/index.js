@@ -5,11 +5,7 @@ import EntryForm from "@/components/EntryForm";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({
-  onSubmit,
-  /* result,
-  setResult, */
-}) {
+export default function Home({ onSubmit, result, onCalculateCo2 }) {
   return (
     <>
       <Head>
@@ -25,8 +21,8 @@ export default function Home({
         <EntryForm
           formName={"calculator"}
           onSubmit={onSubmit}
-         /*  result={result}
-          setResult={setResult} */
+          result={result}
+          onCalculateCo2={onCalculateCo2}
         />
       </main>
     </>
