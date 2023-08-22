@@ -39,7 +39,11 @@ export default function EntryForm({ formName, onSubmit }) {
 
   function handleCalculateCo2(transport, km, fuel) {
     const selectedTransport = transport === "car" ? fuel : transport;
-    return calculator[selectedTransport](km);
+    const kmNumber = parseFloat(km.replace(",", "."));
+    if (!isNaN(kmNumber)) {
+      return calculator[selectedTransport](kmNumber);
+    }
+    return 0;
   }
 
   function handleSubmit(event) {
@@ -74,11 +78,32 @@ export default function EntryForm({ formName, onSubmit }) {
             />
           </label>
           <label htmlFor="start">From: </label>
-          <input id="start" name="start" placeholder="Enter your start" required />
+          <input
+            id="start"
+            name="start"
+            placeholder="Enter your start"
+            pattern="^[A-Za-z]+$"
+            title="Special characters and single numbers are not allowed"
+            required
+          />
           <label htmlFor="destination">To: </label>
-          <input id="destination" name="destination" placeholder="Enter your destination" required />
+          <input
+            id="destination"
+            name="destination"
+            placeholder="Enter your destination"
+            pattern="^[A-Za-z]+$"
+            title="Special characters and single numbers are not allowed"
+            required
+          />
           <label htmlFor="km">Km: </label>
-          <input onChange={handleKm} id="km" name="km" placeholder="Enter the length of your journey" required />
+          <input
+            onChange={handleKm}
+            id="km"
+            name="km"
+            placeholder="Enter the length of your journey"
+            pattern="^\d+(,\d+)?(\.\d+)?$"
+            required
+          />
           <label htmlFor="transport">
             Transport:
             <select
