@@ -5,7 +5,7 @@ import EntryForm from "@/components/EntryForm";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({ onSubmit, result, onCalculateCo2 }) {
   return (
     <>
       <Head>
@@ -15,8 +15,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={inter.className}>
-        <Heading>CO<sub>2</sub>-Mobility-Tracker</Heading>
-        <EntryForm />
+        <Heading>
+          CO<sub>2</sub>-Mobility-Tracker
+        </Heading>
+        <EntryForm
+          formName={"calculator"}
+          onSubmit={onSubmit}
+          result={result}
+          onCalculateCo2={onCalculateCo2}
+        />
       </main>
     </>
   );
