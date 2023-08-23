@@ -4,6 +4,7 @@ import Tab from "./Tab";
 import Tabs from "./Tabs";
 import Badge from "./Badge";
 import FavouriteButton from "./FavouriteButton";
+import { useRouter } from "next/router";
 
 export default function EntryList({
   entries,
@@ -14,6 +15,12 @@ export default function EntryList({
   favouriteEntriesCount,
   onToggleFavourite,
 }) {
+
+  const router = useRouter();
+
+  function handleBackToForm() {
+    router.back();
+  }
 
   return (
     <>
@@ -48,7 +55,7 @@ export default function EntryList({
         ))}
       </div>
       </section>
-      <button type="submit"> + </button>
+      <button type="submit" onClick={handleBackToForm}> + </button>
     </>
   );
 }
