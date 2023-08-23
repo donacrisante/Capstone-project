@@ -84,19 +84,35 @@ export default function EntryList({
       {selectedEntry && (
         <div>
           <h3>Edit Entry</h3>
-          {/* Replace this with your edit form fields */}
+          <input
+            type="date"
+            value={updatedEntry.date}
+            onChange={(e) => setUpdatedEntry({ ...updatedEntry, date: e.target.value })}
+          />
           <input
             type="text"
             value={updatedEntry.start}
             onChange={(e) => setUpdatedEntry({ ...updatedEntry, start: e.target.value })}
           />
+          <input
+            type="text"
+            value={updatedEntry.destination}
+            onChange={(e) => setUpdatedEntry({ ...updatedEntry, destination: e.target.value })}
+          />
+          <input
+            type="text"
+            value={updatedEntry.transport}
+            onChange={(e) => setUpdatedEntry({ ...updatedEntry, transport: e.target.value })}
+          />
+          <input
+            type="text"
+            value={updatedEntry.fuel}
+            onChange={(e) => setUpdatedEntry({ ...updatedEntry, fuel: e.target.value })}
+          />
           <button onClick={handleUpdateEntry}>Update</button>
         </div>
       )}
-      <button type="submit" onClick={handleBackToForm}>
-        {" "}
-        +{" "}
-      </button>
+      <button type="submit" onClick={handleBackToForm}> + </button>
     </>
   );
 }
