@@ -1,3 +1,5 @@
+import EntryForm from "@/components/EntryForm";
+
 export default function EditForm({
   /* selectedEntry */ selectedEntry,
   setSelectedEntry,
@@ -25,7 +27,7 @@ export default function EditForm({
   }
   return (
     <>
-      {/* {selectedEntry && ( */}
+      {selectedEntry && (
       <div>
         <h3>Edit your journey</h3>
         {/* <form>
@@ -103,15 +105,15 @@ export default function EditForm({
           </label>
         </form> */}
         {/* Replace this with your edit form fields */}
-        {/* <input
+        <input
             type="text"
             value={updatedEntry.start}
             onChange={(event) => setUpdatedEntry({ ...updatedEntry, start: event.target.value })}
-          /> */}
+          />
         {/* Add more input fields for other entry properties */}
         <button onClick={handleUpdateEntry}>Update</button>
       </div>
-      {/* )} */}
+      )}
     </>
   );
 }

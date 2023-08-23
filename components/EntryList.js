@@ -16,6 +16,7 @@ export default function EntryList({
   favouriteEntriesCount,
   onToggleFavourite,
 }) {
+
   const [selectedEntry, setSelectedEntry] = useState(null); // State to track the selected entry for editing
   const [updatedEntry, setUpdatedEntry] = useState(null); // State to store the updated entry data
 
@@ -29,9 +30,19 @@ export default function EntryList({
     // Set the selected entry for editing
     setSelectedEntry(entry);
     setUpdatedEntry({ ...entry }); // Initialize the form with the current data
-    router.push("/editForm");
+    /* router.push("/editForm"); */
   }
 
+  function handleUpdateEntry() {
+    // Update the entry in the entries array
+    const updatedEntries = entries.map((entry) =>
+      entry.id === selectedEntry.id ? updatedEntry : entry
+    );
+
+    // Clear the selected entry and updated data
+    setSelectedEntry(null);
+    setUpdatedEntry(null);
+  }
 
   return (
     <>
@@ -70,19 +81,18 @@ export default function EntryList({
           ))}
         </div>
       </section>
-      {/* {selectedEntry && (
+      {selectedEntry && (
         <div>
           <h3>Edit Entry</h3>
           {/* Replace this with your edit form fields */}
-          {/* <input
+          <input
             type="text"
             value={updatedEntry.start}
-            onChange={(event) => setUpdatedEntry({ ...updatedEntry, start: event.target.value })}
-          /> */}
-          {/* Add more input fields for other entry properties */}
-        {/*   <button onClick={handleUpdateEntry}>Update</button>
+            onChange={(e) => setUpdatedEntry({ ...updatedEntry, start: e.target.value })}
+          />
+          <button onClick={handleUpdateEntry}>Update</button>
         </div>
-      )}  */}
+      )}
       <button type="submit" onClick={handleBackToForm}>
         {" "}
         +{" "}
