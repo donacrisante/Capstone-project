@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import WrappedDatePicker from "./WrappedDatePicker";
 import { calculator } from "@/library/calculator";
 import { useState } from "react";
 
 export default function EntryForm({ formName, onSubmit }) {
   const [transport, setTransport] = useState("Select a transport");
-  const [startDate, setStartDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const [fuel, setFuel] = useState("");
   const [km, setKm] = useState(0);
   const [result, setResult] = useState(0);
@@ -50,6 +49,9 @@ export default function EntryForm({ formName, onSubmit }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const newEntry = Object.fromEntries(formData);
+    const dateParts = newEntry.date.split("-");
+    const formattedDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
+    newEntry.date = formattedDate;
     const transport = newEntry.transport;
     const km = newEntry.km;
     const fuel = newEntry.fuel;
@@ -66,17 +68,15 @@ export default function EntryForm({ formName, onSubmit }) {
         <h3>Measure your impact</h3>
         <Form aria-labelledby={formName} onSubmit={handleSubmit}>
           <h3>Enter your journey: </h3>
-          <label htmlFor="date">
-            Date:
-            <WrappedDatePicker
-              id="date"
-              name="date"
-              showIcon
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              dateFormat="dd.MM.yyyy"
-            />
-          </label>
+          <label htmlFor="startDate">Start Date: </label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            onChange={(event) => setDate(event.target.value)}
+            placeholder="dd.mm.yy"
+            required
+          />
           <label htmlFor="start">From: </label>
           <input
             id="start"
