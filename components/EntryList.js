@@ -5,7 +5,7 @@ import Tabs from "./Tabs";
 import Badge from "./Badge";
 import FavouriteButton from "./FavouriteButton";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 
 export default function EntryList({
   entries,
@@ -15,10 +15,13 @@ export default function EntryList({
   allEntriesCount,
   favouriteEntriesCount,
   onToggleFavourite,
+  setSelectedEntry
 }) {
 
-  const [selectedEntry, setSelectedEntry] = useState(null); // State to track the selected entry for editing
-  const [updatedEntry, setUpdatedEntry] = useState(null); // State to store the updated entry data
+  // identifie l'entrée à modifier
+  const [updatedEntry, setUpdatedEntry] = useLocalStorageState("updatedEntry", {
+    defaultValue: null,
+   }); // enregistre les données mises à jour
 
   const router = useRouter();
 
@@ -27,21 +30,9 @@ export default function EntryList({
   }
 
   function handleEditEntry(entry) {
-    // Set the selected entry for editing
     setSelectedEntry(entry);
-    setUpdatedEntry({ ...entry }); // Initialize the form with the current data
-    /* router.push("/editForm"); */
-  }
-
-  function handleUpdateEntry() {
-    // Update the entry in the entries array
-    const updatedEntries = entries.map((entry) =>
-      entry.id === selectedEntry.id ? updatedEntry : entry
-    );
-
-    // Clear the selected entry and updated data
-    setSelectedEntry(null);
-    setUpdatedEntry(null);
+    setUpdatedEntry({ ...entry }); // initialise le formulaire avec les entrées à modifier
+    router.push("journeyList/edit");
   }
 
   return (
@@ -80,38 +71,7 @@ export default function EntryList({
             </Fragment>
           ))}
         </div>
-      </section>
-      {selectedEntry && (
-        <div>
-          <h3>Edit Entry</h3>
-          <input
-            type="date"
-            value={updatedEntry.date}
-            onChange={(e) => setUpdatedEntry({ ...updatedEntry, date: e.target.value })}
-          />
-          <input
-            type="text"
-            value={updatedEntry.start}
-            onChange={(e) => setUpdatedEntry({ ...updatedEntry, start: e.target.value })}
-          />
-          <input
-            type="text"
-            value={updatedEntry.destination}
-            onChange={(e) => setUpdatedEntry({ ...updatedEntry, destination: e.target.value })}
-          />
-          <input
-            type="text"
-            value={updatedEntry.transport}
-            onChange={(e) => setUpdatedEntry({ ...updatedEntry, transport: e.target.value })}
-          />
-          <input
-            type="text"
-            value={updatedEntry.fuel}
-            onChange={(e) => setUpdatedEntry({ ...updatedEntry, fuel: e.target.value })}
-          />
-          <button onClick={handleUpdateEntry}>Update</button>
-        </div>
-      )}
+      </section>        
       <button type="submit" onClick={handleBackToForm}> + </button>
     </>
   );

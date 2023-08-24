@@ -14,6 +14,10 @@ export default function App({ Component, pageProps }) {
     defaultValue: "all",
     });
 
+  const [selectedEntry, setSelectedEntry] = useLocalStorageState("selectedEntry", {
+    defaultValue: null,
+   }); 
+
   function handleShowAllEntries() {
     setFilter("all");
   }
@@ -37,6 +41,7 @@ export default function App({ Component, pageProps }) {
 
   const favouriteEntries = entries.filter((entry) => entry.isFavourite);
 
+
   return (
     <>
       <GlobalStyle />
@@ -52,6 +57,8 @@ export default function App({ Component, pageProps }) {
         allEntriesCount={entries.length}
         favouriteEntriesCount={favouriteEntries.length}
         onToggleFavourite={handleToggleFavourite}
+        selectedEntry={selectedEntry}
+        setSelectedEntry={setSelectedEntry}
       />
     </>
   );

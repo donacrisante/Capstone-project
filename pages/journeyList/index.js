@@ -10,7 +10,9 @@ export default function JourneyList({
   result,
   id,
   onToggleFavourite,
+  setSelectedEntry,
 }) {
+
 
   return (
     <EntryList
@@ -23,6 +25,7 @@ export default function JourneyList({
       result={result}
       id={id}
       onToggleFavourite={onToggleFavourite}
+      setSelectedEntry={setSelectedEntry}
     />
   );
 }
