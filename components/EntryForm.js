@@ -24,6 +24,22 @@ export default function EntryForm({ formName, onSubmit }) {
     { label: "Electric-Renewable", value: "electric-renewable" },
   ];
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const newEntry = Object.fromEntries(formData);
+    const dateParts = newEntry.date.split("-");
+    const formattedDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
+    newEntry.date = formattedDate;
+    const transport = newEntry.transport;
+    const km = newEntry.km;
+    const fuel = newEntry.fuel;
+    const result = handleCalculateCo2(transport, km, fuel);
+    newEntry.result = result;
+    event.target.reset();
+    onSubmit(newEntry);
+  }
+
   function handleDropdownChange(event) {
     setTransport(event.target.value);
   }
@@ -45,22 +61,6 @@ export default function EntryForm({ formName, onSubmit }) {
     return 0;
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const newEntry = Object.fromEntries(formData);
-    const dateParts = newEntry.date.split("-");
-    const formattedDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
-    newEntry.date = formattedDate;
-    const transport = newEntry.transport;
-    const km = newEntry.km;
-    const fuel = newEntry.fuel;
-    const result = handleCalculateCo2(transport, km, fuel);
-    newEntry.result = result;
-    event.target.reset();
-    onSubmit(newEntry);
-  }
-
   return (
     <>
       <h2>Calculator</h2>
@@ -68,7 +68,7 @@ export default function EntryForm({ formName, onSubmit }) {
         <h3>Measure your impact</h3>
         <Form aria-labelledby={formName} onSubmit={handleSubmit}>
           <h3>Enter your journey: </h3>
-          <label htmlFor="startDate">Start Date: </label>
+          <label htmlFor="date">Date: </label>
           <input
             type="date"
             id="date"

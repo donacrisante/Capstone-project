@@ -18,9 +18,8 @@ export default function EntryList({
   setSelectedEntry
 }) {
 
-  // identifie l'entrée à modifier
   const [updatedEntry, setUpdatedEntry] = useLocalStorageState("updatedEntry", {
-    defaultValue: null,
+    defaultValue: [],
    }); // enregistre les données mises à jour
 
   const router = useRouter();

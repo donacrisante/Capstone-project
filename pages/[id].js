@@ -11,7 +11,6 @@ export default function EditEntry({
 
   const router = useRouter();
   const { id } = router.query;
-  /* const [edit, setEdit] = useState(false); */
 
   function handleUpdateEntry() {
     const updatedEntries = entries.map((entry) =>
@@ -27,10 +26,7 @@ export default function EditEntry({
       <h3>Edit Entry</h3>
       <EntryForm
       formName="editForm"
-      /* edit={edit}
-      setEdit={setEdit} */
       onSubmit={handleUpdateEntry} />
-      {/* <button onClick={handleUpdateEntry}>Save</button> */}
     </>
   );
 }

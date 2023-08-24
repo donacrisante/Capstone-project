@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
     });
 
   const [selectedEntry, setSelectedEntry] = useLocalStorageState("selectedEntry", {
-    defaultValue: null,
+    defaultValue: [],
    }); 
 
   function handleShowAllEntries() {

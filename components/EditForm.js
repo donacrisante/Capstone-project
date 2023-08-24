@@ -1,11 +1,13 @@
 import styled from "styled-components";
 /* import { calculator } from "@/library/calculator"; */
 import { useState } from "react";
+import { useRouter } from "next/router";
 
-export default function EditForm({ formName, /* onSubmit, */ selectedEntry }) {
+export default function EditForm({ formName, selectedEntry }) {
   const [transport, setTransport] = useState("Select a transport");
-  const [date, setDate] = useState(new Date());
-  const [fuel, setFuel] = useState("");
+  const [date, setDate] = useState(selectedEntry.date);
+  selectedEntry.date = Date.parse("");
+  const [fuel, setFuel] = useState("Select a car");
   const [km, setKm] = useState(0);
   /* const [result, setResult] = useState(0); */
 
@@ -36,6 +38,12 @@ export default function EditForm({ formName, /* onSubmit, */ selectedEntry }) {
     setKm(event.target.value);
   }
 
+  const router = useRouter();
+
+  function handleBackToList() {
+    router.back();
+  }
+
   /* function handleCalculateCo2(transport, km, fuel) {
     const selectedTransport = transport === "car" ? fuel : transport;
     const kmNumber = parseFloat(km.replace(",", "."));
@@ -45,26 +53,16 @@ export default function EditForm({ formName, /* onSubmit, */ selectedEntry }) {
     return 0;
   } */
 
-  /* function handleSubmit(event) {
+  function handleSaveEditEntry(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const newEntry = Object.fromEntries(formData);
-    const dateParts = newEntry.date.split("-");
-    const formattedDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
-    newEntry.date = formattedDate;
-    const transport = newEntry.transport;
-    const km = newEntry.km;
-    const fuel = newEntry.fuel;
-    const result = handleCalculateCo2(transport, km, fuel);
-    newEntry.result = result;
-    event.target.reset();
-    onSubmit(newEntry);
-  } */
+    const data = Object.fromEntries(formData);
+  }
 
   return (
     <>
-        <Form aria-labelledby={formName} /* onSubmit={handleSubmit} */>
-          <label htmlFor="startDate">Start Date: </label>
+        <Form aria-labelledby={formName} onSubmit={handleSaveEditEntry}>
+          <label htmlFor="date">Date: </label>
           <input
             defaultValue={selectedEntry.date}
             type="date"
@@ -142,7 +140,8 @@ export default function EditForm({ formName, /* onSubmit, */ selectedEntry }) {
               </>
             ) : null}
           </label>
-          <Button type="submit">Save</Button>
+          <SaveButton type="submit">Save</SaveButton>
+          <CancelButton type="submit" onClick={handleBackToList}> Cancel </CancelButton>
         </Form>
         {/* <button
           type="button"
@@ -164,7 +163,12 @@ const Form = styled.form`
   gap: 24px;
 `;
 
-const Button = styled.button`
+const SaveButton = styled.button`
+  padding-inline: 20px;
+  padding-block: 10px;
+`;
+
+const CancelButton = styled.button`
   padding-inline: 20px;
   padding-block: 10px;
 `;

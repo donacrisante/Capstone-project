@@ -19,7 +19,7 @@ export default function Home({ onSubmit, result, onCalculateCo2 }) {
           CO<sub>2</sub>-Mobility-Tracker
         </Heading>
         <EntryForm
-          formName={"calculator"}
+          formName="calculator"
           onSubmit={onSubmit}
           result={result}
           onCalculateCo2={onCalculateCo2}
