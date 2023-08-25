@@ -15,8 +15,8 @@ export default function EntryList({
   favouriteEntriesCount,
   onToggleFavourite,
   setSelectedEntry,
-  updatedEntry,
-  id
+  selectedEntry,
+  updatedEntry
 }) {
   const router = useRouter();
 
@@ -24,15 +24,15 @@ export default function EntryList({
     router.back();
   }
 
-  function handleEditEntry(id) {
+  function handleEditEntry(updatedEntry) {
     setSelectedEntry(
       entries.map((entry) =>
-        entry.id === updatedEntry.id ? { ...entry, ...updatedEntry } : entry
+        entry.id === selectedEntry.id ? { ...entry, ...updatedEntry } : entry
       )
     );
+
     router.push("journeyList/edit");
   }
-  console.log(entries);
 
   return (
     <>
@@ -66,7 +66,7 @@ export default function EntryList({
                 {entry.date}, {entry.start} - {entry.destination}, {entry.km}km,{" "}
                 {entry.transport} {entry.fuel}, {entry.result} kg CO<sub>2</sub>
               </p>
-              <button onClick={() => handleEditEntry(id)}>Edit</button>
+              <button onClick={() => handleEditEntry(updatedEntry)}>Edit</button>
             </Fragment>
           ))}
         </div>

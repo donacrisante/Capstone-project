@@ -65,7 +65,7 @@ export default function App({ Component, pageProps }) {
         setSelectedEntry={setSelectedEntry}
         updatedEntry={updatedEntry}
         setUpdatedEntry={setUpdatedEntry}
-        id={id}
+
       />
     </>
   );
