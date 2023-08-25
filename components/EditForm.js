@@ -1,14 +1,12 @@
 import styled from "styled-components";
-/* import { calculator } from "@/library/calculator"; */
 import { useState } from "react";
 import { useRouter } from "next/router";
 
 export default function EditForm({ formName, selectedEntry }) {
-  const [transport, setTransport] = useState("Select a transport");
+  const [transport, setTransport] = useState(selectedEntry.transport);
   const [date, setDate] = useState(selectedEntry.date);
-  const [fuel, setFuel] = useState("Select a car");
-  const [km, setKm] = useState(0);
-  /* const [result, setResult] = useState(0); */
+  const [fuel, setFuel] = useState(selectedEntry.fuel);
+  const [km, setKm] = useState(selectedEntry.km);
 
   const transports = [
     { label: "Car", value: "car" },
@@ -43,22 +41,13 @@ export default function EditForm({ formName, selectedEntry }) {
     router.back();
   }
 
-  /* function handleCalculateCo2(transport, km, fuel) {
-    const selectedTransport = transport === "car" ? fuel : transport;
-    const kmNumber = parseFloat(km.replace(",", "."));
-    if (!isNaN(kmNumber)) {
-      return calculator[selectedTransport](kmNumber);
-    }
-    return 0;
-  } */
-
   function handleSaveEditEntry(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
   }
 
-  let dateAsDate = new Date();
+  /* let dateAsDate = new Date();
   if (typeof selectedEntry.date !== "undefined") {
     const dateAsArray = selectedEntry.date.split(".");
     dateAsDate = new Date(
@@ -66,18 +55,18 @@ export default function EditForm({ formName, selectedEntry }) {
       parseInt(dateAsArray[1]) - 1,
       parseInt(dateAsArray[0]) + 1
     );
-  }
+  } */
 
   return (
     <>
       <Form aria-labelledby={formName} onSubmit={handleSaveEditEntry}>
         <label htmlFor="date">Date: </label>
         <input
-          defaultValue={dateAsDate.toISOString().split("T")[0]}
+          defaultValue={new Date(selectedEntry.date).toISOString().split("T")[0]}
           type="date"
           id="date"
           name="date"
-          /* onChange={(event) => setDate(event.target.value)} */
+          onChange={(event) => setDate(event.target.value)}
           placeholder="dd.mm.yy"
           required
         />
@@ -155,15 +144,6 @@ export default function EditForm({ formName, selectedEntry }) {
           Cancel{" "}
         </CancelButton>
       </Form>
-      {/* <button
-          type="button"
-          onClick={() => setResult(handleCalculateCo2(transport, km, fuel))}
-        >
-          Calculate your impact
-        </button>
-      <p>
-        Your journey has emitted {result} kg CO<sub>2</sub>
-      </p> */}
     </>
   );
 }

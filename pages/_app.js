@@ -18,6 +18,10 @@ export default function App({ Component, pageProps }) {
     defaultValue: [],
    }); 
 
+  const [updatedEntry, setUpdatedEntry] = useLocalStorageState("updatedEntry", {
+    defaultValue: [],
+   }); 
+
   function handleShowAllEntries() {
     setFilter("all");
   }
@@ -59,6 +63,9 @@ export default function App({ Component, pageProps }) {
         onToggleFavourite={handleToggleFavourite}
         selectedEntry={selectedEntry}
         setSelectedEntry={setSelectedEntry}
+        updatedEntry={updatedEntry}
+        setUpdatedEntry={setUpdatedEntry}
+        id={id}
       />
     </>
   );

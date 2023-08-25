@@ -9,7 +9,7 @@ export default function EditEntry({
   setUpdatedEntry, */
 }) {
 
-  const router = useRouter();
+  /* const router = useRouter();
   const { id } = router.query;
 
   function handleUpdateEntry() {
@@ -19,15 +19,15 @@ export default function EditEntry({
     // vide l'entrée sélectionnée et l'entrée mise à jour
     setSelectedEntry(null);
     setUpdatedEntry(null);
-  }
+  } */
 
   return (
-    <>
+    {/* <>
       <h3>Edit Entry</h3>
       <EntryForm
       formName="editForm"
       onSubmit={handleUpdateEntry} />
-    </>
+    </> */}
   );
 }
 

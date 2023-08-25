@@ -5,7 +5,6 @@ import Tabs from "./Tabs";
 import Badge from "./Badge";
 import FavouriteButton from "./FavouriteButton";
 import { useRouter } from "next/router";
-import useLocalStorageState from "use-local-storage-state";
 
 export default function EntryList({
   entries,
@@ -15,24 +14,25 @@ export default function EntryList({
   allEntriesCount,
   favouriteEntriesCount,
   onToggleFavourite,
-  setSelectedEntry
+  setSelectedEntry,
+  updatedEntry,
+  id
 }) {
-
-  const [updatedEntry, setUpdatedEntry] = useLocalStorageState("updatedEntry", {
-    defaultValue: [],
-   }); // enregistre les données mises à jour
-
   const router = useRouter();
 
   function handleBackToForm() {
     router.back();
   }
 
-  function handleEditEntry(entry) {
-    setSelectedEntry(entry);
-    setUpdatedEntry({ ...entry }); // initialise le formulaire avec les entrées à modifier
+  function handleEditEntry(id) {
+    setSelectedEntry(
+      entries.map((entry) =>
+        entry.id === updatedEntry.id ? { ...entry, ...updatedEntry } : entry
+      )
+    );
     router.push("journeyList/edit");
   }
+  console.log(entries);
 
   return (
     <>
@@ -66,12 +66,15 @@ export default function EntryList({
                 {entry.date}, {entry.start} - {entry.destination}, {entry.km}km,{" "}
                 {entry.transport} {entry.fuel}, {entry.result} kg CO<sub>2</sub>
               </p>
-              <button onClick={() => handleEditEntry(entry)}>Edit</button>
+              <button onClick={() => handleEditEntry(id)}>Edit</button>
             </Fragment>
           ))}
         </div>
-      </section>        
-      <button type="submit" onClick={handleBackToForm}> + </button>
+      </section>
+      <button type="submit" onClick={handleBackToForm}>
+        {" "}
+        +{" "}
+      </button>
     </>
   );
 }
