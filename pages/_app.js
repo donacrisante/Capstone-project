@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }) {
 
   const [filter, setFilter] = useLocalStorageState("filter", {
     defaultValue: "all",
-    });
+  });
 
   function handleShowAllEntries() {
     setFilter("all");
@@ -22,8 +22,8 @@ export default function App({ Component, pageProps }) {
     setFilter("favourites");
   }
 
-  function handleFormSubmit(newEntry) {    
-    setEntries([{ id: uid(), ...newEntry }, ...entries]);
+  function handleFormSubmit(newEntry) {
+    setEntries([{ ...newEntry, id: uid() }, ...entries]);
     router.push("/journey-list");
   }
 
@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }) {
         entry.id === updatedEntry.id ? { ...entry, ...updatedEntry } : entry
       )
     );
-    router.push(`/journey-list/${entry.id}`);
+    router.back();
   }
 
   function handleToggleFavourite(id) {
@@ -43,6 +43,8 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
+
+  console.log(entries);
 
   const favouriteEntries = entries.filter((entry) => entry.isFavourite);
 

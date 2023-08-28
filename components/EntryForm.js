@@ -2,13 +2,16 @@ import styled from "styled-components";
 import { calculator } from "@/library/calculator";
 import { useState } from "react";
 
-export default function EntryForm({ formName, buttonText="Add journey", onSubmit, selectedEntry }) {
+export default function EntryForm({
+  formName,
+  buttonText = "Add journey",
+  onSubmit,
+  selectedEntry,
+}) {
   const [transport, setTransport] = useState(
     selectedEntry?.transport || "Select a transport"
   );
-  const [date, setDate] = useState(
-    new Date(selectedEntry?.date) || new Date()
-  );
+  const [date, setDate] = useState(new Date(selectedEntry?.date) || new Date());
   const [fuel, setFuel] = useState(selectedEntry?.fuel || "");
   const [km, setKm] = useState(selectedEntry?.km ?? 0);
   const [result, setResult] = useState(selectedEntry?.result ?? 0);
@@ -42,7 +45,7 @@ export default function EntryForm({ formName, buttonText="Add journey", onSubmit
     newEntry.id = selectedEntry?.id;
     onSubmit(newEntry);
   }
-    /* const dateParts = newEntry.date.split("-");
+  /* const dateParts = newEntry.date.split("-");
     const formattedDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
     newEntry.date = formattedDate; */
 
@@ -86,7 +89,7 @@ export default function EntryForm({ formName, buttonText="Add journey", onSubmit
           />
           <label htmlFor="start">From: </label>
           <input
-          defaultValue={selectedEntry?.start || ""}
+            defaultValue={selectedEntry?.start || ""}
             id="start"
             name="start"
             placeholder="Enter your start"
@@ -96,7 +99,7 @@ export default function EntryForm({ formName, buttonText="Add journey", onSubmit
           />
           <label htmlFor="destination">To: </label>
           <input
-          defaultValue={selectedEntry?.destination || ""}
+            defaultValue={selectedEntry?.destination || ""}
             id="destination"
             name="destination"
             placeholder="Enter your destination"
@@ -106,7 +109,7 @@ export default function EntryForm({ formName, buttonText="Add journey", onSubmit
           />
           <label htmlFor="km">Km: </label>
           <input
-          value={km}
+            value={km}
             onChange={handleKm}
             id="km"
             name="km"
