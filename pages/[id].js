@@ -1,36 +1,27 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
 import EntryForm from "@/components/EntryForm";
 
-export default function EditEntry({
-  /* selectedEntry,
-  setSelectedEntry,
-  updatedEntry,
-  setUpdatedEntry, */
-}) {
-
-  /* const router = useRouter();
+export default function EditPage({ entries, onHandleEdit }) {
+  const router = useRouter();
   const { id } = router.query;
 
-  function handleUpdateEntry() {
-    const updatedEntries = entries.map((entry) =>
-      entry.id === selectedEntry.id ? updatedEntry : entry
-    );
-    // vide l'entrée sélectionnée et l'entrée mise à jour
-    setSelectedEntry(null);
-    setUpdatedEntry(null);
-  } */
+  const selectedEntry = entries.find((entry) => entry.id === id);
 
+  if (!selectedEntry) {
+    return <div>no journey found</div>;
+  }
+
+  console.log(id);
   return (
-    {/* <>
-      <h3>Edit Entry</h3>
+    <>
+      <h3>Edit journey</h3>
       <EntryForm
-      formName="editForm"
-      onSubmit={handleUpdateEntry} />
-    </> */}
+        formName="editForm"
+        buttonText="Edit Journey"
+        selectedEntry={selectedEntry}
+        onSubmit={onHandleEdit}
+      />
+      <button onClick={() => router.back()}>Cancel</button>
+    </>
   );
-}
-
-
-      
-      
+} 

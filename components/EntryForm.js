@@ -2,12 +2,16 @@ import styled from "styled-components";
 import { calculator } from "@/library/calculator";
 import { useState } from "react";
 
-export default function EntryForm({ formName, onSubmit }) {
-  const [transport, setTransport] = useState("Select a transport");
-  const [date, setDate] = useState(new Date());
-  const [fuel, setFuel] = useState("");
-  const [km, setKm] = useState(0);
-  const [result, setResult] = useState(0);
+export default function EntryForm({ formName, buttonText="Add journey", onSubmit, selectedEntry }) {
+  const [transport, setTransport] = useState(
+    selectedEntry?.transport || "Select a transport"
+  );
+  const [date, setDate] = useState(
+    new Date(selectedEntry?.date) || new Date()
+  );
+  const [fuel, setFuel] = useState(selectedEntry?.fuel || "");
+  const [km, setKm] = useState(selectedEntry?.km ?? 0);
+  const [result, setResult] = useState(selectedEntry?.result ?? 0);
 
   const transports = [
     { label: "Car", value: "car" },
@@ -28,17 +32,19 @@ export default function EntryForm({ formName, onSubmit }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const newEntry = Object.fromEntries(formData);
-    const dateParts = newEntry.date.split("-");
-    const formattedDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
-    newEntry.date = formattedDate;
-    const transport = newEntry.transport;
-    const km = newEntry.km;
-    const fuel = newEntry.fuel;
-    const result = handleCalculateCo2(transport, km, fuel);
-    newEntry.result = result;
-    event.target.reset();
+
+    newEntry.result = handleCalculateCo2(
+      newEntry.transport,
+      newEntry.km,
+      newEntry.fuel
+    );
+
+    newEntry.id = selectedEntry?.id;
     onSubmit(newEntry);
   }
+    /* const dateParts = newEntry.date.split("-");
+    const formattedDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
+    newEntry.date = formattedDate; */
 
   function handleDropdownChange(event) {
     setTransport(event.target.value);
@@ -73,12 +79,14 @@ export default function EntryForm({ formName, onSubmit }) {
             type="date"
             id="date"
             name="date"
+            /* value={date.toISOString().split("T")[0]} */
             onChange={(event) => setDate(event.target.value)}
             placeholder="dd.mm.yy"
             required
           />
           <label htmlFor="start">From: </label>
           <input
+          defaultValue={selectedEntry?.start || ""}
             id="start"
             name="start"
             placeholder="Enter your start"
@@ -88,6 +96,7 @@ export default function EntryForm({ formName, onSubmit }) {
           />
           <label htmlFor="destination">To: </label>
           <input
+          defaultValue={selectedEntry?.destination || ""}
             id="destination"
             name="destination"
             placeholder="Enter your destination"
@@ -97,6 +106,7 @@ export default function EntryForm({ formName, onSubmit }) {
           />
           <label htmlFor="km">Km: </label>
           <input
+          value={km}
             onChange={handleKm}
             id="km"
             name="km"
@@ -110,6 +120,7 @@ export default function EntryForm({ formName, onSubmit }) {
             <select
               name="transport"
               id="transport"
+              value={transport}
               onChange={handleDropdownChange}
             >
               <option value="Select a transport">
@@ -128,6 +139,7 @@ export default function EntryForm({ formName, onSubmit }) {
                 <select
                   name="fuel"
                   id="fuel"
+                  value={fuel}
                   onChange={handleDropdownChangeFuel}
                 >
                   <option value="Select a car"> -- Select a car -- </option>
@@ -140,7 +152,7 @@ export default function EntryForm({ formName, onSubmit }) {
               </>
             ) : null}
           </label>
-          <Button type="submit">Add journey</Button>
+          <Button type="submit">{buttonText}</Button>
         </Form>
         <button
           type="button"

@@ -14,14 +14,6 @@ export default function App({ Component, pageProps }) {
     defaultValue: "all",
     });
 
-  const [selectedEntry, setSelectedEntry] = useLocalStorageState("selectedEntry", {
-    defaultValue: [],
-   }); 
-
-  const [updatedEntry, setUpdatedEntry] = useLocalStorageState("updatedEntry", {
-    defaultValue: [],
-   }); 
-
   function handleShowAllEntries() {
     setFilter("all");
   }
@@ -32,7 +24,16 @@ export default function App({ Component, pageProps }) {
 
   function handleFormSubmit(newEntry) {    
     setEntries([{ id: uid(), ...newEntry }, ...entries]);
-    router.push("/journeyList");
+    router.push("/journey-list");
+  }
+
+  function handleEdit(updatedEntry) {
+    setEntries(
+      entries.map((entry) =>
+        entry.id === updatedEntry.id ? { ...entry, ...updatedEntry } : entry
+      )
+    );
+    router.push(`/journey-list/${entry.id}`);
   }
 
   function handleToggleFavourite(id) {
@@ -44,7 +45,6 @@ export default function App({ Component, pageProps }) {
   }
 
   const favouriteEntries = entries.filter((entry) => entry.isFavourite);
-
 
   return (
     <>
@@ -61,11 +61,7 @@ export default function App({ Component, pageProps }) {
         allEntriesCount={entries.length}
         favouriteEntriesCount={favouriteEntries.length}
         onToggleFavourite={handleToggleFavourite}
-        selectedEntry={selectedEntry}
-        setSelectedEntry={setSelectedEntry}
-        updatedEntry={updatedEntry}
-        setUpdatedEntry={setUpdatedEntry}
-
+        onHandleEdit={handleEdit}
       />
     </>
   );
