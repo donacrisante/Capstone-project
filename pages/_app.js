@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }) {
 
   function handleDelete(selectedEntry) {
     console.log("Deleting entry:", selectedEntry);
-    setEntries(entries.filter((entry) => entry.id !== selectedEntry.id));
+    setEntries(entries.filter((entry) => entry.id !== selectedEntry));
   }
 
   function handleToggleFavourite(id) {

@@ -7,6 +7,7 @@ export default function EditPage({ entries, onHandleEdit, onHandleDelete }) {
 
   const selectedEntry = entries.find((entry) => entry.id === id);
 
+
   if (!selectedEntry) {
     return <div>no journey found</div>;
   }

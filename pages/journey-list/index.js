@@ -10,11 +10,11 @@ export default function JourneyList({
   result,
   id,
   onToggleFavourite,
+  selectedEntry,
   setSelectedEntry,
   onHandleEdit,
   onHandleDelete,
 }) {
-
 
   return (
     <EntryList
@@ -27,6 +27,7 @@ export default function JourneyList({
       result={result}
       id={id}
       onToggleFavourite={onToggleFavourite}
+      selectedEntry={selectedEntry}
       setSelectedEntry={setSelectedEntry}
       onHandleEdit={onHandleEdit}
       onHandleDelete={onHandleDelete}

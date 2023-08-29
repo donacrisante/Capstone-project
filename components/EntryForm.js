@@ -100,7 +100,7 @@ export default function EntryForm({
             value={selectedEntry?.date}
             onChange={(event) => setDate(event.target.value)}
             placeholder="dd.mm.yy"
-            dateFormat="dd/MM/yyyy"
+            /* dateFormat="dd/MM/yyyy" */
             required
           />
           <label htmlFor="start">From: </label>
