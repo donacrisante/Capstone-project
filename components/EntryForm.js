@@ -5,6 +5,7 @@ import { formatDate } from "./FormatDate";
 
 export default function EntryForm({
   formName,
+  formTitle = "Measure your impact",
   buttonText = "Add journey",
   onSubmit,
   selectedEntry,
@@ -74,11 +75,9 @@ export default function EntryForm({
 
   return (
     <>
-      <h2>Calculator</h2>
+    <h3>{formTitle}</h3>
       <section>
-        <h3>Measure your impact</h3>
         <Form aria-labelledby={formName} onSubmit={handleSubmit}>
-          <h3>Enter your journey: </h3>
           <label htmlFor="date">Date: </label>
           <input
             type="date"

@@ -7,7 +7,6 @@ export default function EditPage({ entries, onHandleEdit, onHandleDelete }) {
 
   const selectedEntry = entries.find((entry) => entry.id === id);
 
-
   if (!selectedEntry) {
     return <div>no journey found</div>;
   }
@@ -15,16 +14,18 @@ export default function EditPage({ entries, onHandleEdit, onHandleDelete }) {
   console.log(id);
   return (
     <>
-      <h3>Edit journey</h3>
-      <EntryForm
-        formName="editForm"
-        buttonText="Edit Journey"
-        entries={entries}
-        selectedEntry={selectedEntry}
-        onHandleEdit={onHandleEdit}
-        onHandleDelete={onHandleDelete}
-      />
+      <section>
+        <EntryForm
+          formName="editForm"
+          formTitle="Edit journey:"
+          buttonText="Save"
+          entries={entries}
+          selectedEntry={selectedEntry}
+          onHandleEdit={onHandleEdit}
+          onHandleDelete={onHandleDelete}
+        />
+      </section>
       <button onClick={() => router.back()}>Cancel</button>
     </>
   );
-} 
+}
