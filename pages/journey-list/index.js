@@ -11,6 +11,8 @@ export default function JourneyList({
   id,
   onToggleFavourite,
   setSelectedEntry,
+  onHandleEdit,
+  onHandleDelete,
 }) {
 
 
@@ -26,6 +28,8 @@ export default function JourneyList({
       id={id}
       onToggleFavourite={onToggleFavourite}
       setSelectedEntry={setSelectedEntry}
+      onHandleEdit={onHandleEdit}
+      onHandleDelete={onHandleDelete}
     />
   );
 }

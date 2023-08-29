@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import EntryForm from "@/components/EntryForm";
 
-export default function EditPage({ entries, onHandleEdit }) {
+export default function EditPage({ entries, onHandleEdit, onHandleDelete }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -18,8 +18,10 @@ export default function EditPage({ entries, onHandleEdit }) {
       <EntryForm
         formName="editForm"
         buttonText="Edit Journey"
+        entries={entries}
         selectedEntry={selectedEntry}
-        onSubmit={onHandleEdit}
+        onHandleEdit={onHandleEdit}
+        onHandleDelete={onHandleDelete}
       />
       <button onClick={() => router.back()}>Cancel</button>
     </>

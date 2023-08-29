@@ -14,6 +14,7 @@ export default function EntryList({
   allEntriesCount,
   favouriteEntriesCount,
   onToggleFavourite,
+  selectedEntry,
 }) {
   const router = useRouter();
 
@@ -54,6 +55,7 @@ export default function EntryList({
                 {entry.transport} {entry.fuel}, {entry.result} kg CO<sub>2</sub>
               </p>
               <button onClick={() => router.push(`/${entry.id}`)}>Edit</button>
+              <button onClick={() => router.push(`/${selectedEntry.id}`)}>Delete</button>
             </Fragment>
           ))}
         </div>

@@ -36,6 +36,11 @@ export default function App({ Component, pageProps }) {
     router.back();
   }
 
+  function handleDelete(selectedEntry) {
+    console.log("Deleting entry:", selectedEntry);
+    setEntries(entries.filter((entry) => entry.id !== selectedEntry.id));
+  }
+
   function handleToggleFavourite(id) {
     setEntries(
       entries.map((entry) =>
@@ -43,8 +48,6 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-
-  console.log(entries);
 
   const favouriteEntries = entries.filter((entry) => entry.isFavourite);
 
@@ -64,6 +67,7 @@ export default function App({ Component, pageProps }) {
         favouriteEntriesCount={favouriteEntries.length}
         onToggleFavourite={handleToggleFavourite}
         onHandleEdit={handleEdit}
+        onHandleDelete={handleDelete}
       />
     </>
   );

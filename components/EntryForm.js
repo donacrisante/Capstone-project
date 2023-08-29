@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { calculator } from "@/library/calculator";
 import { useState } from "react";
+import { formatDate } from "./FormatDate";
 
 export default function EntryForm({
   formName,
@@ -13,7 +14,7 @@ export default function EntryForm({
   );
   const [date, setDate] = useState(new Date(selectedEntry?.date) || new Date());
   const [fuel, setFuel] = useState(selectedEntry?.fuel || "");
-  const [km, setKm] = useState(selectedEntry?.km ?? 0);
+  const [km, setKm] = useState(selectedEntry?.km ?? "");
   const [result, setResult] = useState(selectedEntry?.result ?? 0);
 
   const transports = [
@@ -42,12 +43,13 @@ export default function EntryForm({
       newEntry.fuel
     );
 
+    const dateParts = newEntry.date.split("-");
+    const formattedDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
+    newEntry.date = formattedDate;
+
     newEntry.id = selectedEntry?.id;
     onSubmit(newEntry);
   }
-  /* const dateParts = newEntry.date.split("-");
-    const formattedDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
-    newEntry.date = formattedDate; */
 
   function handleDropdownChange(event) {
     setTransport(event.target.value);
@@ -82,9 +84,23 @@ export default function EntryForm({
             type="date"
             id="date"
             name="date"
-            /* value={date.toISOString().split("T")[0]} */
+            /* value={new Date(selectedEntry.date).toISOString().split("T")[0]} */ /* => error Cannot read properties of undefined (reading 'date') */
+            /* value={new Date(selectedEntry?.date).toISOString().split("T")[0]} => error invalid time value */
+            /* value={
+              selectedEntry?.date
+                ? new Date(selectedEntry.date).toISOString().split("T")[0]
+                : ""
+            } => error invalid time value */
+            /* value={(selectedEntry?.date).toISOString().split("T")[0]} => error toISO... is not a function */
+            /* value={selectedEntry?.date} => Datum wird im edit form nicht angezeigt und man kann es nicht ändern */
+            /* Ohne value wird das Datum nicht angezeigt, aber man kann es ändern. */
+            /* value={date.toISOString().split("T")[0]} => invalid time value */
+            /* value={(newEntry.date).toISOString().split("T")[0]} => error newEntry is not defined */
+            /* value={formatDate(selectedEntry?.date)} */
+            value={selectedEntry?.date}
             onChange={(event) => setDate(event.target.value)}
             placeholder="dd.mm.yy"
+            dateFormat="dd/MM/yyyy"
             required
           />
           <label htmlFor="start">From: </label>
@@ -157,12 +173,6 @@ export default function EntryForm({
           </label>
           <Button type="submit">{buttonText}</Button>
         </Form>
-        <button
-          type="button"
-          onClick={() => setResult(handleCalculateCo2(transport, km, fuel))}
-        >
-          Calculate your impact
-        </button>
       </section>
       <p>
         Your journey has emitted {result} kg CO<sub>2</sub>
