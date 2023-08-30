@@ -5,5 +5,3 @@ export default function StarFilled() {
       </svg>
   );
 }
-
-/* "#FF4A11" */

@@ -6,13 +6,14 @@ import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
+
   const [entries, setEntries] = useLocalStorageState("entries", {
     defaultValue: [],
   });
 
   const [filter, setFilter] = useLocalStorageState("filter", {
     defaultValue: "all",
-    });
+  });
 
   function handleShowAllEntries() {
     setFilter("all");
@@ -22,9 +23,33 @@ export default function App({ Component, pageProps }) {
     setFilter("favourites");
   }
 
-  function handleFormSubmit(newEntry) {    
-    setEntries([{ id: uid(), ...newEntry }, ...entries]);
-    router.push("/journeyList");
+  function handleFormSubmit(newEntry) {
+    setEntries([{ ...newEntry, id: uid() }, ...entries]);
+    router.push("/journey-list");
+  }
+
+  function handleEdit(updatedEntry) {
+    setEntries(
+      entries.map((entry) =>
+        entry.id === updatedEntry.id ? { ...entry, ...updatedEntry } : entry
+      )
+    );
+    router.back();
+    alert("Journey updated successfully!");
+  }
+
+  function handleDelete(id) {
+    
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this journey?"
+    );
+
+    if (confirmed) {
+      setEntries(entries.filter((entry) => entry.id !== id));
+      alert("Journey deleted successfully!");
+    } else {
+      alert("Journey not deleted.");
+    }
   }
 
   function handleToggleFavourite(id) {
@@ -52,6 +77,8 @@ export default function App({ Component, pageProps }) {
         allEntriesCount={entries.length}
         favouriteEntriesCount={favouriteEntries.length}
         onToggleFavourite={handleToggleFavourite}
+        onHandleEdit={handleEdit}
+        onHandleDelete={handleDelete}
       />
     </>
   );

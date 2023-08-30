@@ -1,14 +1,21 @@
 import styled from "styled-components";
-import WrappedDatePicker from "./WrappedDatePicker";
 import { calculator } from "@/library/calculator";
 import { useState } from "react";
 
-export default function EntryForm({ formName, onSubmit }) {
-  const [transport, setTransport] = useState("Select a transport");
-  const [startDate, setStartDate] = useState(new Date());
-  const [fuel, setFuel] = useState("");
-  const [km, setKm] = useState(0);
-  const [result, setResult] = useState(0);
+export default function EntryForm({
+  formName,
+  formTitle = "Measure your impact",
+  buttonText = "Add journey",
+  onSubmit,
+  selectedEntry,
+}) {
+  const [transport, setTransport] = useState(
+    selectedEntry?.transport || "Select a transport"
+  );
+  const [date, setDate] = useState(selectedEntry?.date || new Date());
+  const [fuel, setFuel] = useState(selectedEntry?.fuel || "");
+  const [km, setKm] = useState(selectedEntry?.km ?? "");
+  const [result, setResult] = useState(selectedEntry?.result ?? 0);
 
   const transports = [
     { label: "Car", value: "car" },
@@ -25,15 +32,48 @@ export default function EntryForm({ formName, onSubmit }) {
     { label: "Electric-Renewable", value: "electric-renewable" },
   ];
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const newEntry = Object.fromEntries(formData);
+
+      newEntry.result = handleCalculateCo2(
+      newEntry.transport,
+      newEntry.km,
+      newEntry.fuel
+    );
+
+    newEntry.id = selectedEntry?.id;
+    onSubmit(newEntry);
+  }
+
   function handleDropdownChange(event) {
+    /* const newTransport = event.target.value;
+    setTransport(newTransport);
+
+    if (newTransport === "car") {
+      setFuel("Select a car");
+    } else {
+      setFuel("");
+    }
+    const calculatedResult = handleCalculateCo2(newTransport, km, fuel);
+    setResult(calculatedResult); */
     setTransport(event.target.value);
   }
 
   function handleDropdownChangeFuel(event) {
+    /* const newFuel = event.target.value;
+    setFuel(newFuel);
+    const calculatedResult = handleCalculateCo2(transport, km, newFuel);
+    setResult(calculatedResult); */
     setFuel(event.target.value);
   }
 
   function handleKm(event) {
+    /* const newKm = event.target.value;
+    setKm(newKm);
+    const calculatedResult = handleCalculateCo2(transport, newKm, fuel);
+    setResult(calculatedResult); */
     setKm(event.target.value);
   }
 
@@ -46,39 +86,24 @@ export default function EntryForm({ formName, onSubmit }) {
     return 0;
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const newEntry = Object.fromEntries(formData);
-    const transport = newEntry.transport;
-    const km = newEntry.km;
-    const fuel = newEntry.fuel;
-    const result = handleCalculateCo2(transport, km, fuel);
-    newEntry.result = result;
-    event.target.reset();
-    onSubmit(newEntry);
-  }
-
   return (
     <>
-      <h2>Calculator</h2>
+    <h3>{formTitle}</h3>
       <section>
-        <h3>Measure your impact</h3>
         <Form aria-labelledby={formName} onSubmit={handleSubmit}>
-          <h3>Enter your journey: </h3>
-          <label htmlFor="date">
-            Date:
-            <WrappedDatePicker
-              id="date"
-              name="date"
-              showIcon
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              dateFormat="dd.MM.yyyy"
-            />
-          </label>
+          <label htmlFor="date">Date: </label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            value={date}
+            onChange={(event) => setDate(event.target.value)}
+            placeholder="dd.mm.yy"
+            required
+          />
           <label htmlFor="start">From: </label>
           <input
+            defaultValue={selectedEntry?.start || ""}
             id="start"
             name="start"
             placeholder="Enter your start"
@@ -88,6 +113,7 @@ export default function EntryForm({ formName, onSubmit }) {
           />
           <label htmlFor="destination">To: </label>
           <input
+            defaultValue={selectedEntry?.destination || ""}
             id="destination"
             name="destination"
             placeholder="Enter your destination"
@@ -97,6 +123,7 @@ export default function EntryForm({ formName, onSubmit }) {
           />
           <label htmlFor="km">Km: </label>
           <input
+            value={km}
             onChange={handleKm}
             id="km"
             name="km"
@@ -110,6 +137,7 @@ export default function EntryForm({ formName, onSubmit }) {
             <select
               name="transport"
               id="transport"
+              value={transport}
               onChange={handleDropdownChange}
             >
               <option value="Select a transport">
@@ -128,6 +156,7 @@ export default function EntryForm({ formName, onSubmit }) {
                 <select
                   name="fuel"
                   id="fuel"
+                  value={fuel}
                   onChange={handleDropdownChangeFuel}
                 >
                   <option value="Select a car"> -- Select a car -- </option>
@@ -140,14 +169,8 @@ export default function EntryForm({ formName, onSubmit }) {
               </>
             ) : null}
           </label>
-          <Button type="submit">Add journey</Button>
+          <Button type="submit">{buttonText}</Button>
         </Form>
-        <button
-          type="button"
-          onClick={() => setResult(handleCalculateCo2(transport, km, fuel))}
-        >
-          Calculate your impact
-        </button>
       </section>
       <p>
         Your journey has emitted {result} kg CO<sub>2</sub>
