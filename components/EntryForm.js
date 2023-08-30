@@ -37,7 +37,7 @@ export default function EntryForm({
     const formData = new FormData(event.target);
     const newEntry = Object.fromEntries(formData);
 
-      newEntry.result = handleCalculateCo2(
+    newEntry.result = handleCalculateCo2(
       newEntry.transport,
       newEntry.km,
       newEntry.fuel
@@ -48,33 +48,36 @@ export default function EntryForm({
   }
 
   function handleDropdownChange(event) {
-    /* const newTransport = event.target.value;
-    setTransport(newTransport);
+    setTransport(event.target.value);
 
-    if (newTransport === "car") {
+    if (transport === "car") {
       setFuel("Select a car");
     } else {
       setFuel("");
     }
-    const calculatedResult = handleCalculateCo2(newTransport, km, fuel);
+
+    /* const newTransport = event.target.value;
+    setTransport(newTransport); */
+    /* const calculatedResult = handleCalculateCo2(newTransport, km, fuel);
     setResult(calculatedResult); */
-    setTransport(event.target.value);
   }
 
   function handleDropdownChangeFuel(event) {
+    setFuel(event.target.value);
+
     /* const newFuel = event.target.value;
     setFuel(newFuel);
     const calculatedResult = handleCalculateCo2(transport, km, newFuel);
     setResult(calculatedResult); */
-    setFuel(event.target.value);
   }
 
   function handleKm(event) {
+    setKm(event.target.value);
+
     /* const newKm = event.target.value;
     setKm(newKm);
     const calculatedResult = handleCalculateCo2(transport, newKm, fuel);
     setResult(calculatedResult); */
-    setKm(event.target.value);
   }
 
   function handleCalculateCo2(transport, km, fuel) {
@@ -88,7 +91,7 @@ export default function EntryForm({
 
   return (
     <>
-    <h3>{formTitle}</h3>
+      <h3>{formTitle}</h3>
       <section>
         <Form aria-labelledby={formName} onSubmit={handleSubmit}>
           <label htmlFor="date">Date: </label>
