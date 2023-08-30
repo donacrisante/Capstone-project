@@ -23,8 +23,6 @@ export default function EntryList({
     router.back();
   }
 
-  console.log(selectedEntry);
-
   return (
     <>
       <h2>Journeys</h2>
@@ -57,8 +55,19 @@ export default function EntryList({
                 {entry.date}, {entry.start} - {entry.destination}, {entry.km}km,{" "}
                 {entry.transport} {entry.fuel}, {entry.result} kg CO<sub>2</sub>
               </p>
-              <button onClick={() => router.push(`/${entry.id}`)}>Edit</button>
-              <button onClick={() => onHandleDelete(entry.id)}>Delete</button>
+              <button onClick={() => router.push(`/journey-list/${entry.id}`)}>
+                <span role="img" aria-label="A pencil">
+                  ✏️
+                </span>
+              </button>
+              <button
+                name="btn btn-light"
+                onClick={() => onHandleDelete(entry.id)}
+              >
+                <span role="img" aria-label="A cross indicating deletion">
+                  🗑️
+                </span>
+              </button>
             </Fragment>
           ))}
         </div>

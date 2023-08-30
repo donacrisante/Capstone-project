@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { calculator } from "@/library/calculator";
 import { useState } from "react";
-import { formatDate } from "./FormatDate";
 
 export default function EntryForm({
   formName,
@@ -13,7 +12,7 @@ export default function EntryForm({
   const [transport, setTransport] = useState(
     selectedEntry?.transport || "Select a transport"
   );
-  const [date, setDate] = useState(new Date(selectedEntry?.date) || new Date());
+  const [date, setDate] = useState(selectedEntry?.date || new Date());
   const [fuel, setFuel] = useState(selectedEntry?.fuel || "");
   const [km, setKm] = useState(selectedEntry?.km ?? "");
   const [result, setResult] = useState(selectedEntry?.result ?? 0);
@@ -38,15 +37,11 @@ export default function EntryForm({
     const formData = new FormData(event.target);
     const newEntry = Object.fromEntries(formData);
 
-    newEntry.result = handleCalculateCo2(
+      newEntry.result = handleCalculateCo2(
       newEntry.transport,
       newEntry.km,
       newEntry.fuel
     );
-
-    const dateParts = newEntry.date.split("-");
-    const formattedDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
-    newEntry.date = formattedDate;
 
     newEntry.id = selectedEntry?.id;
     onSubmit(newEntry);
@@ -83,23 +78,9 @@ export default function EntryForm({
             type="date"
             id="date"
             name="date"
-            /* value={new Date(selectedEntry.date).toISOString().split("T")[0]} */ /* => error Cannot read properties of undefined (reading 'date') */
-            /* value={new Date(selectedEntry?.date).toISOString().split("T")[0]} => error invalid time value */
-            /* value={
-              selectedEntry?.date
-                ? new Date(selectedEntry.date).toISOString().split("T")[0]
-                : ""
-            } => error invalid time value */
-            /* value={(selectedEntry?.date).toISOString().split("T")[0]} => error toISO... is not a function */
-            /* value={selectedEntry?.date} => Datum wird im edit form nicht angezeigt und man kann es nicht ändern */
-            /* Ohne value wird das Datum nicht angezeigt, aber man kann es ändern. */
-            /* value={date.toISOString().split("T")[0]} => invalid time value */
-            /* value={(newEntry.date).toISOString().split("T")[0]} => error newEntry is not defined */
-            /* value={formatDate(selectedEntry?.date)} */
-            value={selectedEntry?.date}
+            value={date}
             onChange={(event) => setDate(event.target.value)}
             placeholder="dd.mm.yy"
-            /* dateFormat="dd/MM/yyyy" */
             required
           />
           <label htmlFor="start">From: </label>

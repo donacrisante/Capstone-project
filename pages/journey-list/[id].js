@@ -1,7 +1,11 @@
 import { useRouter } from "next/router";
 import EntryForm from "@/components/EntryForm";
 
-export default function EditPage({ entries, onHandleEdit, onHandleDelete }) {
+export default function EditPage({
+  entries,
+  onHandleEdit,
+  onHandleDelete,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -11,7 +15,6 @@ export default function EditPage({ entries, onHandleEdit, onHandleDelete }) {
     return <div>no journey found</div>;
   }
 
-  console.log(id);
   return (
     <>
       <section>
@@ -21,7 +24,7 @@ export default function EditPage({ entries, onHandleEdit, onHandleDelete }) {
           buttonText="Save"
           entries={entries}
           selectedEntry={selectedEntry}
-          onHandleEdit={onHandleEdit}
+          onSubmit={onHandleEdit}
           onHandleDelete={onHandleDelete}
         />
       </section>

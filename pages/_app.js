@@ -6,6 +6,7 @@ import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
+
   const [entries, setEntries] = useLocalStorageState("entries", {
     defaultValue: [],
   });
@@ -37,8 +38,18 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleDelete(selectedEntry) {
-    console.log("Deleting entry:", selectedEntry);
     setEntries(entries.filter((entry) => entry.id !== selectedEntry));
+
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this journey?"
+    );
+
+    if (confirmed) {
+      selectedEntry.remove();
+      alert("Journey deleted successfully!");
+    } else {
+      alert("Journey not deleted.");
+    }
   }
 
   function handleToggleFavourite(id) {
