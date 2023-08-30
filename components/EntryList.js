@@ -14,19 +14,18 @@ export default function EntryList({
   allEntriesCount,
   favouriteEntriesCount,
   onToggleFavourite,
-  selectedEntry,
   onHandleDelete,
 }) {
   const router = useRouter();
 
   function handleBackToForm() {
-    router.back();
+    router.push("/");
   }
 
   return (
     <>
       <h2>Journeys</h2>
-      <section name="journeys-section">
+      <section>
         <Tabs>
           <Tab onClick={onShowAllEntries} isActive={filter === "all"}>
             Recent journeys{" "}
@@ -42,7 +41,7 @@ export default function EntryList({
             </Badge>
           </Tab>
         </Tabs>
-        <div name="journey-section__entries">
+        <div>
           {entries.map((entry, index) => (
             <Fragment key={entry.id}>
               {index > 0 ? <Divider /> : null}
@@ -61,7 +60,6 @@ export default function EntryList({
                 </span>
               </button>
               <button
-                name="btn btn-light"
                 onClick={() => onHandleDelete(entry.id)}
               >
                 <span role="img" aria-label="A cross indicating deletion">
