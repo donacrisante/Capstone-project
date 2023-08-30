@@ -12,7 +12,7 @@ export default function EditPage({
   const selectedEntry = entries.find((entry) => entry.id === id);
 
   if (!selectedEntry) {
-    return <div>no journey found</div>;
+    return <div>No journey found</div>;
   }
 
   return (

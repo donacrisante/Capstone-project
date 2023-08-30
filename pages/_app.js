@@ -35,17 +35,17 @@ export default function App({ Component, pageProps }) {
       )
     );
     router.back();
+    alert("Journey updated successfully!");
   }
 
   function handleDelete(selectedEntry) {
-    setEntries(entries.filter((entry) => entry.id !== selectedEntry));
-
+    
     const confirmed = window.confirm(
       "Are you sure you want to delete this journey?"
     );
 
     if (confirmed) {
-      selectedEntry.remove();
+      setEntries(entries.filter((entry) => entry.id !== selectedEntry));
       alert("Journey deleted successfully!");
     } else {
       alert("Journey not deleted.");
