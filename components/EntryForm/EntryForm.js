@@ -48,9 +48,9 @@ export default function EntryForm({
   }
 
   function handleDropdownChange(event) {
-    /* setTransport(event.target.value); */
+    setTransport(event.target.value);
 
-    if (transport === "car") {
+    /* if (transport === "car") {
       setFuel("Select a car");
     } else {
       setFuel("");
@@ -59,25 +59,25 @@ export default function EntryForm({
     const newTransport = event.target.value;
     setTransport(newTransport);
     const calculatedResult = handleCalculateCo2(newTransport, km, fuel);
-    setResult(calculatedResult);
+    setResult(calculatedResult); */
   }
 
   function handleDropdownChangeFuel(event) {
-    /* setFuel(event.target.value); */
+    setFuel(event.target.value);
 
-    const newFuel = event.target.value;
+    /* const newFuel = event.target.value;
     setFuel(newFuel);
     const calculatedResult = handleCalculateCo2(transport, km, newFuel);
-    setResult(calculatedResult);
+    setResult(calculatedResult); */
   }
 
   function handleKm(event) {
-    /* setKm(event.target.value); */
+    setKm(event.target.value);
 
-    const newKm = event.target.value;
+    /* const newKm = event.target.value;
     setKm(newKm);
     const calculatedResult = handleCalculateCo2(transport, newKm, fuel);
-    setResult(calculatedResult);
+    setResult(calculatedResult); */
   }
 
   function handleCalculateCo2(transport, km, fuel) {

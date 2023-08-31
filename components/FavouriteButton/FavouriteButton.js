@@ -1,5 +1,5 @@
-import StarFilled from "./StarFilled.js";
-import Star from "./Star.js";
+import StarFilled from "../StarFilled/StarFilled.js";
+import Star from "../Star/Star.js";
 import styled from "styled-components";
 
 export default function FavouriteButton({ id, isFavourite, onToggleFavourite }) {

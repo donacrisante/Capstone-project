@@ -1,9 +1,9 @@
-import Divider from "./Divider";
+import Divider from "../Divider/Divider";
 import { Fragment } from "react";
-import Tab from "./Tab";
-import Tabs from "./Tabs";
-import Badge from "./Badge";
-import FavouriteButton from "./FavouriteButton";
+import Tab from "../Tab/Tab";
+import Tabs from "../Tabs/Tabs";
+import Badge from "../Badge/Badge";
+import FavouriteButton from "../FavouriteButton/FavouriteButton";
 import { useRouter } from "next/router";
 
 export default function EntryList({
