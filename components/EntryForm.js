@@ -48,7 +48,7 @@ export default function EntryForm({
   }
 
   function handleDropdownChange(event) {
-    setTransport(event.target.value);
+    /* setTransport(event.target.value); */
 
     if (transport === "car") {
       setFuel("Select a car");
@@ -56,28 +56,28 @@ export default function EntryForm({
       setFuel("");
     }
 
-    /* const newTransport = event.target.value;
-    setTransport(newTransport); */
-    /* const calculatedResult = handleCalculateCo2(newTransport, km, fuel);
-    setResult(calculatedResult); */
+    const newTransport = event.target.value;
+    setTransport(newTransport);
+    const calculatedResult = handleCalculateCo2(newTransport, km, fuel);
+    setResult(calculatedResult);
   }
 
   function handleDropdownChangeFuel(event) {
-    setFuel(event.target.value);
+    /* setFuel(event.target.value); */
 
-    /* const newFuel = event.target.value;
+    const newFuel = event.target.value;
     setFuel(newFuel);
     const calculatedResult = handleCalculateCo2(transport, km, newFuel);
-    setResult(calculatedResult); */
+    setResult(calculatedResult);
   }
 
   function handleKm(event) {
-    setKm(event.target.value);
+    /* setKm(event.target.value); */
 
-    /* const newKm = event.target.value;
+    const newKm = event.target.value;
     setKm(newKm);
     const calculatedResult = handleCalculateCo2(transport, newKm, fuel);
-    setResult(calculatedResult); */
+    setResult(calculatedResult);
   }
 
   function handleCalculateCo2(transport, km, fuel) {
@@ -88,6 +88,20 @@ export default function EntryForm({
     }
     return 0;
   }
+    /* if (transport === "car") {
+      const selectedFuel = fuel;
+      const kmNumber = parseFloat(km.replace(",", "."));
+      if (!isNaN(kmNumber)) {
+        return calculator[selectedFuel](kmNumber);
+      }
+    } else {
+      const kmNumber = parseFloat(km.replace(",", "."));
+      if (!isNaN(kmNumber)) {
+        return calculator[transport](kmNumber);
+      }
+    }
+    return 0;
+  } */
 
   return (
     <>
