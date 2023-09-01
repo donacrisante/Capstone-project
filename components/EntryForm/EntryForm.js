@@ -38,10 +38,11 @@ export default function EntryForm({
     const newEntry = Object.fromEntries(formData);
 
     newEntry.result = handleCalculateCo2(
-      newEntry.transport,
-      newEntry.km,
-      newEntry.fuel
+      transport,
+      km,
+      fuel
     );
+    newEntry.fuel = fuel === "Select a car" ? "" : fuel;
 
     newEntry.id = selectedEntry?.id;
     onSubmit(newEntry);
@@ -50,13 +51,13 @@ export default function EntryForm({
   function handleDropdownChange(event) {
     setTransport(event.target.value);
 
-    /* if (transport === "car") {
+    if (transport === "car") {
       setFuel("Select a car");
     } else {
       setFuel("");
     }
 
-    const newTransport = event.target.value;
+    /* const newTransport = event.target.value;
     setTransport(newTransport);
     const calculatedResult = handleCalculateCo2(newTransport, km, fuel);
     setResult(calculatedResult); */
@@ -81,6 +82,7 @@ export default function EntryForm({
   }
 
   function handleCalculateCo2(transport, km, fuel) {
+    if (!fuel) return 0;
     const selectedTransport = transport === "car" ? fuel : transport;
     const kmNumber = parseFloat(km.replace(",", "."));
     if (!isNaN(kmNumber)) {
@@ -88,20 +90,6 @@ export default function EntryForm({
     }
     return 0;
   }
-    /* if (transport === "car") {
-      const selectedFuel = fuel;
-      const kmNumber = parseFloat(km.replace(",", "."));
-      if (!isNaN(kmNumber)) {
-        return calculator[selectedFuel](kmNumber);
-      }
-    } else {
-      const kmNumber = parseFloat(km.replace(",", "."));
-      if (!isNaN(kmNumber)) {
-        return calculator[transport](kmNumber);
-      }
-    }
-    return 0;
-  } */
 
   return (
     <>
