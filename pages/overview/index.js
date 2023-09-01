@@ -36,46 +36,28 @@ const data = {
   ],
 };
 
-const options = {
-  maintainAspectRatio: false,
-};
+const config = {
+    type: 'doughnut',
+    data: data,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chart.js Doughnut Chart'
+        }
+      }
+    },
+  };
 
 export default function Overview() {
   return (
     <div style={{ width: 700 }}>
-      <Doughnut data={data} options={options} />
-    </div>
+      <Doughnut data={data} config={config} />
+      </div>
   );
 }
 
-/* const DATA_COUNT = 8;
-  const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 };
-
-  const data = {
-    labels: [
-      "Car Petrol",
-      "Car Diesel",
-      "Car Hybrid",
-      "Car Electric-Strommix ",
-      "Car Electric-Renewable",
-      "Train",
-      "Plane",
-      "Bicycle",
-    ],
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: Utils.numbers(NUMBER_CFG),
-        backgroundColor: Object.values(Utils.CHART_COLORS),
-      },
-    ],
-  }; */
-
-/*   const [userData, setUserData] = useState({
-    labels: entries.map((entry) => entry.transport),
-    datasets: [{
-        label: "CO2 emissions",
-        backgroundColor: ["blue", "red"] Object.values(Utils.CHART_COLORS),
-        data: entries.map((entry) => entry.result)
-    }]
-}) */
