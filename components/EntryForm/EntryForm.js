@@ -82,7 +82,7 @@ export default function EntryForm({
   }
 
   function handleCalculateCo2(transport, km, fuel) {
-    if (!fuel) return 0;
+    if (transport === "car" && !fuel) return 0;
     const selectedTransport = transport === "car" ? fuel : transport;
     const kmNumber = parseFloat(km.replace(",", "."));
     if (!isNaN(kmNumber)) {
@@ -112,7 +112,7 @@ export default function EntryForm({
             id="start"
             name="start"
             placeholder="Enter your start"
-            pattern="^[A-Za-z]+$"
+            pattern="^[A-Za-z ]+$"
             title="Special characters and single numbers are not allowed"
             required
           />
@@ -122,7 +122,7 @@ export default function EntryForm({
             id="destination"
             name="destination"
             placeholder="Enter your destination"
-            pattern="^[A-Za-z]+$"
+            pattern="^[A-Za-z ]+$"
             title="Special characters and single numbers are not allowed"
             required
           />

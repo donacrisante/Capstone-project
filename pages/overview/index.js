@@ -1,63 +1,155 @@
-import React from 'react';
-import { Chart as ChartJS } from 'chart.js/auto';
-import { Doughnut } from "react-chartjs-2";
-/* import { Utils } from "chart.js"; */
+import styled from "styled-components";
+import { Chart as ChartJS } from "chart.js/auto";
+import { Bar } from "react-chartjs-2";
 
-/* const DATA_COUNT = 8;
-const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 }; */
+export default function Overview({ entries }) {
+  const carPetrol = Math.floor(
+    entries
+      .filter((entry) => entry.transport === "car")
+      .filter((entry) => entry.fuel === "petrol")
+      .reduce((acc, curr) => acc + curr.result, 0)
+  );
 
-/* Chartjs requires an object which contains 2 properties: labels and datasets */
-const data = {
-  labels: [
-    "Car Petrol",
-    "Car Diesel",
-    "Car Hybrid",
-    "Car Electric-Strommix ",
-    "Car Electric-Renewable",
-    "Train",
-    "Plane",
-    "Bicycle",
-  ],
-  datasets: [
-    {
-      label: "CO2 emissions",
-      data: ["38", "56", "20", "19", "0", "67", "300", "0" ] /* Utils.numbers(NUMBER_CFG) */,
-      backgroundColor: [
-        "blue",
-        "red",
-        "yellow",
-        "green",
-        "violet",
-        "orange",
-        "pink",
-        "coral",
-      ] /* Object.values(Utils.CHART_COLORS) */,
-    },
-  ],
-};
+  const carDiesel = Math.floor(
+    entries
+      .filter((entry) => entry.transport === "car")
+      .filter((entry) => entry.fuel === "diesel")
+      .reduce((acc, curr) => acc + curr.result, 0)
+  );
 
-const config = {
-    type: 'doughnut',
+  const carHybrid = Math.floor(
+    entries
+      .filter((entry) => entry.transport === "car")
+      .filter((entry) => entry.fuel === "hybrid")
+      .reduce((acc, curr) => acc + curr.result, 0)
+  );
+
+  const carElectricStrommix = Math.floor(
+    entries
+      .filter((entry) => entry.transport === "car")
+      .filter((entry) => entry.fuel === "electric-strommix")
+      .reduce((acc, curr) => acc + curr.result, 0)
+  );
+
+  const carElectricRenewable = Math.floor(
+    entries
+      .filter((entry) => entry.transport === "car")
+      .filter((entry) => entry.fuel === "electric-renewable")
+      .reduce((acc, curr) => acc + curr.result, 0)
+  );
+
+  const train = Math.floor(
+    entries
+      .filter((entry) => entry.transport === "train")
+      .reduce((acc, curr) => acc + curr.result, 0)
+  );
+
+  const plane = Math.floor(
+    entries
+      .filter((entry) => entry.transport === "plane")
+      .reduce((acc, curr) => acc + curr.result, 0)
+  );
+
+  const bicycle = Math.floor(
+    entries
+      .filter((entry) => entry.transport === "bicycle")
+      .reduce((acc, curr) => acc + curr.result, 0)
+  );
+  console.log(train);
+
+  const data = {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "June",
+      "July",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    datasets: [
+      {
+        label: "Car petrol",
+        data: [carPetrol],
+        backgroundColor: "violet",
+      },
+      {
+        label: "Car diesel",
+        data: [carDiesel],
+        backgroundColor: "orange",
+      },
+      {
+        label: "Car hybrid",
+        data: [carHybrid],
+        backgroundColor: "yellow",
+      },
+      {
+        label: "Car Electric-Strommix",
+        data: [carElectricStrommix],
+        backgroundColor: "pink",
+      },
+      {
+        label: "Car Electric-Renewable",
+        data: [carElectricRenewable],
+        backgroundColor: "turquoise",
+      },
+      {
+        label: "Train",
+        data: [train],
+        backgroundColor: "lightgreen",
+      },
+      {
+        label: "Plane",
+        data: [plane],
+        backgroundColor: "coral",
+      },
+      {
+        label: "Bicycle",
+        data: [bicycle],
+        backgroundColor: "lightblue",
+      },
+    ],
+  };
+
+  const config = {
+    type: "bar",
     data: data,
     options: {
-      responsive: true,
       plugins: {
-        legend: {
-          position: 'top',
-        },
         title: {
           display: true,
-          text: 'Chart.js Doughnut Chart'
-        }
-      }
+          text: "CO2 Emissions per Means of Transport",
+        },
+      },
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true,
+        },
+      },
     },
   };
 
-export default function Overview() {
   return (
-    <div style={{ width: 700 }}>
-      <Doughnut data={data} config={config} />
-      </div>
+    <>
+      <Chart>
+        <Bar data={data} config={config} />
+      </Chart>
+      <button type="button">Weekly</button>
+      <button type="button">Monthly</button>
+      <button type="button">Yearly</button>
+    </>
   );
 }
 
+const Chart = styled.div`
+  width: 700px;
+`;
