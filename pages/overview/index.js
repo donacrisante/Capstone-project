@@ -3,75 +3,86 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
 export default function Overview({ entries }) {
-  const carPetrol = Math.floor(
-    entries
-      .filter((entry) => entry.transport === "car")
-      .filter((entry) => entry.fuel === "petrol")
-      .reduce((acc, curr) => acc + curr.result, 0)
-  );
+  const totalEmissionsPerTransport = (transport, fuel, month) =>
+    Math.floor(
+      entries
+        .filter(
+          (entry) =>
+            entry.transport === transport &&
+            entry.fuel === fuel /* &&
+            new Date(entry.date).getMonth() === month */
+        )
+        .reduce((acc, curr) => acc + curr.result, 0)
+    );
 
-  const carDiesel = Math.floor(
-    entries
-      .filter((entry) => entry.transport === "car")
-      .filter((entry) => entry.fuel === "diesel")
-      .reduce((acc, curr) => acc + curr.result, 0)
-  );
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
-  const carHybrid = Math.floor(
-    entries
-      .filter((entry) => entry.transport === "car")
-      .filter((entry) => entry.fuel === "hybrid")
-      .reduce((acc, curr) => acc + curr.result, 0)
-  );
+  /* const transportData = [
+    "car petrol",
+    "car diesel",
+    "car hybrid",
+    "car electric-strommix",
+    "car electric-renewable",
+    "train",
+    "plane",
+    "bicycle",
+  ];
 
-  const carElectricStrommix = Math.floor(
-    entries
-      .filter((entry) => entry.transport === "car")
-      .filter((entry) => entry.fuel === "electric-strommix")
-      .reduce((acc, curr) => acc + curr.result, 0)
-  );
+  const monthlyData = months.map((month, monthIndex) => ({
+    month,
+    data: transportData.map((transport) =>
+      totalEmissionsPerTransport(transport, monthIndex)
+    ),
+  })); */
 
-  const carElectricRenewable = Math.floor(
-    entries
-      .filter((entry) => entry.transport === "car")
-      .filter((entry) => entry.fuel === "electric-renewable")
-      .reduce((acc, curr) => acc + curr.result, 0)
+  const carPetrol = totalEmissionsPerTransport("car", "petrol");
+  const carDiesel = totalEmissionsPerTransport("car", "diesel");
+  const carHybrid = totalEmissionsPerTransport("car", "hybrid");
+  const carElectricStrommix = totalEmissionsPerTransport(
+    "car",
+    "electric-strommix"
   );
-
-  const train = Math.floor(
-    entries
-      .filter((entry) => entry.transport === "train")
-      .reduce((acc, curr) => acc + curr.result, 0)
+  const carElectricRenewable = totalEmissionsPerTransport(
+    "car",
+    "electric-renewable"
   );
+  const train = totalEmissionsPerTransport("train");
+  const plane = totalEmissionsPerTransport("plane");
+  const bicycle = totalEmissionsPerTransport("bicycle");
 
-  const plane = Math.floor(
-    entries
-      .filter((entry) => entry.transport === "plane")
-      .reduce((acc, curr) => acc + curr.result, 0)
-  );
+  /* const data = {
+    labels: months,
+    datasets: transportData.map((transport, index) => ({
+      label: transport,
+      data: monthlyData.map((transport) => transport.data[index]),
+      backgroundColor: [
+        "#FF5733", // Red
+        "#33FF57", // Green
+        "#5733FF", // Blue
+        "#FF33B8", // Pink
+        "#33FFB8", // Turquoise
+        "#FFC933", // Yellow
+        "#33C9FF", // Light Blue
+        "#FF3385", // Coral
+      ]
+    })),
+  }; */
 
-  const bicycle = Math.floor(
-    entries
-      .filter((entry) => entry.transport === "bicycle")
-      .reduce((acc, curr) => acc + curr.result, 0)
-  );
-  console.log(train);
-
-  const data = {
-    labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "June",
-      "July",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
+    const data = {
+    labels: months,
     datasets: [
       {
         label: "Car petrol",
@@ -115,7 +126,7 @@ export default function Overview({ entries }) {
       },
     ],
   };
-
+ 
   const config = {
     type: "bar",
     data: data,
