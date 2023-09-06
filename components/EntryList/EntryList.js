@@ -62,7 +62,7 @@ export default function EntryList({
               <button
                 onClick={() => onHandleDelete(entry.id)}
               >
-                <span role="img" aria-label="A cross indicating deletion">
+                <span role="img" aria-label="A trash can indicating deletion">
                   🗑️
                 </span>
               </button>
