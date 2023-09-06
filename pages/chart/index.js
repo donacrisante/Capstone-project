@@ -7,10 +7,13 @@ export default function Overview({ entries }) {
     Math.floor(
       entries
         .filter(
-          (entry) =>
-            entry.transport === transport &&
-            entry.fuel === fuel /* &&
-            new Date(entry.date).getMonth() === month */
+          (entry) => {
+            const hasFuel = fuel ? true : false;
+            const givenTransport = entry.transport === transport;
+            const givenFuel = entry.fuel === fuel;
+            const givenMonth = new Date(entry.date).getMonth() === month;
+            return hasFuel ? (givenFuel && givenTransport && givenMonth) : givenTransport && givenMonth;
+          }
         )
         .reduce((acc, curr) => acc + curr.result, 0)
     );
@@ -30,98 +33,56 @@ export default function Overview({ entries }) {
     "Dec",
   ];
 
-  /* const transportData = [
-    "car petrol",
-    "car diesel",
-    "car hybrid",
-    "car electric-strommix",
-    "car electric-renewable",
-    "train",
-    "plane",
-    "bicycle",
-  ];
-
-  const monthlyData = months.map((month, monthIndex) => ({
-    month,
-    data: transportData.map((transport) =>
-      totalEmissionsPerTransport(transport, monthIndex)
-    ),
-  })); */
-
-  const carPetrol = totalEmissionsPerTransport("car", "petrol");
-  const carDiesel = totalEmissionsPerTransport("car", "diesel");
-  const carHybrid = totalEmissionsPerTransport("car", "hybrid");
-  const carElectricStrommix = totalEmissionsPerTransport(
-    "car",
-    "electric-strommix"
-  );
-  const carElectricRenewable = totalEmissionsPerTransport(
-    "car",
-    "electric-renewable"
-  );
-  const train = totalEmissionsPerTransport("train");
-  const plane = totalEmissionsPerTransport("plane");
-  const bicycle = totalEmissionsPerTransport("bicycle");
-
-  /* const data = {
-    labels: months,
-    datasets: transportData.map((transport, index) => ({
-      label: transport,
-      data: monthlyData.map((transport) => transport.data[index]),
-      backgroundColor: [
-        "#FF5733", // Red
-        "#33FF57", // Green
-        "#5733FF", // Blue
-        "#FF33B8", // Pink
-        "#33FFB8", // Turquoise
-        "#FFC933", // Yellow
-        "#33C9FF", // Light Blue
-        "#FF3385", // Coral
-      ]
-    })),
-  }; */
+  const carPetrol = months.map((_, monthIndex) => totalEmissionsPerTransport("car", "petrol", monthIndex));
+  const carDiesel = months.map((_, monthIndex) => totalEmissionsPerTransport("car", "diesel", monthIndex));
+  const carHybrid = months.map((_, monthIndex) => totalEmissionsPerTransport("car", "hybrid", monthIndex));
+  const carElectricStrommix = months.map((_, monthIndex) => totalEmissionsPerTransport("car", "electric-strommix", monthIndex));
+  const carElectricRenewable = months.map((_, monthIndex) => totalEmissionsPerTransport("car", "electric-renewable", monthIndex));
+  const train = months.map((_, monthIndex) => totalEmissionsPerTransport("train", null, monthIndex));
+  const plane = months.map((_, monthIndex) => totalEmissionsPerTransport("plane", null, monthIndex));
+  const bicycle = months.map((_, monthIndex) => totalEmissionsPerTransport("bycicle", null, monthIndex));
 
     const data = {
     labels: months,
     datasets: [
       {
         label: "Car petrol",
-        data: [carPetrol],
+        data: carPetrol,
         backgroundColor: "violet",
       },
       {
         label: "Car diesel",
-        data: [carDiesel],
+        data: carDiesel,
         backgroundColor: "orange",
       },
       {
         label: "Car hybrid",
-        data: [carHybrid],
+        data: carHybrid,
         backgroundColor: "yellow",
       },
       {
         label: "Car Electric-Strommix",
-        data: [carElectricStrommix],
+        data: carElectricStrommix,
         backgroundColor: "pink",
       },
       {
         label: "Car Electric-Renewable",
-        data: [carElectricRenewable],
+        data: carElectricRenewable,
         backgroundColor: "turquoise",
       },
       {
         label: "Train",
-        data: [train],
+        data: train,
         backgroundColor: "lightgreen",
       },
       {
         label: "Plane",
-        data: [plane],
+        data: plane,
         backgroundColor: "coral",
       },
       {
         label: "Bicycle",
-        data: [bicycle],
+        data: bicycle,
         backgroundColor: "lightblue",
       },
     ],
@@ -152,7 +113,7 @@ export default function Overview({ entries }) {
   return (
     <>
       <Chart>
-        <Bar data={data} config={config} />
+        <Bar data={data} options={config.options} />
       </Chart>
       <button type="button">Weekly</button>
       <button type="button">Monthly</button>
