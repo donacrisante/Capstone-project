@@ -1,23 +1,9 @@
 import styled from "styled-components";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
+import { useState } from "react";
 
 export default function Overview({ entries }) {
-  const totalEmissionsPerTransport = (transport, fuel, month) =>
-    Math.floor(
-      entries
-        .filter(
-          (entry) => {
-            const hasFuel = fuel ? true : false;
-            const givenTransport = entry.transport === transport;
-            const givenFuel = entry.fuel === fuel;
-            const givenMonth = new Date(entry.date).getMonth() === month;
-            return hasFuel ? (givenFuel && givenTransport && givenMonth) : givenTransport && givenMonth;
-          }
-        )
-        .reduce((acc, curr) => acc + curr.result, 0)
-    );
-
   const months = [
     "Jan",
     "Feb",
@@ -33,16 +19,47 @@ export default function Overview({ entries }) {
     "Dec",
   ];
 
-  const carPetrol = months.map((_, monthIndex) => totalEmissionsPerTransport("car", "petrol", monthIndex));
-  const carDiesel = months.map((_, monthIndex) => totalEmissionsPerTransport("car", "diesel", monthIndex));
-  const carHybrid = months.map((_, monthIndex) => totalEmissionsPerTransport("car", "hybrid", monthIndex));
-  const carElectricStrommix = months.map((_, monthIndex) => totalEmissionsPerTransport("car", "electric-strommix", monthIndex));
-  const carElectricRenewable = months.map((_, monthIndex) => totalEmissionsPerTransport("car", "electric-renewable", monthIndex));
-  const train = months.map((_, monthIndex) => totalEmissionsPerTransport("train", null, monthIndex));
-  const plane = months.map((_, monthIndex) => totalEmissionsPerTransport("plane", null, monthIndex));
-  const bicycle = months.map((_, monthIndex) => totalEmissionsPerTransport("bycicle", null, monthIndex));
+  const totalEmissionsPerTransport = (transport, fuel, month) =>
+    Math.floor(
+      entries
+        .filter((entry) => {
+          const hasFuel = fuel ? true : false;
+          const givenTransport = entry.transport === transport;
+          const givenFuel = entry.fuel === fuel;
+          const givenMonth = new Date(entry.date).getMonth() === month;
+          return hasFuel
+            ? givenFuel && givenTransport && givenMonth
+            : givenTransport && givenMonth;
+        })
+        .reduce((acc, curr) => acc + curr.result, 0)
+    );
 
-    const data = {
+  const carPetrol = months.map((_, monthIndex) =>
+    totalEmissionsPerTransport("car", "petrol", monthIndex)
+  );
+  const carDiesel = months.map((_, monthIndex) =>
+    totalEmissionsPerTransport("car", "diesel", monthIndex)
+  );
+  const carHybrid = months.map((_, monthIndex) =>
+    totalEmissionsPerTransport("car", "hybrid", monthIndex)
+  );
+  const carElectricStrommix = months.map((_, monthIndex) =>
+    totalEmissionsPerTransport("car", "electric-strommix", monthIndex)
+  );
+  const carElectricRenewable = months.map((_, monthIndex) =>
+    totalEmissionsPerTransport("car", "electric-renewable", monthIndex)
+  );
+  const train = months.map((_, monthIndex) =>
+    totalEmissionsPerTransport("train", null, monthIndex)
+  );
+  const plane = months.map((_, monthIndex) =>
+    totalEmissionsPerTransport("plane", null, monthIndex)
+  );
+  const bicycle = months.map((_, monthIndex) =>
+    totalEmissionsPerTransport("bycicle", null, monthIndex)
+  );
+
+  const data = {
     labels: months,
     datasets: [
       {
@@ -87,7 +104,7 @@ export default function Overview({ entries }) {
       },
     ],
   };
- 
+
   const config = {
     type: "bar",
     data: data,
