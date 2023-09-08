@@ -37,13 +37,11 @@ export default function EntryForm({
     const formData = new FormData(event.target);
     const newEntry = Object.fromEntries(formData);
 
-    newEntry.result = handleCalculateCo2(
-      transport,
-      km,
-      fuel
-    );
-    newEntry.fuel = fuel === "Select a car" ? "" : fuel;
+    const formattedDate = new Date(date).toLocaleDateString("en-GB").split("/").join(".");
+    newEntry.date = formattedDate;
 
+    newEntry.result = handleCalculateCo2(transport, km, fuel);
+    newEntry.fuel = fuel === "Select a car" ? "" : fuel;
     newEntry.id = selectedEntry?.id;
     onSubmit(newEntry);
   }
