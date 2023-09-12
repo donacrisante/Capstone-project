@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { calculator } from "@/library/calculator";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function EntryForm({
   formName,
@@ -9,6 +9,7 @@ export default function EntryForm({
   onSubmit,
   selectedEntry,
 }) {
+
   const [transport, setTransport] = useState(
     selectedEntry?.transport || "Select a transport"
   );
@@ -36,11 +37,22 @@ export default function EntryForm({
     if (transport === "car" && !fuel) return 0;
     const selectedTransport = transport === "car" ? fuel : transport;
     const kmNumber = parseFloat(km.replace(",", "."));
+
     if (!isNaN(kmNumber)) {
-      return calculator[selectedTransport](kmNumber);
+      if (calculator[selectedTransport] && typeof calculator[selectedTransport] === "function") {
+        return calculator[selectedTransport](kmNumber);
+      } else {
+        console.error(`Calculator function for ${selectedTransport} does not exist.`);
+        return 0;
+      }
     }
     return 0;
   }
+
+  useEffect(() => {
+    const calculatedResult = handleCalculateCo2(transport, km, fuel);
+    setResult(calculatedResult);
+  }, [transport, km, fuel]);
 
   function handleSubmit(event) {
     event.preventDefault();
