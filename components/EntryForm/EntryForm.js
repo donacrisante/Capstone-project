@@ -32,6 +32,16 @@ export default function EntryForm({
     { label: "Electric-Renewable", value: "electric-renewable" },
   ];
 
+  function handleCalculateCo2(transport, km, fuel) {
+    if (transport === "car" && !fuel) return 0;
+    const selectedTransport = transport === "car" ? fuel : transport;
+    const kmNumber = parseFloat(km.replace(",", "."));
+    if (!isNaN(kmNumber)) {
+      return calculator[selectedTransport](kmNumber);
+    }
+    return 0;
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -48,17 +58,16 @@ export default function EntryForm({
 
   function handleDropdownChange(event) {
     setTransport(event.target.value);
+    /* const newTransport = event.target.value;
+    setTransport(newTransport);
+    const calculatedResult = handleCalculateCo2(newTransport, km, fuel);
+    setResult(calculatedResult); */
 
     if (transport === "car") {
       setFuel("Select a car");
     } else {
       setFuel("");
     }
-
-    /* const newTransport = event.target.value;
-    setTransport(newTransport);
-    const calculatedResult = handleCalculateCo2(newTransport, km, fuel);
-    setResult(calculatedResult); */
   }
 
   function handleDropdownChangeFuel(event) {
@@ -72,21 +81,11 @@ export default function EntryForm({
 
   function handleKm(event) {
     setKm(event.target.value);
-
-    /* const newKm = event.target.value;
+/* 
+    const newKm = event.target.value;
     setKm(newKm);
     const calculatedResult = handleCalculateCo2(transport, newKm, fuel);
     setResult(calculatedResult); */
-  }
-
-  function handleCalculateCo2(transport, km, fuel) {
-    if (transport === "car" && !fuel) return 0;
-    const selectedTransport = transport === "car" ? fuel : transport;
-    const kmNumber = parseFloat(km.replace(",", "."));
-    if (!isNaN(kmNumber)) {
-      return calculator[selectedTransport](kmNumber);
-    }
-    return 0;
   }
 
   return (
