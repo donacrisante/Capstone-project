@@ -27,77 +27,35 @@ export default function Overview({ entries }) {
       for (let i = 0; i < 5; i++) {
         const weekStart = new Date(today);
         weekStart.setDate(today.getDate() - i * 7);
-        dates.push(weekStart);
+        dates.push({ date: weekStart, label: weekStart.toLocaleDateString() });
       }
+      dates.reverse();
+
     } else if (dateType === "month") {
       for (let i = 0; i < 12; i++) {
         const monthStart = new Date(today);
-        monthStart.setMonth(today.getMonth() - i);
-        dates.push(
-          monthStart.toLocaleDateString("default", { month: "short" })
-        );
+        monthStart.setMonth(i);
+        monthStart.setDate(1);
+        dates.push({
+          date: monthStart,
+          label: monthStart.toLocaleDateString("default", { month: "short" }),
+        });
       }
     } else if (dateType === "year") {
       for (let i = 0; i < 5; i++) {
         const yearStart = new Date(today);
         yearStart.setFullYear(today.getFullYear() - i);
-        dates.push(yearStart.getFullYear().toString());
+        yearStart.setMonth(0);
+        yearStart.setDate(1);
+        dates.push({
+          date: yearStart,
+          label: yearStart.getFullYear().toString(),
+        });
       }
+      dates.reverse();
     }
 
-    return dates.reverse();
-  }
-
-  function generateChartData(transportTypes, dates) {
-    console.log(dates);
-    return {
-      labels: dates.map((date) => (date.toLocaleDateString())),
-      datasets: transportTypes.map((transport, index) => ({
-        label: transport,
-        data: dates.map((date) =>
-          totalEmiPerTransport(transport, date, entries)
-        ),
-        backgroundColor: getBackgroundColor(index),
-      })),
-    };
-  }
-
-  function totalEmiPerTransport(transport, date) {
-    const filteredEntries = entries.filter((entry) => {
-      const entryDate = new Date(entry.date);
-      //console.log(entryDate);
-      let entryTransportAndFuel = entry.transport;
-      if(entry.fuel !== ""){
-        entryTransportAndFuel += " " + entry.fuel;
-      }
-      return entryTransportAndFuel === transport && compareForMultipleDays(entryDate, date, 7);
-    });
-
-    const totalEmissions = filteredEntries.reduce(
-      (acc, entry) => acc + entry.result,
-      0
-    );
-
-    return totalEmissions;
-  }
-
-  function compareForMultipleDays(date1, date2, nrOfDays){
-    
-    for (let days = 0; days < nrOfDays; days++) {
-      var date = new Date(date2);
-      date.setDate(date2.getDate() + days);
-      let areEqual = compareDates(date1, date);
-      if(areEqual){
-        return true;
-      }   
-    }
-    return false;
-  }
-
-  function compareDates(date1, date2){
-    return date1.getFullYear() === date2.getFullYear() && 
-            date1.getMonth() === date2.getMonth() &&
-            date1.getDate() === date2.getDate();
+    return dates;
   }
 
   function getBackgroundColor(index) {
@@ -113,6 +71,66 @@ export default function Overview({ entries }) {
     ];
 
     return colors[index % colors.length];
+  }
+
+  function generateChartData(transportTypes, dates) {
+    
+    return {
+      labels: dates.map((date) => date.label),
+      datasets: transportTypes.map((transport, index) => ({
+        label: transport,
+        data: dates.map((date) =>
+          totalEmissionsPerTransport(transport, date, entries)
+        ),
+        backgroundColor: getBackgroundColor(index),
+      })),
+    };
+  }
+
+  function totalEmissionsPerTransport(transport, date) {
+    const filteredEntries = entries.filter((entry) => {
+      const entryDate = new Date(entry.date);
+      //console.log(entryDate);
+      let entryTransportAndFuel = entry.transport;
+      if (entry.fuel !== "") {
+        entryTransportAndFuel += " " + entry.fuel;
+      }
+      return (
+        entryTransportAndFuel === transport &&
+        compareForMultipleDays(
+          entryDate,
+          date.date,
+          dateType === "week" ? 7 : dateType === "month" ? 30 : 365
+        )
+      );
+    });
+
+    const totalEmissions = filteredEntries.reduce(
+      (acc, entry) => acc + entry.result,
+      0
+    );
+
+    return totalEmissions;
+  }
+
+  function compareForMultipleDays(date1, date2, nrOfDays) {
+    for (let days = 0; days < nrOfDays; days++) {
+      var date = new Date(date2);
+      date.setDate(date2.getDate() + days);
+      let areEqual = compareDates(date1, date);
+      if (areEqual) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function compareDates(date1, date2) {
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
   }
 
   function capitalizeFirstLetter(str) {
@@ -170,7 +188,3 @@ export default function Overview({ entries }) {
 const Chart = styled.div`
   width: 700px;
 `;
-
-
-
-
