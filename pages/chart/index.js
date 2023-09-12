@@ -27,7 +27,7 @@ export default function Overview({ entries }) {
       for (let i = 0; i < 5; i++) {
         const weekStart = new Date(today);
         weekStart.setDate(today.getDate() - i * 7);
-        dates.push(weekStart.toLocaleDateString());
+        dates.push(weekStart);
       }
     } else if (dateType === "month") {
       for (let i = 0; i < 12; i++) {
@@ -49,8 +49,9 @@ export default function Overview({ entries }) {
   }
 
   function generateChartData(transportTypes, dates) {
+    console.log(dates);
     return {
-      labels: dates,
+      labels: dates.map((date) => (date.toLocaleDateString())),
       datasets: transportTypes.map((transport, index) => ({
         label: transport,
         data: dates.map((date) =>
@@ -61,10 +62,15 @@ export default function Overview({ entries }) {
     };
   }
 
-  function totalEmiPerTransport(transport, date, entries) {
+  function totalEmiPerTransport(transport, date) {
     const filteredEntries = entries.filter((entry) => {
-      const entryDate = new Date(entry.date).toLocaleDateString();
-      return entry.transport === transport && entryDate === date;
+      const entryDate = new Date(entry.date);
+      //console.log(entryDate);
+      let entryTransportAndFuel = entry.transport;
+      if(entry.fuel !== ""){
+        entryTransportAndFuel += " " + entry.fuel;
+      }
+      return entryTransportAndFuel === transport && compareForMultipleDays(entryDate, date, 7);
     });
 
     const totalEmissions = filteredEntries.reduce(
@@ -73,6 +79,25 @@ export default function Overview({ entries }) {
     );
 
     return totalEmissions;
+  }
+
+  function compareForMultipleDays(date1, date2, nrOfDays){
+    
+    for (let days = 0; days < nrOfDays; days++) {
+      var date = new Date(date2);
+      date.setDate(date2.getDate() + days);
+      let areEqual = compareDates(date1, date);
+      if(areEqual){
+        return true;
+      }   
+    }
+    return false;
+  }
+
+  function compareDates(date1, date2){
+    return date1.getFullYear() === date2.getFullYear() && 
+            date1.getMonth() === date2.getMonth() &&
+            date1.getDate() === date2.getDate();
   }
 
   function getBackgroundColor(index) {
