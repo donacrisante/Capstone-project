@@ -90,7 +90,6 @@ export default function Overview({ entries }) {
   function totalEmissionsPerTransport(transport, date) {
     const filteredEntries = entries.filter((entry) => {
       const entryDate = new Date(entry.date);
-      //console.log(entryDate);
       let entryTransportAndFuel = entry.transport;
       if (entry.fuel !== "") {
         entryTransportAndFuel += " " + entry.fuel;
