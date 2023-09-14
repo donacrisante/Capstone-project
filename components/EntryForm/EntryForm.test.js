@@ -1,7 +1,6 @@
 import { render, fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import EntryForm from "./EntryForm";
-import EntryList from "../EntryList/EntryList";
 import Form from "./EntryForm";
 import "@testing-library/jest-dom/extend-expect";
 
