@@ -21,7 +21,7 @@ export default function EntryList({
   function handleBackToForm() {
     router.push("/");
   }
-
+  console.log(entries);
   return (
     <>
       <h2>Journeys</h2>
@@ -50,18 +50,17 @@ export default function EntryList({
                 isFavourite={entry.isFavourite}
                 onToggleFavourite={onToggleFavourite}
               />
-              <p>
-                {entry.date}, {entry.start} - {entry.destination}, {entry.km}km,{" "}
-                {entry.transport} {entry.fuel}, {entry.result} kg CO<sub>2</sub>
+               <p>
+              {new Date(entry.date).toLocaleDateString("en-GB").split("/").join(".")}, {entry.start} -{" "}
+                {entry.destination}, {entry.km}km, {entry.transport}{" "}
+                {entry.fuel}, {entry.result} kg CO<sub>2</sub>
               </p>
               <button onClick={() => router.push(`/journey-list/${entry.id}`)}>
                 <span role="img" aria-label="A pencil">
                   ✏️
                 </span>
               </button>
-              <button
-                onClick={() => onHandleDelete(entry.id)}
-              >
+              <button onClick={() => onHandleDelete(entry.id)}>
                 <span role="img" aria-label="A trash can indicating deletion">
                   🗑️
                 </span>

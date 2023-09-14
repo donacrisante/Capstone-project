@@ -58,9 +58,7 @@ export default function EntryForm({
     event.preventDefault();
     const formData = new FormData(event.target);
     const newEntry = Object.fromEntries(formData);
-
-    const formattedDate = new Date(date).toLocaleDateString("en-GB").split("/").join(".");
-    newEntry.date = formattedDate;
+   
 
     newEntry.result = handleCalculateCo2(transport, km, fuel);
     newEntry.fuel = fuel === "Select a car" ? "" : fuel;
@@ -70,10 +68,6 @@ export default function EntryForm({
 
   function handleDropdownChange(event) {
     setTransport(event.target.value);
-    /* const newTransport = event.target.value;
-    setTransport(newTransport);
-    const calculatedResult = handleCalculateCo2(newTransport, km, fuel);
-    setResult(calculatedResult); */
 
     if (transport === "car") {
       setFuel("Select a car");
@@ -84,20 +78,10 @@ export default function EntryForm({
 
   function handleDropdownChangeFuel(event) {
     setFuel(event.target.value);
-
-    /* const newFuel = event.target.value;
-    setFuel(newFuel);
-    const calculatedResult = handleCalculateCo2(transport, km, newFuel);
-    setResult(calculatedResult); */
   }
 
   function handleKm(event) {
     setKm(event.target.value);
-/* 
-    const newKm = event.target.value;
-    setKm(newKm);
-    const calculatedResult = handleCalculateCo2(transport, newKm, fuel);
-    setResult(calculatedResult); */
   }
 
   return (

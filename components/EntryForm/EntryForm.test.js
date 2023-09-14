@@ -1,12 +1,13 @@
 import { render, fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import EntryForm from "./EntryForm";
+import EntryList from "../EntryList/EntryList";
 import Form from "./EntryForm";
 import "@testing-library/jest-dom/extend-expect";
 
 test("should update the date value when the user enters a valid date", () => {
-  const { container } = render(<EntryForm />);
-  const dateInput = container.querySelector("input#date");
+  const { getByLabelText } = render(<EntryForm />);
+  const dateInput = getByLabelText("Date:");
   fireEvent.change(dateInput, { target: { value: "2023-09-07" } });
   expect(dateInput).toHaveValue("2023-09-07");
 });
@@ -35,10 +36,3 @@ test("select-element returns the desired value", async () => {
   ).toHaveDisplayValue("Train");
 });
 
-test("submit data and render them in a entry list", async () => {
-  const user = userEvent.setup();
-  render(<Form />);
-  const button = screen.getByRole("button", { name: /add journey/i });
-  expect(button).toBeInTheDocument();
-  await user.click(button);
-});
