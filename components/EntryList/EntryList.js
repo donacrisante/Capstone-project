@@ -21,7 +21,7 @@ export default function EntryList({
   function handleBackToForm() {
     router.push("/");
   }
-  console.log(entries);
+
   return (
     <>
       <h2>Journeys</h2>
