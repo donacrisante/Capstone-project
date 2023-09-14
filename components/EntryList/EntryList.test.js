@@ -1,9 +1,12 @@
 import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import EntryList from "./EntryList";
-import { useRouter } from "next/router";
 
-jest.mock("next/router");
+jest.mock("next/router", () => ({
+    useRouter: () => ({
+      push: jest.fn(),
+    }),
+  }));
 
 
 const entry = {
@@ -20,12 +23,8 @@ const entry = {
 test("DeleteButton calls onHandleDelete", () => {
   const mockOnHandleDelete = jest.fn();
 
-  useRouter.mockReturnValue({
-    push: jest.fn(),
-  });
-
   render(<EntryList entries={[entry]} onHandleDelete={mockOnHandleDelete} />);
-  const deleteButton = screen.getByRole("button", {name:"🗑️"});
+  const deleteButton = screen.getByRole("button", {name:"A trash can indicating deletion"});
 
   fireEvent.click(deleteButton);
 
