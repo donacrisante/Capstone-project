@@ -1,6 +1,8 @@
 import EntryList from "@/components/EntryList/EntryList";
+import Heading from "@/components/Header/Header";
 
 export default function JourneyList({
+  header = "Journeys",
   entries,
   filter,
   onShowAllEntries,
@@ -15,6 +17,8 @@ export default function JourneyList({
 }) {
 
   return (
+    <>
+    <Heading>Journeys</Heading>
     <EntryList
       entries={entries}
       filter={filter}
@@ -28,5 +32,10 @@ export default function JourneyList({
       onHandleEdit={onHandleEdit}
       onHandleDelete={onHandleDelete}
     />
+    </>
   );
 }
+
+/* const Heading = styled.h1`
+  text-align: center;
+`; */

@@ -19,12 +19,11 @@ export default function EntryList({
   const router = useRouter();
 
   function handleBackToForm() {
-    router.push("/");
+    router.push("/calculator");
   }
 
   return (
     <>
-      <h2>Journeys</h2>
       <section>
         <Tabs>
           <Tab onClick={onShowAllEntries} isActive={filter === "all"}>

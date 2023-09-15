@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function EntryForm({
   formName,
+  header = "Calculator",
   formTitle = "Measure your impact",
   buttonText = "Add journey",
   onSubmit,
@@ -86,6 +87,7 @@ export default function EntryForm({
 
   return (
     <>
+    <h1>{header}</h1>
       <h3>{formTitle}</h3>
       <section>
         <Form aria-labelledby={formName} onSubmit={handleSubmit}>

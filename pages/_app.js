@@ -3,6 +3,7 @@ import Head from "next/head";
 import { uid } from "uid";
 import { useRouter } from "next/router";
 import useLocalStorageState from "use-local-storage-state";
+import NavBar from "@/components/NavBar/NavBar";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -80,6 +81,7 @@ export default function App({ Component, pageProps }) {
         onHandleEdit={handleEdit}
         onHandleDelete={handleDelete}
       />
+      <NavBar />
     </>
   );
 }

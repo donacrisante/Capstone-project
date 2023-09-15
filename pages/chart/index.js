@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import { useState } from "react";
+import Heading from "@/components/Header/Header";
 
-export default function Overview({ entries }) {
+export default function Overview({ entries, header = "Overview", }) {
   const [dateType, setDateType] = useState("week");
 
   const dates = getDateRange(dateType);
@@ -168,6 +169,7 @@ export default function Overview({ entries }) {
 
   return (
     <>
+    <Heading>Overview</Heading>
       <Chart>
         <Bar data={data} options={config.options} />
       </Chart>
@@ -187,3 +189,4 @@ export default function Overview({ entries }) {
 const Chart = styled.div`
   width: 700px;
 `;
+
