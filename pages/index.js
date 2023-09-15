@@ -39,7 +39,7 @@ export default function HomePage({ entries }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Heading>Mobility</Heading>
+        <Heading>CO<sub>2</sub> Mobility Tracker</Heading>
         <StyleDiv>
           <p>
             Hi Dona! Here your mobility CO<sub>2</sub> emissions for this month:
@@ -51,9 +51,9 @@ export default function HomePage({ entries }) {
             maxValue={1000}
             text={`${co2Emission.toFixed(2)} kg`}
             styles={buildStyles({
-              pathColor: `#3498db`, // Customize the progress bar color
-              textColor: "#3498db", // Customize the text color
-              trailColor: "#d6d6d6", // Customize the trail color
+              pathColor: `#3498db`, 
+              textColor: "#3498db", 
+              trailColor: "#d6d6d6", 
             })}
           />
         </div>
@@ -66,5 +66,5 @@ export default function HomePage({ entries }) {
 }
 
 const StyleDiv = styled.div`
-  margin: 60px;
+  margin: 80px;
 `;

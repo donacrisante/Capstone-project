@@ -1,8 +1,8 @@
 import EntryList from "@/components/EntryList/EntryList";
 import Heading from "@/components/Header/Header";
+import styled from "styled-components";
 
 export default function JourneyList({
-  header = "Journeys",
   entries,
   filter,
   onShowAllEntries,
@@ -15,27 +15,28 @@ export default function JourneyList({
   onHandleEdit,
   onHandleDelete,
 }) {
-
   return (
     <>
-    <Heading>Journeys</Heading>
-    <EntryList
-      entries={entries}
-      filter={filter}
-      onShowAllEntries={onShowAllEntries}
-      onShowFavouriteEntries={onShowFavouriteEntries}
-      allEntriesCount={allEntriesCount}
-      favouriteEntriesCount={favouriteEntriesCount}
-      result={result}
-      id={id}
-      onToggleFavourite={onToggleFavourite}
-      onHandleEdit={onHandleEdit}
-      onHandleDelete={onHandleDelete}
-    />
+      <Heading>Journeys</Heading>
+      <StyleDiv>
+        <EntryList
+          entries={entries}
+          filter={filter}
+          onShowAllEntries={onShowAllEntries}
+          onShowFavouriteEntries={onShowFavouriteEntries}
+          allEntriesCount={allEntriesCount}
+          favouriteEntriesCount={favouriteEntriesCount}
+          result={result}
+          id={id}
+          onToggleFavourite={onToggleFavourite}
+          onHandleEdit={onHandleEdit}
+          onHandleDelete={onHandleDelete}
+        />
+      </StyleDiv>
     </>
   );
 }
 
-/* const Heading = styled.h1`
-  text-align: center;
-`; */
+const StyleDiv = styled.div`
+  margin: 100px;
+`;
