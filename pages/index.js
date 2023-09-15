@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { Inter } from "next/font/google";
-import EntryForm from "@/components/EntryForm";
+import EntryForm from "@/components/EntryForm/EntryForm";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { calculator } from "@/library/calculator";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function EntryForm({
   formName,
@@ -9,6 +9,7 @@ export default function EntryForm({
   onSubmit,
   selectedEntry,
 }) {
+
   const [transport, setTransport] = useState(
     selectedEntry?.transport || "Select a transport"
   );
@@ -32,63 +33,60 @@ export default function EntryForm({
     { label: "Electric-Renewable", value: "electric-renewable" },
   ];
 
+  function handleCalculateCo2(transport, km, fuel) {
+    if (transport === "car" && !fuel) return 0;
+    const selectedTransport = transport === "car" ? fuel : transport;
+    const kmNumber = parseFloat(km.replace(",", "."));
+
+    if (!isNaN(kmNumber)) {
+      if (calculator[selectedTransport] && typeof calculator[selectedTransport] === "function") {
+        return calculator[selectedTransport](kmNumber);
+      } else {
+        console.error(`Calculator function for ${selectedTransport} does not exist.`);
+        return 0;
+      }
+    }
+    return 0;
+  }
+
+  useEffect(() => {
+    const calculatedResult = handleCalculateCo2(transport, km, fuel);
+    setResult(calculatedResult);
+  }, [transport, km, fuel]);
+
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const newEntry = Object.fromEntries(formData);
+   
 
-      newEntry.result = handleCalculateCo2(
-      newEntry.transport,
-      newEntry.km,
-      newEntry.fuel
-    );
-
+    newEntry.result = handleCalculateCo2(transport, km, fuel);
+    newEntry.fuel = fuel === "Select a car" ? "" : fuel;
     newEntry.id = selectedEntry?.id;
     onSubmit(newEntry);
   }
 
   function handleDropdownChange(event) {
-    /* const newTransport = event.target.value;
-    setTransport(newTransport);
+    setTransport(event.target.value);
 
-    if (newTransport === "car") {
+    if (transport === "car") {
       setFuel("Select a car");
     } else {
       setFuel("");
     }
-    const calculatedResult = handleCalculateCo2(newTransport, km, fuel);
-    setResult(calculatedResult); */
-    setTransport(event.target.value);
   }
 
   function handleDropdownChangeFuel(event) {
-    /* const newFuel = event.target.value;
-    setFuel(newFuel);
-    const calculatedResult = handleCalculateCo2(transport, km, newFuel);
-    setResult(calculatedResult); */
     setFuel(event.target.value);
   }
 
   function handleKm(event) {
-    /* const newKm = event.target.value;
-    setKm(newKm);
-    const calculatedResult = handleCalculateCo2(transport, newKm, fuel);
-    setResult(calculatedResult); */
     setKm(event.target.value);
-  }
-
-  function handleCalculateCo2(transport, km, fuel) {
-    const selectedTransport = transport === "car" ? fuel : transport;
-    const kmNumber = parseFloat(km.replace(",", "."));
-    if (!isNaN(kmNumber)) {
-      return calculator[selectedTransport](kmNumber);
-    }
-    return 0;
   }
 
   return (
     <>
-    <h3>{formTitle}</h3>
+      <h3>{formTitle}</h3>
       <section>
         <Form aria-labelledby={formName} onSubmit={handleSubmit}>
           <label htmlFor="date">Date: </label>
@@ -107,7 +105,7 @@ export default function EntryForm({
             id="start"
             name="start"
             placeholder="Enter your start"
-            pattern="^[A-Za-z]+$"
+            pattern="^[A-Za-z ]+$"
             title="Special characters and single numbers are not allowed"
             required
           />
@@ -117,7 +115,7 @@ export default function EntryForm({
             id="destination"
             name="destination"
             placeholder="Enter your destination"
-            pattern="^[A-Za-z]+$"
+            pattern="^[A-Za-z ]+$"
             title="Special characters and single numbers are not allowed"
             required
           />

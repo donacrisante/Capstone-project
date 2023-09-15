@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import EntryForm from "@/components/EntryForm";
+import EntryForm from "@/components/EntryForm/EntryForm";
 
 export default function EditPage({ onHandleEdit, entries }) {
   const router = useRouter();
