@@ -48,12 +48,13 @@ export default function HomePage({ entries }) {
         <div style={{ width: "200px", margin: "0 auto" }}>
           <CircularProgressbar
             value={co2Emission}
-            maxValue={1000}
+            maxValue={2000}
             text={`${co2Emission.toFixed(2)} kg`}
             styles={buildStyles({
               pathColor: `#3498db`, 
               textColor: "#3498db", 
               trailColor: "#d6d6d6", 
+              textSize: '12px',
             })}
           />
         </div>
