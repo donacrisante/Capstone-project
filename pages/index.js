@@ -61,7 +61,7 @@ export default function HomePage({ entries }) {
           />
         </StyledBar>
         <button type="button" onClick={() => router.push("/calculator/")}>
-          Let's add more journeys!
+          Let&apos;s add more journeys!
         </button>
       </main>
     </>
