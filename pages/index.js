@@ -2,8 +2,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import 'react-circular-progressbar/dist/styles.css';
+import { CircularProgressbar } from "react-circular-progressbar";
 import Heading from "@/components/Header/Header";
 
 export default function HomePage({ entries }) {
@@ -46,18 +45,10 @@ export default function HomePage({ entries }) {
           <p>Hi Dona! This is what you have emitted this month:</p>
         </StyleDiv>
         <StyledBar>
-          <CircularProgressbar
+          <StyledCircularProgressbar
             value={co2Emission}
             maxValue={2000}
             text={`${co2Emission.toFixed(2)} kg`}
-            styles={buildStyles({
-              pathColor: "#3498db",
-              textColor: "#3498db",
-              strokeLinecap: "round",
-              pathTransitionDuration: 1.5,
-              trailColor: "#d6d6d6",
-              textSize: "12px",
-            })}
           />
         </StyledBar>
         <button type="button" onClick={() => router.push("/calculator/")}>
@@ -76,4 +67,21 @@ const StyleDiv = styled.div`
 const StyledBar = styled.div`
   width: 200px;
   margin: 0 auto;
+`;
+
+const StyledCircularProgressbar = styled(CircularProgressbar)`
+  path {
+    stroke: #3498db;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.5s;
+  }
+  text {
+    fill: #3498db;
+    font-size: 12px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+  }
+  .CircularProgressbar-trail {
+    stroke: #d6d6d6;
+  }
 `;
