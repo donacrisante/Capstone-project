@@ -61,7 +61,7 @@ export default function HomePage({ entries }) {
         </StyledBar>
         {showMaxValuePopup && (
           <MaxValuePopup>
-            You've already reached the recommended limit of 2000 kg of CO<sub>2</sub> per person per year!
+            You&apos;ve already reached the recommended limit of 2000 kg of CO<sub>2</sub> per person per year!
             <button onClick={closePopup}>Close</button>
           </MaxValuePopup>
         )}
