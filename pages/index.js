@@ -7,6 +7,7 @@ import Heading from "@/components/Header/Header";
 
 export default function HomePage({ entries }) {
   const [co2Emission, setCo2Emission] = useState(0);
+  const [showMaxValuePopup, setShowMaxValuePopup] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -25,7 +26,14 @@ export default function HomePage({ entries }) {
     }, 0);
 
     setCo2Emission(monthlyEmissions);
+    if (monthlyEmissions >= 1500) {
+      setShowMaxValuePopup(true);
+    }
   }, [entries]);
+
+  const closePopup = () => {
+    setShowMaxValuePopup(false);
+  };
 
   return (
     <>
@@ -47,10 +55,16 @@ export default function HomePage({ entries }) {
         <StyledBar>
           <StyledCircularProgressbar
             value={co2Emission}
-            maxValue={2000}
+            maxValue={1500}
             text={`${co2Emission.toFixed(2)} kg`}
           />
         </StyledBar>
+        {showMaxValuePopup && (
+          <MaxValuePopup>
+            You've already reached the recommended limit of 1500 kg of CO<sub>2</sub> per person per year!
+            <button onClick={closePopup}>Close</button>
+          </MaxValuePopup>
+        )}
         <button type="button" onClick={() => router.push("/calculator/")}>
           Let&apos;s add more journeys!
         </button>
@@ -84,4 +98,15 @@ const StyledCircularProgressbar = styled(CircularProgressbar)`
   .CircularProgressbar-trail {
     stroke: #d6d6d6;
   }
+`;
+
+const MaxValuePopup = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
 `;
