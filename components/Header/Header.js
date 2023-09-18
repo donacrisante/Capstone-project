@@ -9,6 +9,7 @@ const Heading = styled.h1`
   width: 100%;
   margin-top: 0px;
   background-color: lightgrey;
+  font-size: 25px;
 `;
 
 export default Heading;

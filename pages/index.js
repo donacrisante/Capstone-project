@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+import 'react-circular-progressbar/dist/styles.css';
 import Heading from "@/components/Header/Header";
 
 export default function HomePage({ entries }) {
@@ -39,25 +39,27 @@ export default function HomePage({ entries }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Heading>CO<sub>2</sub> Mobility Tracker</Heading>
+        <Heading>
+          CO<sub>2</sub> Mobility Tracker
+        </Heading>
         <StyleDiv>
-          <p>
-            Hi Dona! Here your mobility CO<sub>2</sub> emissions for this month:
-          </p>
+          <p>Hi Dona! This is what you have emitted this month:</p>
         </StyleDiv>
-        <div style={{ width: "200px", margin: "0 auto" }}>
+        <StyledBar>
           <CircularProgressbar
             value={co2Emission}
             maxValue={2000}
             text={`${co2Emission.toFixed(2)} kg`}
             styles={buildStyles({
-              pathColor: `#3498db`, 
-              textColor: "#3498db", 
-              trailColor: "#d6d6d6", 
-              textSize: '12px',
+              pathColor: "#3498db",
+              textColor: "#3498db",
+              strokeLinecap: "round",
+              pathTransitionDuration: 1.5,
+              trailColor: "#d6d6d6",
+              textSize: "12px",
             })}
           />
-        </div>
+        </StyledBar>
         <button type="button" onClick={() => router.push("/calculator/")}>
           Let's add more journeys!
         </button>
@@ -67,5 +69,11 @@ export default function HomePage({ entries }) {
 }
 
 const StyleDiv = styled.div`
-  margin: 80px;
+  margin: 60px;
+  text-align: center;
+`;
+
+const StyledBar = styled.div`
+  width: 200px;
+  margin: 0 auto;
 `;

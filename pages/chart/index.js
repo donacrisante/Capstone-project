@@ -64,9 +64,9 @@ export default function Overview({ entries, header = "Overview" }) {
       "orange",
       "yellow",
       "pink",
-      "turquoise",
-      "lightgreen",
       "coral",
+      "lightgreen",
+      "turquoise",
       "lightblue",
     ];
 
