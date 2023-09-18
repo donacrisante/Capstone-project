@@ -26,7 +26,7 @@ export default function HomePage({ entries }) {
     }, 0);
 
     setCo2Emission(monthlyEmissions);
-    if (monthlyEmissions >= 1500) {
+    if (monthlyEmissions >= 2000) {
       setShowMaxValuePopup(true);
     }
   }, [entries]);
@@ -55,13 +55,13 @@ export default function HomePage({ entries }) {
         <StyledBar>
           <StyledCircularProgressbar
             value={co2Emission}
-            maxValue={1500}
+            maxValue={2000}
             text={`${co2Emission.toFixed(2)} kg`}
           />
         </StyledBar>
         {showMaxValuePopup && (
           <MaxValuePopup>
-            You've already reached the recommended limit of 1500 kg of CO<sub>2</sub> per person per year!
+            You've already reached the recommended limit of 2000 kg of CO<sub>2</sub> per person per year!
             <button onClick={closePopup}>Close</button>
           </MaxValuePopup>
         )}
