@@ -6,7 +6,6 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import Heading from "@/components/Header/Header";
 import SustainableCityImage from "@/utils/images/SustainableCityImage";
 
-
 export default function HomePage({ entries }) {
   const [co2Emission, setCo2Emission] = useState(0);
   const [showMaxValuePopup, setShowMaxValuePopup] = useState(false);
@@ -59,8 +58,13 @@ export default function HomePage({ entries }) {
             value={co2Emission}
             maxValue={2000}
             text={`${co2Emission.toFixed(2)} kg`}
+            background="url(/utils/images/SustainableCity.jpg)"
           />
-          <SustainableCityImage />
+            
+          {/* </StyledCircularProgressbar> */}
+          {/* <StyledBackground>
+              <SustainableCityImage />
+            </StyledBackground> */}
         </StyledBar>
         {showMaxValuePopup && (
           <MaxValuePopup>
@@ -89,20 +93,33 @@ const StyledBar = styled.div`
 
 const StyledCircularProgressbar = styled(CircularProgressbar)`
   path {
-    stroke: #5E8C61;
+    stroke: #5e8c61;
     stroke-linecap: round;
     transition: stroke-dashoffset 1.5s;
   }
   text {
-    fill: #5E8C61;
+    fill: #5e8c61;
     font-size: 12px;
     text-anchor: middle;
     dominant-baseline: middle;
   }
   .CircularProgressbar-trail {
-    stroke: #94E8B4;
+    stroke: #94e8b4;
   }
 `;
+
+/* const StyledBackground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(/utils/images/SustainableCity.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+`; */
 
 const MaxValuePopup = styled.div`
   position: fixed;
