@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { CircularProgressbar } from "react-circular-progressbar";
 import Heading from "@/components/Header/Header";
+import SustainableCityImage from "@/utils/images/SustainableCityImage";
+
 
 export default function HomePage({ entries }) {
   const [co2Emission, setCo2Emission] = useState(0);
@@ -58,10 +60,12 @@ export default function HomePage({ entries }) {
             maxValue={2000}
             text={`${co2Emission.toFixed(2)} kg`}
           />
+          <SustainableCityImage />
         </StyledBar>
         {showMaxValuePopup && (
           <MaxValuePopup>
-            You have already reached the recommended limit of 2000 kg of CO<sub>2</sub> per person per year!
+            You have already reached the recommended limit of 2000 kg of CO
+            <sub>2</sub> per person per year!
             <button onClick={closePopup}>Close</button>
           </MaxValuePopup>
         )}
@@ -85,18 +89,18 @@ const StyledBar = styled.div`
 
 const StyledCircularProgressbar = styled(CircularProgressbar)`
   path {
-    stroke: #3498db;
+    stroke: #5E8C61;
     stroke-linecap: round;
     transition: stroke-dashoffset 1.5s;
   }
   text {
-    fill: #3498db;
+    fill: #5E8C61;
     font-size: 12px;
     text-anchor: middle;
     dominant-baseline: middle;
   }
   .CircularProgressbar-trail {
-    stroke: #d6d6d6;
+    stroke: #94E8B4;
   }
 `;
 
@@ -110,3 +114,13 @@ const MaxValuePopup = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 999;
 `;
+
+/* const SustainableCityImageElement = styled.img`
+  width: 80px; // Adjust the size as needed
+  height: 80px; // Adjust the size as needed
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1; // Ensure the image is above the progress bar
+`; */
