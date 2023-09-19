@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import { useState } from "react";
+import Heading from "@/components/Header/Header";
 
-export default function Overview({ entries }) {
+export default function Overview({ entries, header = "Overview" }) {
   const [dateType, setDateType] = useState("week");
 
   const dates = getDateRange(dateType);
@@ -30,7 +31,6 @@ export default function Overview({ entries }) {
         dates.push({ date: weekStart, label: weekStart.toLocaleDateString() });
       }
       dates.reverse();
-
     } else if (dateType === "month") {
       for (let i = 0; i < 12; i++) {
         const monthStart = new Date(today);
@@ -64,9 +64,9 @@ export default function Overview({ entries }) {
       "orange",
       "yellow",
       "pink",
-      "turquoise",
-      "lightgreen",
       "coral",
+      "lightgreen",
+      "turquoise",
       "lightblue",
     ];
 
@@ -74,7 +74,6 @@ export default function Overview({ entries }) {
   }
 
   function generateChartData(transportTypes, dates) {
-    
     return {
       labels: dates.map((date) => date.label),
       datasets: transportTypes.map((transport, index) => ({
@@ -168,9 +167,12 @@ export default function Overview({ entries }) {
 
   return (
     <>
-      <Chart>
-        <Bar data={data} options={config.options} />
-      </Chart>
+      <Heading>Overview</Heading>
+      <StyleDiv>
+        <Chart>
+          <Bar data={data} options={config.options} />
+        </Chart>
+      </StyleDiv>
       <button type="button" onClick={() => changeDateType("week")}>
         Weekly
       </button>
@@ -186,4 +188,8 @@ export default function Overview({ entries }) {
 
 const Chart = styled.div`
   width: 700px;
+`;
+
+const StyleDiv = styled.div`
+  margin: 100px;
 `;

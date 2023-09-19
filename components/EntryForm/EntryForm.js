@@ -3,13 +3,11 @@ import { calculator } from "@/library/calculator";
 import { useEffect, useState } from "react";
 
 export default function EntryForm({
-  formName,
   formTitle = "Measure your impact",
   buttonText = "Add journey",
   onSubmit,
   selectedEntry,
 }) {
-
   const [transport, setTransport] = useState(
     selectedEntry?.transport || "Select a transport"
   );
@@ -39,10 +37,15 @@ export default function EntryForm({
     const kmNumber = parseFloat(km.replace(",", "."));
 
     if (!isNaN(kmNumber)) {
-      if (calculator[selectedTransport] && typeof calculator[selectedTransport] === "function") {
+      if (
+        calculator[selectedTransport] &&
+        typeof calculator[selectedTransport] === "function"
+      ) {
         return calculator[selectedTransport](kmNumber);
       } else {
-        console.error(`Calculator function for ${selectedTransport} does not exist.`);
+        console.error(
+          `Calculator function for ${selectedTransport} does not exist.`
+        );
         return 0;
       }
     }
@@ -58,7 +61,6 @@ export default function EntryForm({
     event.preventDefault();
     const formData = new FormData(event.target);
     const newEntry = Object.fromEntries(formData);
-   
 
     newEntry.result = handleCalculateCo2(transport, km, fuel);
     newEntry.fuel = fuel === "Select a car" ? "" : fuel;
@@ -88,7 +90,7 @@ export default function EntryForm({
     <>
       <h3>{formTitle}</h3>
       <section>
-        <Form aria-labelledby={formName} onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <label htmlFor="date">Date: </label>
           <input
             type="date"
