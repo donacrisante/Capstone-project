@@ -2,9 +2,8 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { CircularProgressbar } from "react-circular-progressbar";
+import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import Heading from "@/components/Header/Header";
-import SustainableCityImage from "@/utils/images/SustainableCityImage";
 
 export default function HomePage({ entries }) {
   const [co2Emission, setCo2Emission] = useState(0);
@@ -47,6 +46,7 @@ export default function HomePage({ entries }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <Background />
         <Heading>
           CO<sub>2</sub> Mobility Tracker
         </Heading>
@@ -58,13 +58,13 @@ export default function HomePage({ entries }) {
             value={co2Emission}
             maxValue={2000}
             text={`${co2Emission.toFixed(2)} kg`}
-            background="url(/utils/images/SustainableCity.jpg)"
-          />
-            
-          {/* </StyledCircularProgressbar> */}
-          {/* <StyledBackground>
-              <SustainableCityImage />
-            </StyledBackground> */}
+          >
+            <img
+              style={{ marginTop: -10, width: 210, height: 210, zIndex: -1, borderRadius: 100 }}
+              src="SustainableCity.jpg"
+              alt="sustainable city"
+            />
+          </StyledCircularProgressbar>
         </StyledBar>
         {showMaxValuePopup && (
           <MaxValuePopup>
@@ -73,9 +73,11 @@ export default function HomePage({ entries }) {
             <button onClick={closePopup}>Close</button>
           </MaxValuePopup>
         )}
-        <button type="button" onClick={() => router.push("/calculator/")}>
-          Let&apos;s add more journeys!
-        </button>
+        <ButtonContainer>
+          <Button type="button" onClick={() => router.push("/calculator/")}>
+            Let&apos;s calculate your CO<sub>2</sub> emissions!
+          </Button>
+        </ButtonContainer>
       </main>
     </>
   );
@@ -87,39 +89,69 @@ const StyleDiv = styled.div`
 `;
 
 const StyledBar = styled.div`
-  width: 200px;
+  width: 220px;
   margin: 0 auto;
 `;
 
-const StyledCircularProgressbar = styled(CircularProgressbar)`
+const StyledCircularProgressbar = styled(CircularProgressbarWithChildren)`
+    
   path {
     stroke: #5e8c61;
+    stroke-width: 8px;
     stroke-linecap: round;
     transition: stroke-dashoffset 1.5s;
   }
   text {
-    fill: #5e8c61;
-    font-size: 12px;
+    margin-top: 10px;
+    fill: black;
+    font-size: 10px;
+    font-weight: bold;
     text-anchor: middle;
     dominant-baseline: middle;
+    transform: translate(0%, -20%);
   }
   .CircularProgressbar-trail {
     stroke: #94e8b4;
+    stroke-width: 8px;
   }
 `;
 
-/* const StyledBackground = styled.div`
+const Background = styled.div`
+  background-color: #5e8c61;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(/utils/images/SustainableCity.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
   z-index: -1;
-`; */
+  opacity: 0.7;
+`;
+
+const Button = styled.button`
+  justify-content: center;
+  align-items: center;
+  width: 297px;
+  height: 44px;
+  flex-shrink: 0;
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 50px;
+  border-style: none;
+  background: #5e8c61;
+  box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
+`;
+
+const ButtonContainer = styled.div`
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0px 40px 40px;
+
+  @media (max-width: 768) {
+    left: 2%;
+    transform: translateX(-10%);
+  }
+`;
 
 const MaxValuePopup = styled.div`
   position: fixed;
@@ -131,13 +163,3 @@ const MaxValuePopup = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 999;
 `;
-
-/* const SustainableCityImageElement = styled.img`
-  width: 80px; // Adjust the size as needed
-  height: 80px; // Adjust the size as needed
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1; // Ensure the image is above the progress bar
-`; */

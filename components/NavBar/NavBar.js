@@ -6,34 +6,47 @@ export default function NavBar() {
   return (
     <Navbar>
       <Link href="/">
-        <FaHome />
+        <Icon>
+          <FaHome />
+        </Icon>
       </Link>
 
       <Link href="/calculator">
-        <FaCalculator />
+        <Icon>
+          <FaCalculator />
+        </Icon>
       </Link>
 
       <Link href="/journey-list">
-        <FaList />
+        <Icon>
+          <FaList />
+        </Icon>
       </Link>
       <Link href="/chart">
-        <FaChartBar />
+        <Icon>
+          <FaChartBar />
+        </Icon>
       </Link>
     </Navbar>
   );
 }
 
 const Navbar = styled.nav`
-  background-color: lightslategray;
-    position: fixed;
-    display: flex;
-    bottom: 0px;
-    width: 100%;
-    padding: 10px;
-    left: 0px;
-    justify-content: space-around;
-    border: 2px solid black;
-    border-left: 0px;
-    border-right: 0px;
-    border-bottom: 0px;
+  background-color: #4e6151;
+  position: fixed;
+  display: flex;
+  bottom: 0px;
+  width: 100%;
+  padding: 10px;
+  left: 0px;
+  justify-content: space-around;
+  border: none;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 0px;
+`;
+
+const Icon = styled.div`
+  color: #94e8b4; 
+  font-size: 24px; 
 `;
