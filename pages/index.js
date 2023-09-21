@@ -59,8 +59,8 @@ export default function HomePage({ entries }) {
             maxValue={2000}
             text={`${co2Emission.toFixed(2)} kg`}
           >
-            <img
-              style={{ marginTop: -10, width: 210, height: 210, zIndex: -1, borderRadius: 100 }}
+            <CityImage
+              /* style={{ marginTop: -10, width: 210, height: 210, zIndex: -1, borderRadius: 100 }} */
               src="SustainableCity.jpg"
               alt="sustainable city"
             />
@@ -84,6 +84,8 @@ export default function HomePage({ entries }) {
 }
 
 const StyleDiv = styled.div`
+  font-size: 16px;
+  font-weight: bold;
   margin: 60px;
   text-align: center;
 `;
@@ -94,7 +96,6 @@ const StyledBar = styled.div`
 `;
 
 const StyledCircularProgressbar = styled(CircularProgressbarWithChildren)`
-    
   path {
     stroke: #5e8c61;
     stroke-width: 8px;
@@ -116,6 +117,14 @@ const StyledCircularProgressbar = styled(CircularProgressbarWithChildren)`
   }
 `;
 
+const CityImage = styled.img`
+  margin-top: -10px;
+  width: 210px;
+  height: 210px;
+  z-index: -1;
+  border-radius: 100px;
+`;
+
 const Background = styled.div`
   background-color: #5e8c61;
   position: absolute;
@@ -133,7 +142,7 @@ const Button = styled.button`
   width: 297px;
   height: 44px;
   flex-shrink: 0;
-  font-family: monospace;
+  font-family: var(--font-family);
   font-size: 13px;
   font-weight: bold;
   border-radius: 50px;
