@@ -88,7 +88,6 @@ export default function EntryForm({
 
   return (
     <>
-      {/* <Background /> */}
       <h3>{formTitle}</h3>
       <section>
         <Form onSubmit={handleSubmit}>
@@ -170,12 +169,12 @@ export default function EntryForm({
               </>
             ) : null}
           </Label>
+          <p>
+            Your journey has emitted {result} kg CO<sub>2</sub>
+          </p>
           <Button type="submit">{buttonText}</Button>
         </Form>
       </section>
-      <p>
-        Your journey has emitted {result} kg CO<sub>2</sub>
-      </p>
     </>
   );
 }
@@ -186,20 +185,9 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-/* const Background = styled.div`
-  background-color: #5e8c61;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  opacity: 0.7;
-`; */
-
 const Label = styled.label`
   font-size: 15px;
-`
+`;
 
 const Input = styled.input`
   padding: 5px;
@@ -227,11 +215,11 @@ const Select = styled.select`
 const Button = styled.button`
   justify-content: center;
   align-items: center;
-  margin: 20px 0px 10px 40px;
+  margin: 0px 0px 10px 40px;
   width: 150px;
   height: 30px;
   flex-shrink: 0;
-  font-family: var(--font-family);;
+  font-family: var(--font-family);
   font-size: 13px;
   font-weight: bold;
   border-radius: 50px;

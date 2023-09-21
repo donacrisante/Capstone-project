@@ -16,7 +16,6 @@ export default function NavBar() {
           <FaCalculator />
         </Icon>
       </Link>
-
       <Link href="/journey-list">
         <Icon>
           <FaList />
@@ -47,6 +46,6 @@ const Navbar = styled.nav`
 `;
 
 const Icon = styled.div`
-  color: #94e8b4; 
-  font-size: 24px; 
+  color: #94e8b4;
+  font-size: 24px;
 `;

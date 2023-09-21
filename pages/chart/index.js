@@ -151,6 +151,11 @@ export default function Overview({ entries, header = "Overview" }) {
           text: `CO2 Emissions per Means of Transport (${capitalizeFirstLetter(
             dateType
           )})`,
+          color: "black",
+          font: {
+            size: 16,
+            family: "monospace",
+          },
         },
       },
       responsive: true,
@@ -158,9 +163,21 @@ export default function Overview({ entries, header = "Overview" }) {
       scales: {
         x: {
           stacked: true,
+          ticks: {
+            font: {
+              family: "monospace",
+              weight: "bold",
+            },
+          },
         },
         y: {
           stacked: true,
+          ticks: {
+            font: {
+              family: "monospace",
+              weight: "bold",
+            },
+          },
         },
       },
     },
@@ -174,21 +191,22 @@ export default function Overview({ entries, header = "Overview" }) {
           <Bar data={data} options={config.options} />
         </Chart>
       </StyleDiv>
-      <button type="button" onClick={() => changeDateType("week")}>
-        Weekly
-      </button>
-      <button type="button" onClick={() => changeDateType("month")}>
-        Monthly
-      </button>
-      <button type="button" onClick={() => changeDateType("year")}>
-        Yearly
-      </button>
+      <ButtonContainer>
+        <Button type="button" onClick={() => changeDateType("week")}>
+          Weekly
+        </Button>
+        <Button type="button" onClick={() => changeDateType("month")}>
+          Monthly
+        </Button>
+        <Button type="button" onClick={() => changeDateType("year")}>
+          Yearly
+        </Button>
+      </ButtonContainer>
     </>
   );
 }
 
 const Chart = styled.div`
-  
   width: calc(100%-40px);
   height: 500px;
   margin-right: 20px;
@@ -197,4 +215,26 @@ const Chart = styled.div`
 
 const StyleDiv = styled.div`
   margin-top: 50px;
+`;
+
+const Button = styled.button`
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px 10px 40px;
+  width: 80px;
+  height: 30px;
+  flex-shrink: 0;
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 50px;
+  border-style: none;
+  background: #cccccc;
+  box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-right: 40px;
 `;

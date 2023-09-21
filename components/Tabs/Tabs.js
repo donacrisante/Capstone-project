@@ -6,9 +6,8 @@ export default function Tabs({ children }) {
 
 const StyledTabs = styled.div`
   display: flex;
+  justify-content: center;
+  gap: 5px;
   width: 400px;
   height: 44px;
-  /* justify-content: center; */
-  /* align-items: center; */
-  gap: 50px;
 `;

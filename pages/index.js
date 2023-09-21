@@ -46,7 +46,6 @@ export default function HomePage({ entries }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        {/* <Background /> */}
         <Heading>
           CO<sub>2</sub> Mobility Tracker
         </Heading>
@@ -123,17 +122,6 @@ const CityImage = styled.img`
   z-index: -1;
   border-radius: 100px;
 `;
-
-/* const Background = styled.div`
-  background-color: #5e8c61;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  opacity: 0.7;
-`; */
 
 const Button = styled.button`
   justify-content: center;
