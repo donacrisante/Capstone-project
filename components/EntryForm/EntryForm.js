@@ -88,7 +88,7 @@ export default function EntryForm({
 
   return (
     <>
-      <Background />
+      {/* <Background /> */}
       <h3>{formTitle}</h3>
       <section>
         <Form onSubmit={handleSubmit}>
@@ -186,7 +186,7 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const Background = styled.div`
+/* const Background = styled.div`
   background-color: #5e8c61;
   position: absolute;
   top: 0;
@@ -195,7 +195,7 @@ const Background = styled.div`
   height: 100%;
   z-index: -1;
   opacity: 0.7;
-`;
+`; */
 
 const Label = styled.label`
   font-size: 15px;

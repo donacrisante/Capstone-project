@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import Divider from "../Divider/Divider";
 import { Fragment } from "react";
 import Tab from "../Tab/Tab";
@@ -24,6 +25,7 @@ export default function EntryList({
 
   return (
     <>
+      {/* <Background /> */}
       <section>
         <Tabs>
           <Tab onClick={onShowAllEntries} isActive={filter === "all"}>
@@ -40,20 +42,24 @@ export default function EntryList({
             </Badge>
           </Tab>
         </Tabs>
-        <div>
+        <StyledEntryList>
           {entries.map((entry, index) => (
             <Fragment key={entry.id}>
               {index > 0 ? <Divider /> : null}
+              <StyledEntry>
               <FavouriteButton
                 id={entry.id}
                 isFavourite={entry.isFavourite}
                 onToggleFavourite={onToggleFavourite}
               />
-               <p>
-              {new Date(entry.date).toLocaleDateString("en-GB").split("/").join(".")}, {entry.start} -{" "}
-                {entry.destination}, {entry.km}km, {entry.transport}{" "}
-                {entry.fuel}, {entry.result} kg CO<sub>2</sub>
-              </p>
+              <StyledJourney>
+                {new Date(entry.date)
+                  .toLocaleDateString("en-GB")
+                  .split("/")
+                  .join(".")}
+                , {entry.start} - {entry.destination}, {entry.km}km,{" "}
+                {entry.transport} {entry.fuel}, {entry.result} kg CO<sub>2</sub>
+              </StyledJourney>
               <button onClick={() => router.push(`/journey-list/${entry.id}`)}>
                 <span role="img" aria-label="A pencil">
                   ✏️
@@ -64,14 +70,63 @@ export default function EntryList({
                   🗑️
                 </span>
               </button>
+              </StyledEntry>
             </Fragment>
           ))}
-        </div>
+        </StyledEntryList>
       </section>
-      <button type="submit" onClick={handleBackToForm}>
+      <StyledAddButton type="submit" onClick={handleBackToForm}>
         {" "}
         +{" "}
-      </button>
+      </StyledAddButton>
     </>
   );
 }
+
+/* const Background = styled.div`
+  background-color: #5e8c61;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.7;
+`; */
+
+const StyledEntryList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: -10px;
+  padding-inline-start: 0px;
+`;
+
+const StyledEntry = styled.li`
+  margin: 0;
+  padding: 30px 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px; 
+`;
+
+const StyledJourney = styled.p`
+  margin-block-start: 0em;
+`
+
+const StyledAddButton = styled.button`
+  position: fixed;
+  bottom: 100px; 
+  right: 20px; 
+  background-color: #5e8c61;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px; 
+  height: 50px; 
+  /* font-family: var(--font-family); */
+  font-size: 40px; 
+  font-weight: 700;
+  box-shadow: #5E5DF0 0 10px 20px -10px;
+  cursor: pointer;
+`;

@@ -46,7 +46,7 @@ export default function HomePage({ entries }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Background />
+        {/* <Background /> */}
         <Heading>
           CO<sub>2</sub> Mobility Tracker
         </Heading>
@@ -60,7 +60,6 @@ export default function HomePage({ entries }) {
             text={`${co2Emission.toFixed(2)} kg`}
           >
             <CityImage
-              /* style={{ marginTop: -10, width: 210, height: 210, zIndex: -1, borderRadius: 100 }} */
               src="SustainableCity.jpg"
               alt="sustainable city"
             />
@@ -125,7 +124,7 @@ const CityImage = styled.img`
   border-radius: 100px;
 `;
 
-const Background = styled.div`
+/* const Background = styled.div`
   background-color: #5e8c61;
   position: absolute;
   top: 0;
@@ -134,7 +133,7 @@ const Background = styled.div`
   height: 100%;
   z-index: -1;
   opacity: 0.7;
-`;
+`; */
 
 const Button = styled.button`
   justify-content: center;

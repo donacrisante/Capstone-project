@@ -154,6 +154,7 @@ export default function Overview({ entries, header = "Overview" }) {
         },
       },
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           stacked: true,
@@ -187,9 +188,13 @@ export default function Overview({ entries, header = "Overview" }) {
 }
 
 const Chart = styled.div`
-  width: 700px;
+  
+  width: calc(100%-40px);
+  height: 500px;
+  margin-right: 20px;
+  margin-left: 20px;
 `;
 
 const StyleDiv = styled.div`
-  margin: 100px;
+  margin-top: 50px;
 `;
