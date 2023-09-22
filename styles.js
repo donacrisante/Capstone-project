@@ -19,7 +19,7 @@ export default createGlobalStyle`
   body {
     margin: 0;
     font-family: var(--font-family);
-    background-color: rgba(94, 140, 97, 0.7);
+    background-color: rgba(94, 140, 97, 0.5);
     position: absolute;
     top: 0;
     left: 0;

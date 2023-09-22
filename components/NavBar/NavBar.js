@@ -46,6 +46,6 @@ const Navbar = styled.nav`
 `;
 
 const Icon = styled.div`
-  color: #94e8b4;
+  color: #eed9c4;
   font-size: 24px;
 `;

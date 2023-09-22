@@ -229,7 +229,7 @@ const Button = styled.button`
   font-weight: bold;
   border-radius: 50px;
   border-style: none;
-  background: #cccccc;
+  background: #cccccc; 
   box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
 `;
 

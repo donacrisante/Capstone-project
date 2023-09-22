@@ -126,6 +126,7 @@ const CityImage = styled.img`
 const Button = styled.button`
   justify-content: center;
   align-items: center;
+  margin: 70px 0px 0px 0px;
   width: 297px;
   height: 44px;
   flex-shrink: 0;

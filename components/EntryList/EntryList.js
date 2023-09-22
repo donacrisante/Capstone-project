@@ -121,7 +121,7 @@ const StyledAddButton = styled.button`
   width: 50px; 
   height: 50px; 
   font-size: 40px; 
-  font-weight: 700;
+  font-weight: lighter;
   box-shadow: #5E5DF0 0 10px 20px -10px;
   cursor: pointer;
 `;

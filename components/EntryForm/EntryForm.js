@@ -169,10 +169,15 @@ export default function EntryForm({
               </>
             ) : null}
           </Label>
-          <p>
+          <Result>
             Your journey has emitted {result} kg CO<sub>2</sub>
-          </p>
-          <Button type="submit">{buttonText}</Button>
+          </Result>
+          <ButtonContainer>
+          {formTitle === "Edit journey:" && (
+            <Button onClick={() => router.back()}>Cancel</Button>
+          )}
+            <Button type="submit">{buttonText}</Button>
+          </ButtonContainer>
         </Form>
       </section>
     </>
@@ -186,7 +191,7 @@ const Form = styled.form`
 `;
 
 const Label = styled.label`
-  font-size: 15px;
+  font-size: 14px;
 `;
 
 const Input = styled.input`
@@ -215,8 +220,8 @@ const Select = styled.select`
 const Button = styled.button`
   justify-content: center;
   align-items: center;
-  margin: 0px 0px 10px 40px;
-  width: 150px;
+  margin: 0px -10px 10px 30px;
+  width: 120px;
   height: 30px;
   flex-shrink: 0;
   font-family: var(--font-family);
@@ -226,4 +231,14 @@ const Button = styled.button`
   border-style: none;
   background: #5e8c61;
   box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-right: 40px;
+`;
+
+const Result = styled.p`
+  font-size: 14px;
 `;
