@@ -108,7 +108,7 @@ export default function EntryForm({
             id="start"
             name="start"
             placeholder="Enter your start"
-            pattern="^[A-Za-z ]+$"
+            pattern="^[A-Za-zÄäÖöÜüÉéÈè ]+$"
             title="Special characters and single numbers are not allowed"
             required
           />
@@ -118,7 +118,7 @@ export default function EntryForm({
             id="destination"
             name="destination"
             placeholder="Enter your destination"
-            pattern="^[A-Za-z ]+$"
+            pattern="^[A-Za-zÄäÖöÜüÉéÈè ]+$"
             title="Special characters and single numbers are not allowed"
             required
           />

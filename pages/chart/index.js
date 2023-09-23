@@ -14,10 +14,8 @@ export default function Overview({ entries, header = "Overview" }) {
     "car diesel",
     "car hybrid",
     "car electric-strommix",
-    "car electric-renewable",
     "train",
     "plane",
-    "bicycle",
   ];
 
   function getDateRange(dateType) {
@@ -64,10 +62,8 @@ export default function Overview({ entries, header = "Overview" }) {
       "orange",
       "yellow",
       "pink",
-      "coral",
       "lightgreen",
       "turquoise",
-      "lightblue",
     ];
 
     return colors[index % colors.length];
