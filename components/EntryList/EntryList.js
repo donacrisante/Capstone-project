@@ -59,16 +59,16 @@ export default function EntryList({
                 , {entry.start} - {entry.destination}, {entry.km}km,{" "}
                 {entry.transport} {entry.fuel}, {entry.result} kg CO<sub>2</sub>
               </StyledEntry>
-              <StyledIcon onClick={() => router.push(`/journey-list/${entry.id}`)}>
+              <StyledButton onClick={() => router.push(`/journey-list/${entry.id}`)}>
                 <span role="img" aria-label="A pencil">
                   ✏️
                 </span>
-              </StyledIcon>
-              <StyledIcon onClick={() => onHandleDelete(entry.id)}>
+              </StyledButton>
+              <StyledButton onClick={() => onHandleDelete(entry.id)}>
                 <span role="img" aria-label="A trash can indicating deletion">
                   🗑️
                 </span>
-              </StyledIcon>
+              </StyledButton>
               </StyledEntryBox>
             </Fragment>
           ))}
@@ -102,7 +102,7 @@ const StyledEntry = styled.p`
   margin-block-start: 0em;
 `;
 
-const StyledIcon = styled.button`
+const StyledButton = styled.button`
   border: none;
   border-radius: 20%;
   width: 50px; 

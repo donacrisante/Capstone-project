@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export default function Tabs({ children }) {
-  return <StyledTabs name="tabs">{children}</StyledTabs>;
+  return <StyledTabs>{children}</StyledTabs>;
 }
 
 const StyledTabs = styled.div`

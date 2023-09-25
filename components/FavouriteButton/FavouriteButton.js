@@ -9,7 +9,6 @@ export default function FavouriteButton({
 }) {
   return (
     <FavButton
-      name="favourite-button"
       onClick={() => onToggleFavourite(id)}
       aria-label="favourite"
     >

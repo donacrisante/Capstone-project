@@ -1,11 +1,7 @@
 import styled from "styled-components";
 
-export default function Tab({ children, isActive, onClick }) {
-  return (
-    <StyledTab name={`tab${isActive ? " tab--active" : ""}`} onClick={onClick}>
-      {children}
-    </StyledTab>
-  );
+export default function Tab({ children, onClick }) {
+  return <StyledTab onClick={onClick}>{children}</StyledTab>;
 }
 
 const StyledTab = styled.button`
@@ -20,6 +16,6 @@ const StyledTab = styled.button`
   border-radius: 999px;
 
   &:hover {
-    background-color: #8FBC8F;
+    background-color: #8fbc8f;
   }
 `;

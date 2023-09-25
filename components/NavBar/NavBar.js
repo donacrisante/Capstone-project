@@ -6,25 +6,25 @@ export default function NavBar() {
   return (
     <Navbar>
       <Link href="/">
-        <Icon>
+        <IconContainer>
           <FaHome />
-        </Icon>
+        </IconContainer>
       </Link>
 
       <Link href="/calculator">
-        <Icon>
+        <IconContainer>
           <FaCalculator />
-        </Icon>
+        </IconContainer>
       </Link>
       <Link href="/journey-list">
-        <Icon>
+        <IconContainer>
           <FaList />
-        </Icon>
+        </IconContainer>
       </Link>
       <Link href="/chart">
-        <Icon>
+        <IconContainer>
           <FaChartBar />
-        </Icon>
+        </IconContainer>
       </Link>
     </Navbar>
   );
@@ -45,7 +45,7 @@ const Navbar = styled.nav`
   border-bottom: 0px;
 `;
 
-const Icon = styled.div`
+const IconContainer = styled.div`
   color: #eed9c4;
   font-size: 24px;
 `;
