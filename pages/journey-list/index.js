@@ -38,5 +38,6 @@ export default function JourneyList({
 }
 
 const StyleDiv = styled.div`
-  margin: 100px;
+  margin-top: 50px;
+  width: 100%;
 `;

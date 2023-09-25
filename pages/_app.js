@@ -1,9 +1,11 @@
 import GlobalStyle from "@/styles";
 import Head from "next/head";
 import { uid } from "uid";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import useLocalStorageState from "use-local-storage-state";
 import NavBar from "@/components/NavBar/NavBar";
+import Toast from "@/components/Toast/Toast";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -15,6 +17,9 @@ export default function App({ Component, pageProps }) {
   const [filter, setFilter] = useLocalStorageState("filter", {
     defaultValue: "all",
   });
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   function handleShowAllEntries() {
     setFilter("all");
@@ -29,29 +34,29 @@ export default function App({ Component, pageProps }) {
     router.push("/journey-list");
   }
 
+  function handleShowToast(message) {
+    setToastMessage(message);
+    setShowToast(true);
+
+    setTimeout(() => {
+      setShowToast(false);
+    }, 2500);
+  }
+
   function handleEdit(updatedEntry) {
     setEntries(
       entries.map((entry) =>
         entry.id === updatedEntry.id ? { ...entry, ...updatedEntry } : entry
       )
     );
+    handleShowToast("Entry edited successfully!");
     router.back();
-    alert("Journey updated successfully!");
   }
 
   function handleDelete(id) {
-    
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this journey?"
-    );
-
-    if (confirmed) {
-      setEntries(entries.filter((entry) => entry.id !== id));
-      alert("Journey deleted successfully!");
-    } else {
-      alert("Journey not deleted.");
-    }
-  }
+    setEntries(entries.filter((entry) => entry.id !== id));
+    handleShowToast("Entry deleted successfully!");
+}
 
   function handleToggleFavourite(id) {
     setEntries(
@@ -82,6 +87,8 @@ export default function App({ Component, pageProps }) {
         onHandleDelete={handleDelete}
       />
       <NavBar />
+      <Toast message={toastMessage} show={showToast} onClose={() => setShowToast(false)} />
     </>
   );
 }
+

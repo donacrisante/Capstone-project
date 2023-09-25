@@ -2,7 +2,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { CircularProgressbar } from "react-circular-progressbar";
+import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import Heading from "@/components/Header/Header";
 
 export default function HomePage({ entries }) {
@@ -57,46 +57,96 @@ export default function HomePage({ entries }) {
             value={co2Emission}
             maxValue={2000}
             text={`${co2Emission.toFixed(2)} kg`}
-          />
+          >
+            <CityImage
+              src="SustainableCity.jpg"
+              alt="sustainable city"
+            />
+          </StyledCircularProgressbar>
         </StyledBar>
         {showMaxValuePopup && (
           <MaxValuePopup>
-            You have already reached the recommended limit of 2000 kg of CO<sub>2</sub> per person per year!
+            You have already reached the recommended limit of 2000 kg of CO
+            <sub>2</sub> per person per year!
             <button onClick={closePopup}>Close</button>
           </MaxValuePopup>
         )}
-        <button type="button" onClick={() => router.push("/calculator/")}>
-          Let&apos;s add more journeys!
-        </button>
+        <ButtonContainer>
+          <Button type="button" onClick={() => router.push("/calculator/")}>
+            Let&apos;s calculate your CO<sub>2</sub> emissions!
+          </Button>
+        </ButtonContainer>
       </main>
     </>
   );
 }
 
 const StyleDiv = styled.div`
+  font-size: 16px;
+  font-weight: bold;
   margin: 60px;
   text-align: center;
 `;
 
 const StyledBar = styled.div`
-  width: 200px;
+  width: 220px;
   margin: 0 auto;
 `;
 
-const StyledCircularProgressbar = styled(CircularProgressbar)`
+const StyledCircularProgressbar = styled(CircularProgressbarWithChildren)`
   path {
-    stroke: #3498db;
+    stroke: #5e8c61;
+    stroke-width: 8px;
     stroke-linecap: round;
     transition: stroke-dashoffset 1.5s;
   }
   text {
-    fill: #3498db;
-    font-size: 12px;
+    margin-top: 10px;
+    fill: black;
+    font-size: 10px;
+    font-weight: bold;
     text-anchor: middle;
     dominant-baseline: middle;
+    transform: translate(0%, -20%);
   }
   .CircularProgressbar-trail {
-    stroke: #d6d6d6;
+    stroke: #94e8b4;
+    stroke-width: 8px;
+  }
+`;
+
+const CityImage = styled.img`
+  margin-top: -10px;
+  width: 210px;
+  height: 210px;
+  z-index: -1;
+  border-radius: 100px;
+`;
+
+const Button = styled.button`
+  justify-content: center;
+  align-items: center;
+  margin: 70px 0px 0px 0px;
+  width: 297px;
+  height: 44px;
+  flex-shrink: 0;
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 50px;
+  border-style: none;
+  background: #5e8c61;
+  box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
+`;
+
+const ButtonContainer = styled.div`
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0px 40px 40px;
+
+  @media (max-width: 768) {
+    left: 2%;
+    transform: translateX(-10%);
   }
 `;
 

@@ -14,10 +14,8 @@ export default function Overview({ entries, header = "Overview" }) {
     "car diesel",
     "car hybrid",
     "car electric-strommix",
-    "car electric-renewable",
     "train",
     "plane",
-    "bicycle",
   ];
 
   function getDateRange(dateType) {
@@ -64,10 +62,8 @@ export default function Overview({ entries, header = "Overview" }) {
       "orange",
       "yellow",
       "pink",
-      "coral",
       "lightgreen",
       "turquoise",
-      "lightblue",
     ];
 
     return colors[index % colors.length];
@@ -151,15 +147,33 @@ export default function Overview({ entries, header = "Overview" }) {
           text: `CO2 Emissions per Means of Transport (${capitalizeFirstLetter(
             dateType
           )})`,
+          color: "black",
+          font: {
+            size: 16,
+            family: "monospace",
+          },
         },
       },
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           stacked: true,
+          ticks: {
+            font: {
+              family: "monospace",
+              weight: "bold",
+            },
+          },
         },
         y: {
           stacked: true,
+          ticks: {
+            font: {
+              family: "monospace",
+              weight: "bold",
+            },
+          },
         },
       },
     },
@@ -173,23 +187,50 @@ export default function Overview({ entries, header = "Overview" }) {
           <Bar data={data} options={config.options} />
         </Chart>
       </StyleDiv>
-      <button type="button" onClick={() => changeDateType("week")}>
-        Weekly
-      </button>
-      <button type="button" onClick={() => changeDateType("month")}>
-        Monthly
-      </button>
-      <button type="button" onClick={() => changeDateType("year")}>
-        Yearly
-      </button>
+      <ButtonContainer>
+        <Button type="button" onClick={() => changeDateType("week")}>
+          Weekly
+        </Button>
+        <Button type="button" onClick={() => changeDateType("month")}>
+          Monthly
+        </Button>
+        <Button type="button" onClick={() => changeDateType("year")}>
+          Yearly
+        </Button>
+      </ButtonContainer>
     </>
   );
 }
 
 const Chart = styled.div`
-  width: 700px;
+  width: calc(100%-40px);
+  height: 500px;
+  margin-right: 20px;
+  margin-left: 20px;
 `;
 
 const StyleDiv = styled.div`
-  margin: 100px;
+  margin-top: 50px;
+`;
+
+const Button = styled.button`
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px 10px 40px;
+  width: 80px;
+  height: 30px;
+  flex-shrink: 0;
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 50px;
+  border-style: none;
+  background: #cccccc; 
+  box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-right: 40px;
 `;

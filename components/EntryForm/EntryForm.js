@@ -8,6 +8,7 @@ export default function EntryForm({
   onSubmit,
   selectedEntry,
 }) {
+  
   const [transport, setTransport] = useState(
     selectedEntry?.transport || "Select a transport"
   );
@@ -91,8 +92,8 @@ export default function EntryForm({
       <h3>{formTitle}</h3>
       <section>
         <Form onSubmit={handleSubmit}>
-          <label htmlFor="date">Date: </label>
-          <input
+          <Label htmlFor="date">Date: </Label>
+          <Input
             type="date"
             id="date"
             name="date"
@@ -101,28 +102,28 @@ export default function EntryForm({
             placeholder="dd.mm.yy"
             required
           />
-          <label htmlFor="start">From: </label>
-          <input
+          <Label htmlFor="start">From: </Label>
+          <Input
             defaultValue={selectedEntry?.start || ""}
             id="start"
             name="start"
             placeholder="Enter your start"
-            pattern="^[A-Za-z ]+$"
+            pattern="^[A-Za-zÄäÖöÜüÉéÈè ]+$"
             title="Special characters and single numbers are not allowed"
             required
           />
-          <label htmlFor="destination">To: </label>
-          <input
+          <Label htmlFor="destination">To: </Label>
+          <Input
             defaultValue={selectedEntry?.destination || ""}
             id="destination"
             name="destination"
             placeholder="Enter your destination"
-            pattern="^[A-Za-z ]+$"
+            pattern="^[A-Za-zÄäÖöÜüÉéÈè ]+$"
             title="Special characters and single numbers are not allowed"
             required
           />
-          <label htmlFor="km">Km: </label>
-          <input
+          <Label htmlFor="km">Km: </Label>
+          <Input
             value={km}
             onChange={handleKm}
             id="km"
@@ -132,9 +133,9 @@ export default function EntryForm({
             title="Only single or decimal numbers are allowed"
             required
           />
-          <label htmlFor="transport">
+          <Label htmlFor="transport">
             Transport:
-            <select
+            <Select
               name="transport"
               id="transport"
               value={transport}
@@ -149,11 +150,11 @@ export default function EntryForm({
                   {transport.label}
                 </option>
               ))}
-            </select>
+            </Select>
             {transport === "car" ? (
               <>
-                <label htmlFor="fuel"></label>
-                <select
+                <Label htmlFor="fuel"></Label>
+                <Select
                   name="fuel"
                   id="fuel"
                   value={fuel}
@@ -165,16 +166,16 @@ export default function EntryForm({
                       {car.label}
                     </option>
                   ))}
-                </select>
+                </Select>
               </>
             ) : null}
-          </label>
-          <Button type="submit">{buttonText}</Button>
+          </Label>
+          <Result>
+            Your journey has emitted {result} kg CO<sub>2</sub>
+          </Result>
+            <Button type="submit">{buttonText}</Button>
         </Form>
       </section>
-      <p>
-        Your journey has emitted {result} kg CO<sub>2</sub>
-      </p>
     </>
   );
 }
@@ -183,10 +184,50 @@ const Form = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+`;
+
+const Label = styled.label`
+  font-size: 14px;
+`;
+
+const Input = styled.input`
+  padding: 5px;
+  margin: 2px 0 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  width: 100%;
+  background: #cccccc;
+  box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
+`;
+
+const Select = styled.select`
+  padding: 5px;
+  margin: 5px 0 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  width: 100%;
+  background: #cccccc;
+  box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
 `;
 
 const Button = styled.button`
-  padding-inline: 20px;
-  padding-block: 10px;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 0px 10px 40px;
+  width: 150px;
+  height: 30px;
+  flex-shrink: 0;
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 50px;
+  border-style: none;
+  background: #5e8c61;
+  box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
+`;
+
+const Result = styled.p`
+  font-size: 14px;
 `;
